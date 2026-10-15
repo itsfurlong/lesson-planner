@@ -1,0 +1,2288 @@
+[
+ {
+  "code": "RL.11-12.1",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "11-12",
+  "text": "Cite strong and thorough textual evidence to support analysis of what the text says explicitly as well as inferences drawn from the text, including determining where the text leaves matters uncertain."
+ },
+ {
+  "code": "RL.9-10.1",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "9-10",
+  "text": "Cite strong and thorough textual evidence to support analysis of what the text says explicitly as well as inferences drawn from the text."
+ },
+ {
+  "code": "RL.8.1",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "8",
+  "text": "Cite the textual evidence that most strongly supports an analysis of what the text says explicitly as well as inferences drawn from the text."
+ },
+ {
+  "code": "RL.7.1",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "7",
+  "text": "Cite several pieces of textual evidence to support analysis of what the text says explicitly as well as inferences drawn from the text."
+ },
+ {
+  "code": "RL.6.1",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "6",
+  "text": "Cite textual evidence to support analysis of what the text says explicitly as well as inferences drawn from the text."
+ },
+ {
+  "code": "RL.11-12.2",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "11-12",
+  "text": "Determine two or more themes or central ideas of a text and analyze their development over the course of the text, including how they interact and build on one another to produce a complex account; provide an objective summary of the text."
+ },
+ {
+  "code": "RL.9-10.2",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "9-10",
+  "text": "Determine a theme or central idea of a text and analyze in detail its development over the course of the text, including how it emerges and is shaped and refined by specific details; provide an objective summary of the text."
+ },
+ {
+  "code": "RL.8.2",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "8",
+  "text": "Determine a theme or central idea of a text and analyze its development over the course of the text, including its relationship to the characters, setting, and plot; provide an objective summary of the text."
+ },
+ {
+  "code": "RL.7.2",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "7",
+  "text": "Determine a theme or central idea of a text and analyze its development over the course of the text; provide an objective summary of the text."
+ },
+ {
+  "code": "RL.6.2",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "6",
+  "text": "Determine a theme or central idea of a text and how it is conveyed through particular details; provide a summary of the text distinct from personal opinions or judgments."
+ },
+ {
+  "code": "RL.11-12.3",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "11-12",
+  "text": "Analyze the impact of the author’s choices regarding how to develop and relate elements of a story or drama (e.g., where a story is set, how the action is ordered, how the characters are introduced and developed)."
+ },
+ {
+  "code": "RL.9-10.3",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "9-10",
+  "text": "Analyze how complex characters (e.g., those with multiple or conflicting motivations) develop over the course of a text, interact with other characters, and advance the plot or develop the theme."
+ },
+ {
+  "code": "RL.8.3",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "8",
+  "text": "Analyze how particular lines of dialogue or incidents in a story or drama propel the action, reveal aspects of a character, or provoke a decision."
+ },
+ {
+  "code": "RL.7.3",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "7",
+  "text": "Analyze how particular elements of a story or drama interact (e.g., how setting shapes the characters or plot)."
+ },
+ {
+  "code": "RL.6.3",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "6",
+  "text": "Describe how a particular story’s or drama’s plot unfolds in a series of episodes as well as how the characters respond or change as the plot moves toward a resolution."
+ },
+ {
+  "code": "RL.11-12.4",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "11-12",
+  "text": "Determine the meaning of words and phrases as they are used in the text, including figurative and connotative meanings; analyze the impact of specific word choices on meaning and tone, including words with multiple meanings or language that is particularly fresh, engaging, or beautiful. (Include Shakespeare as well as other authors.)"
+ },
+ {
+  "code": "RL.9-10.4",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "9-10",
+  "text": "Determine the meaning of words and phrases as they are used in the text, including figurative and connotative meanings; analyze the cumulative impact of specific word choices on meaning and tone (e.g., how the language evokes a sense of time and place; how it sets a formal or informal tone)."
+ },
+ {
+  "code": "RL.8.4",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "8",
+  "text": "Determine the meaning of words and phrases as they are used in a text, including figurative and connotative meanings; analyze the impact of specific word choices on meaning and tone, including analogies or allusions to other texts."
+ },
+ {
+  "code": "RL.7.4",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "7",
+  "text": "Determine the meaning of words and phrases as they are used in a text, including figurative and connotative meanings; analyze the impact of rhymes and other repetitions of sounds (e.g., alliteration) on a specific verse or stanza of a poem or section of a story or drama."
+ },
+ {
+  "code": "RL.6.4",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "6",
+  "text": "Determine the meaning of words and phrases as they are used in a text, including figurative and connotative meanings; analyze the impact of a specific word choice on meaning and tone."
+ },
+ {
+  "code": "RL.11-12.5",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "11-12",
+  "text": "Analyze how an author’s choices concerning how to structure specific parts of a text (e.g., the choice of where to begin or end a story, the choice to provide a comedic or tragic resolution) contribute to its overall structure and meaning as well as its aesthetic impact."
+ },
+ {
+  "code": "RL.9-10.5",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "9-10",
+  "text": "Analyze how an author’s choices concerning how to structure a text, order events within it (e.g., parallel plots), and manipulate time (e.g., pacing, flashbacks) create such effects as mystery, tension, or surprise."
+ },
+ {
+  "code": "RL.8.5",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "8",
+  "text": "Compare and contrast the structure of two or more texts and analyze how the differing structure of each text contributes to its meaning and style."
+ },
+ {
+  "code": "RL.7.5",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "7",
+  "text": "Analyze how a drama’s or poem’s form or structure (e.g., soliloquy, sonnet) contributes to its meaning."
+ },
+ {
+  "code": "RL.6.5",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "6",
+  "text": "Analyze how a particular sentence, chapter, scene, or stanza fits into the overall structure of a text and contributes to the development of the theme, setting, or plot."
+ },
+ {
+  "code": "RL.11-12.6",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "11-12",
+  "text": "Analyze a case in which grasping a point of view requires distinguishing what is directly stated in a text from what is really meant (e.g., satire, sarcasm, irony, or understatement)."
+ },
+ {
+  "code": "RL.9-10.6",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "9-10",
+  "text": "Analyze a particular point of view or cultural experience reflected in a work of literature from outside the United States, drawing on a wide reading of world literature."
+ },
+ {
+  "code": "RL.8.6",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "8",
+  "text": "Analyze how differences in the points of view of the characters and the audience or reader (e.g., created through the use of dramatic irony) create such effects as suspense or humor."
+ },
+ {
+  "code": "RL.7.6",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "7",
+  "text": "Analyze how an author develops and contrasts the points of view of different characters or narrators in a text."
+ },
+ {
+  "code": "RL.6.6",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "6",
+  "text": "Explain how an author develops the point of view of the narrator or speaker in a text."
+ },
+ {
+  "code": "RL.11-12.7",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "11-12",
+  "text": "Analyze multiple interpretations of a story, drama, or poem (e.g., recorded or live production of a play or recorded novel or poetry), evaluating how each version interprets the source text. (Include at least one play by Shakespeare and one play by an American dramatist.)"
+ },
+ {
+  "code": "RL.9-10.7",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "9-10",
+  "text": "Analyze the representation of a subject or a key scene in two different artistic mediums, including what is emphasized or absent in each treatment (e.g., Auden’s “Musée des Beaux Arts” and Breughel’s Landscape with the Fall of Icarus)."
+ },
+ {
+  "code": "RL.8.7",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "8",
+  "text": "Analyze the extent to which a filmed or live production of a story or drama stays faithful to or departs from the text or script, evaluating the choices made by the director or actors."
+ },
+ {
+  "code": "RL.7.7",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "7",
+  "text": "Compare and contrast a written story, drama, or poem to its audio, filmed, staged, or multimedia version, analyzing the effects of techniques unique to each medium (e.g., lighting, sound, color, or camera focus and angles in a film)."
+ },
+ {
+  "code": "RL.6.7",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "6",
+  "text": "Compare and contrast the experience of reading a story, drama, or poem to listening to or viewing an audio, video, or live version of the text, including contrasting what they “see” and “hear” when reading the text to what they perceive when they listen or watch."
+ },
+ {
+  "code": "RL.11-12.9",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "11-12",
+  "text": "Demonstrate knowledge of eighteenth-, nineteenth- and early-twentieth-century foundational works of American literature, including how two or more texts from the same period treat similar themes or topics."
+ },
+ {
+  "code": "RL.9-10.9",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "9-10",
+  "text": "Analyze how an author draws on and transforms source material in a specific work (e.g., how Shakespeare treats a theme or topic from Ovid or the Bible or how a later author draws on a play by Shakespeare)."
+ },
+ {
+  "code": "RL.8.9",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "8",
+  "text": "Analyze how a modern work of fiction draws on themes, patterns of events, or character types from myths, traditional stories, or religious works such as the Bible, including describing how the material is rendered new."
+ },
+ {
+  "code": "RL.7.9",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "7",
+  "text": "Compare and contrast a fictional portrayal of a time, place, or character and a historical account of the same period as a means of understanding how authors of fiction use or alter history."
+ },
+ {
+  "code": "RL.6.9",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "6",
+  "text": "Compare and contrast texts in different forms or genres (e.g., stories and poems; historical novels and fantasy stories) in terms of their approaches to similar themes and topics."
+ },
+ {
+  "code": "RL.11-12.10",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "11-12",
+  "text": "By the end of grade 11, read and comprehend literature, including stories, dramas, and poems, in the grades 11-CCR text complexity band proficiently, with scaffolding as needed at the high end of the range. By the end of grade 12, read and comprehend literature, including stories, dramas, and poems, at the high end of the grades 11-CCR text complexity band independently and proficiently."
+ },
+ {
+  "code": "RL.9-10.10",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "9-10",
+  "text": "By the end of grade 9, read and comprehend literature, including stories, dramas, and poems, in the grades 9-10 text complexity band proficiently, with scaffolding as needed at the high end of the range. By the end of grade 10, read and comprehend literature, including stories, dramas, and poems, at the high end of the grades 9-10 text complexity band independently and proficiently."
+ },
+ {
+  "code": "RL.8.10",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "8",
+  "text": "By the end of the year, read and comprehend literature, including stories, dramas, and poems, at the high end of grades 6–8 text complexity band independently and proficiently."
+ },
+ {
+  "code": "RL.7.10",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "7",
+  "text": "By the end of the year, read and comprehend literature, including stories, dramas, and poems, in the grades 6–8 text complexity band proficiently, with scaffolding as needed at the high end of the range."
+ },
+ {
+  "code": "RL.6.10",
+  "strand": "Reading Standards for Literature (RL)",
+  "grade_band": "6",
+  "text": "By the end of the year, read and comprehend literature, including stories, dramas, and poems, in the grades 6–8 text complexity band proficiently, with scaffolding as needed at the high end of the range."
+ },
+ {
+  "code": "RI.11-12.1",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "11-12",
+  "text": "Cite strong and thorough textual evidence to support analysis of what the text says explicitly as well as inferences drawn from the text, including determining where the text leaves matters uncertain."
+ },
+ {
+  "code": "RI.9-10.1",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "9-10",
+  "text": "Cite strong and thorough textual evidence to support analysis of what the text says explicitly as well as inferences drawn from the text."
+ },
+ {
+  "code": "RI.8.1",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "8",
+  "text": "Cite the textual evidence that most strongly supports an analysis of what the text says explicitly as well as inferences drawn from the text."
+ },
+ {
+  "code": "RI.7.1",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "7",
+  "text": "Cite several pieces of textual evidence to support analysis of what the text says explicitly as well as inferences drawn from the text."
+ },
+ {
+  "code": "RI.6.1",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "6",
+  "text": "Cite textual evidence to support analysis of what the text says explicitly as well as inferences drawn from the text."
+ },
+ {
+  "code": "RI.11-12.2",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "11-12",
+  "text": "Determine two or more central ideas of a text and analyze their development over the course of the text, including how they interact and build on one another to provide a complex analysis; provide an objective summary of the text."
+ },
+ {
+  "code": "RI.9-10.2",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "9-10",
+  "text": "Determine a central idea of a text and analyze its development over the course of the text, including how it emerges and is shaped and refined by specific details; provide an objective summary of the text."
+ },
+ {
+  "code": "RI.8.2",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "8",
+  "text": "Determine a central idea of a text and analyze its development over the course of the text, including its relationship to supporting ideas; provide an objective summary of the text."
+ },
+ {
+  "code": "RI.7.2",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "7",
+  "text": "Determine two or more central ideas in a text and analyze their development over the course of the text; provide an objective summary of the text."
+ },
+ {
+  "code": "RI.6.2",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "6",
+  "text": "Determine a central idea of a text and how it is conveyed through particular details; provide a summary of the text distinct from personal opinions or judgments."
+ },
+ {
+  "code": "RI.11-12.3",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "11-12",
+  "text": "Analyze a complex set of ideas or sequence of events and explain how specific individuals, ideas, or events interact and develop over the course of the text."
+ },
+ {
+  "code": "RI.9-10.3",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "9-10",
+  "text": "Analyze how the author unfolds an analysis or series of ideas or events, including the order in which the points are made, how they are introduced and developed, and the connections that are drawn between them."
+ },
+ {
+  "code": "RI.8.3",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "8",
+  "text": "Analyze how a text makes connections among and distinctions between individuals, ideas, or events (e.g., through comparisons, analogies, or categories)."
+ },
+ {
+  "code": "RI.7.3",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "7",
+  "text": "Analyze the interactions between individuals, events, and ideas in a text (e.g., how ideas influence individuals or events, or how individuals influence ideas or events)."
+ },
+ {
+  "code": "RI.6.3",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "6",
+  "text": "Analyze in detail how a key individual, event, or idea is introduced, illustrated, and elaborated in a text (e.g., through examples or anecdotes)."
+ },
+ {
+  "code": "RI.11-12.4",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "11-12",
+  "text": "Determine the meaning of words and phrases as they are used in a text, including figurative, connotative, and technical meanings; analyze how an author uses and refines the meaning of a key term or terms over the course of a text (e.g., how Madison defines faction in Federalist No. 10)."
+ },
+ {
+  "code": "RI.9-10.4",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "9-10",
+  "text": "Determine the meaning of words and phrases as they are used in a text, including figurative, connotative, and technical meanings; analyze the cumulative impact of specific word choices on meaning and tone (e.g., how the language of a court opinion differs from that of a newspaper)."
+ },
+ {
+  "code": "RI.8.4",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "8",
+  "text": "Determine the meaning of words and phrases as they are used in a text, including figurative, connotative, and technical meanings; analyze the impact of specific word choices on meaning and tone, including analogies or allusions to other texts."
+ },
+ {
+  "code": "RI.7.4",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "7",
+  "text": "Determine the meaning of words and phrases as they are used in a text, including figurative, connotative, and technical meanings; analyze the impact of a specific word choice on meaning and tone."
+ },
+ {
+  "code": "RI.6.4",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "6",
+  "text": "Determine the meaning of words and phrases as they are used in a text, including figurative, connotative, and technical meanings."
+ },
+ {
+  "code": "RI.11-12.5",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "11-12",
+  "text": "Analyze and evaluate the effectiveness of the structure an author uses in his or her exposition or argument, including whether the structure makes points clear, convincing, and engaging."
+ },
+ {
+  "code": "RI.9-10.5",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "9-10",
+  "text": "Analyze in detail how an author’s ideas or claims are developed and refined by particular sentences, paragraphs, or larger portions of a text (e.g., a section or chapter)."
+ },
+ {
+  "code": "RI.8.5",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "8",
+  "text": "Analyze in detail the structure of a specific paragraph in a text, including the role of particular sentences in developing and refining a key concept."
+ },
+ {
+  "code": "RI.7.5",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "7",
+  "text": "Analyze the structure an author uses to organize a text, including how the major sections contribute to the whole and to the development of the ideas."
+ },
+ {
+  "code": "RI.6.5",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "6",
+  "text": "Analyze how a particular sentence, paragraph, chapter, or section fits into the overall structure of a text and contributes to the development of the ideas."
+ },
+ {
+  "code": "RI.11-12.6",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "11-12",
+  "text": "Determine an author’s point of view or purpose in a text in which the rhetoric is particularly effective, analyzing how style and content contribute to the power, persuasiveness or beauty of the text."
+ },
+ {
+  "code": "RI.9-10.6",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "9-10",
+  "text": "Determine an author’s point of view or purpose in a text and analyze how an author uses rhetoric to advance that point of view or purpose."
+ },
+ {
+  "code": "RI.8.6",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "8",
+  "text": "Determine an author’s point of view or purpose in a text and analyze how the author acknowledges and responds to conflicting evidence or viewpoints."
+ },
+ {
+  "code": "RI.7.6",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "7",
+  "text": "Determine an author’s point of view or purpose in a text and analyze how the author distinguishes his or her position from that of others."
+ },
+ {
+  "code": "RI.6.6",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "6",
+  "text": "Determine an author’s point of view or purpose in a text and explain how it is conveyed in the text."
+ },
+ {
+  "code": "RI.11-12.7",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "11-12",
+  "text": "Integrate and evaluate multiple sources of information presented in different media or formats (e.g., visually, quantitatively) as well as in words in order to address a question or solve a problem."
+ },
+ {
+  "code": "RI.9-10.7",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "9-10",
+  "text": "Analyze various accounts of a subject told in different mediums (e.g., a person’s life story in both print and multimedia), determining which details are emphasized in each account."
+ },
+ {
+  "code": "RI.7.7",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "7",
+  "text": "Compare and contrast a text to an audio, video, or multimedia version of the text, analyzing each medium’s portrayal of the subject (e.g., how the delivery of a speech affects the impact of the words)."
+ },
+ {
+  "code": "RI.6.7",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "6",
+  "text": "Integrate information presented in different media or formats (e.g., visually, quantitatively) as well as in words to develop a coherent understanding of a topic or issue."
+ },
+ {
+  "code": "RI.11-12.8",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "11-12",
+  "text": "Delineate and evaluate the reasoning in seminal U.S. texts, including the application of constitutional principles and use of legal reasoning (e.g., in U.S. Supreme Court majority opinions and dissents) and the premises, purposes, and arguments in works of public advocacy (e.g., The Federalist, presidential addresses)."
+ },
+ {
+  "code": "RI.9-10.8",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "9-10",
+  "text": "Delineate and evaluate the argument and specific claims in a text, assessing whether the reasoning is valid and the evidence is relevant and sufficient; identify false statements and fallacious reasoning."
+ },
+ {
+  "code": "RI.8.8",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "8",
+  "text": "Delineate and evaluate the argument and specific claims in a text, assessing whether the reasoning is sound and the evidence is relevant and sufficient; recognize when irrelevant evidence is introduced."
+ },
+ {
+  "code": "RI.7.8",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "7",
+  "text": "Trace and evaluate the argument and specific claims in a text, assessing whether the reasoning is sound and the evidence is relevant and sufficient to support the claims."
+ },
+ {
+  "code": "RI.6.8",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "6",
+  "text": "Trace and evaluate the argument and specific claims in a text, distinguishing claims that are supported by reasons and evidence from claims that are not."
+ },
+ {
+  "code": "RI.11-12.9",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "11-12",
+  "text": "Analyze seventeenth-, eighteenth-, and nineteenth-century foundational U.S. documents of historical and literary significance (including The Declaration of Independence, the Preamble to the Constitution, the Bill of Rights, and Lincoln’s Second Inaugural Address) for their themes, purposes, and rhetorical features."
+ },
+ {
+  "code": "RI.9-10.9",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "9-10",
+  "text": "Analyze seminal U.S. documents of historical and literary significance (e.g., Washington’s Farewell Address, the Gettysburg Address, Roosevelt’s Four Freedoms speech, King’s “Letter from Birmingham Jail”), including how they address related themes and concepts."
+ },
+ {
+  "code": "RI.8.9",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "8",
+  "text": "Analyze a case in which two or more texts provide conflicting information on the same topic and identify where the texts disagree on matters of fact or interpretation."
+ },
+ {
+  "code": "RI.7.9",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "7",
+  "text": "Analyze how two or more authors writing about the same topic shape their presentations of key information by emphasizing different evidence or advancing different interpretations of facts."
+ },
+ {
+  "code": "RI.6.9",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "6",
+  "text": "Compare and contrast one author’s presentation of events with that of another (e.g., a memoir written by and a biography on the same person)."
+ },
+ {
+  "code": "RI.11-12.10",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "11-12",
+  "text": "By the end of grade 11, read and comprehend literary nonfiction in the grades 11-CCR text complexity band proficiently, with scaffolding as needed at the high end of the range. By the end of grade 12, read and comprehend literary nonfiction at the high end of the grades 11-CCR text complexity band independently and proficiently."
+ },
+ {
+  "code": "RI.9-10.10",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "9-10",
+  "text": "By the end of grade 9, read and comprehend literacy nonfiction in the grades 9-10 text complexity band proficiently, with scaffolding as needed at the high end of the range. By the end of grade 10, read and comprehend literary nonfiction at the high end of the grades 9-10 text complexity band independently and proficiently."
+ },
+ {
+  "code": "RI.8.10",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "8",
+  "text": "By the end of the year, read and comprehend literary nonfiction at the high end of the grades 6–8 text complexity band independently and proficiently."
+ },
+ {
+  "code": "RI.7.10",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "7",
+  "text": "By the end of the year, read and comprehend literary nonfiction in the grades 6–8 text complexity band proficiently, with scaffolding as needed at the high end of the range."
+ },
+ {
+  "code": "RI.6.10",
+  "strand": "Reading Standards for Informational Text (RI)",
+  "grade_band": "6",
+  "text": "By the end of the year, read and comprehend literary nonfiction in the grades 6–8 text complexity band proficiently, with scaffolding as needed at the high end of the range."
+ },
+ {
+  "code": "W.11-12.1",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Write arguments to support claims in an analysis of substantive topics or texts, using valid reasoning and relevant and sufficient evidence."
+ },
+ {
+  "code": "W.11-12.1a",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Introduce precise, knowledgeable claim(s), establish the significance of the claim(s), distinguish the claim(s) from alternate or opposing claims, and create an organization that logically sequences claim(s), counterclaims, reasons, and evidence."
+ },
+ {
+  "code": "W.11-12.1b",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Develop claim(s) and counterclaims fairly and thoroughly, supplying the most relevant evidence for each while pointing out the strengths and limitations of both in a manner that anticipates the audience’s knowledge level, concerns, values, and possible biases."
+ },
+ {
+  "code": "W.11-12.1c",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Use words, phrases, and clauses as well as varied syntax to link the major sections of the text, create cohesion, and clarify the relationships between claim(s) and reasons, between reasons and evidence, and between claim(s) and counterclaims."
+ },
+ {
+  "code": "W.11-12.1d",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Establish and maintain a formal style and objective tone while attending to the norms and conventions of the discipline in which they are writing."
+ },
+ {
+  "code": "W.11-12.1e",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Provide a concluding statement or section that follows from and supports the argument presented."
+ },
+ {
+  "code": "W.9-10.1",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Write arguments to support claims in an analysis of substantive topics or texts, using valid reasoning and relevant and sufficient evidence."
+ },
+ {
+  "code": "W.9-10.1a",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Introduce precise claim(s), distinguish the claim(s) from alternate or opposing claims, and create an organization that establishes clear relationships among claim(s), counterclaims, reasons, and evidence."
+ },
+ {
+  "code": "W.9-10.1b",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Develop claim(s) and counterclaims fairly, supplying evidence for each while pointing out the strengths and limitations of both in a manner that anticipates the audience’s knowledge level and concerns."
+ },
+ {
+  "code": "W.9-10.1c",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Use words, phrases, and clauses to link the major sections of the text, create cohesion, and clarify the relationships between claim(s) and reasons, between reasons and evidence, and between claim(s) and counterclaims."
+ },
+ {
+  "code": "W.9-10.1d",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Establish and maintain a formal style and objective tone while attending to the norms and conventions of the discipline in which they are writing."
+ },
+ {
+  "code": "W.9-10.1e",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Provide a concluding statement or section that follows from and supports the argument presented."
+ },
+ {
+  "code": "W.8.1",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Write arguments to support claims with clear reasons and relevant evidence."
+ },
+ {
+  "code": "W.8.1a",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Introduce claim(s), acknowledge and distinguish the claim(s) from alternate or opposing claims, and organize the reasons and evidence logically."
+ },
+ {
+  "code": "W.8.1b",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Support claim(s) with logical reasoning and relevant evidence, using accurate, credible sources and demonstrating an understanding of the topic or text."
+ },
+ {
+  "code": "W.8.1c",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Use words, phrases, and clauses to create cohesion and clarify the relationships among claim(s), counterclaims, reasons, and evidence."
+ },
+ {
+  "code": "W.8.1d",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Establish and maintain a formal style."
+ },
+ {
+  "code": "W.8.1e",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Provide a concluding statement or section that follows from and supports the argument presented."
+ },
+ {
+  "code": "W.7.1",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Write arguments to support claims with clear reasons and relevant evidence."
+ },
+ {
+  "code": "W.7.1a",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Introduce claim(s), acknowledge alternate or opposing claims, and organize the reasons and evidence logically."
+ },
+ {
+  "code": "W.7.1b",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Support claim(s) with logical reasoning and relevant evidence, using accurate, credible sources and demonstrating an understanding of the topic or text."
+ },
+ {
+  "code": "W.7.1c",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Use words, phrases, and clauses to create cohesion and clarify the relationships among claim(s), reasons, and evidence."
+ },
+ {
+  "code": "W.7.1d",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Establish and maintain a formal style."
+ },
+ {
+  "code": "W.7.1e",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Provide a concluding statement or section that follows from and supports the argument presented."
+ },
+ {
+  "code": "W.6.1",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Write arguments to support claims with clear reasons and relevant evidence."
+ },
+ {
+  "code": "W.6.1a",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Introduce claim(s) and organize the reasons and evidence clearly."
+ },
+ {
+  "code": "W.6.1b",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Support claim(s) with clear reasons and relevant evidence, using credible sources and demonstrating an understanding of the topic or text."
+ },
+ {
+  "code": "W.6.1c",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Use words, phrases, and clauses to clarify the relationships among claim(s) and reasons."
+ },
+ {
+  "code": "W.6.1d",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Establish and maintain a formal style."
+ },
+ {
+  "code": "W.6.1e",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Provide a concluding statement or section that follows from the argument presented."
+ },
+ {
+  "code": "W.11-12.2",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Write informative/explanatory texts to examine and convey complex ideas, concepts, and information clearly and accurately through the effective selection, organization, and analysis of content."
+ },
+ {
+  "code": "W.11-12.2a",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Introduce a topic; organize complex ideas, concepts, and information so that each new element builds on that which precedes it to create a unified whole; include formatting (e.g., headings), graphics (e.g., figures, tables), and multimedia when useful to aiding comprehension."
+ },
+ {
+  "code": "W.11-12.2b",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Develop the topic thoroughly by selecting the most significant and relevant facts, extended definitions, concrete details, quotations, or other information and examples appropriate to the audience’s knowledge of the topic."
+ },
+ {
+  "code": "W.11-12.2c",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Use appropriate and varied transitions and syntax to link the major sections of the text, create cohesion, and clarify the relationships among complex ideas and concepts."
+ },
+ {
+  "code": "W.11-12.2d",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Use precise language, domain-specific vocabulary, and techniques such as metaphor, simile, and analogy to manage the complexity of the topic."
+ },
+ {
+  "code": "W.11-12.2e",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Establish and maintain a formal style and objective tone while attending to the norms and conventions of the discipline in which they are writing."
+ },
+ {
+  "code": "W.11-12.2f",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Provide a concluding statement or section that follows from and supports the information or explanation presented (e.g., articulating implications or the significance of the topic)."
+ },
+ {
+  "code": "W.9-10.2",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Write informative/explanatory texts to examine and convey complex ideas, concepts, and information clearly and accurately through the effective selection, organization, and analysis of content."
+ },
+ {
+  "code": "W.9-10.2a",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Introduce a topic; organize complex ideas, concepts, and information to make important connections and distinctions; include formatting (e.g., headings), graphics (e.g., figures, tables), and multimedia when useful to aiding comprehension."
+ },
+ {
+  "code": "W.9-10.2b",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Develop the topic with well-chosen, relevant, and sufficient facts, extended definitions, concrete details, quotations, or other information and examples appropriate to the audience’s knowledge of the topic."
+ },
+ {
+  "code": "W.9-10.2c",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Use appropriate and varied transitions to link the major sections of the text, create cohesion, and clarify the relationships among complex ideas and concepts."
+ },
+ {
+  "code": "W.9-10.2d",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Use precise language and domain-specific vocabulary to manage the complexity of the topic."
+ },
+ {
+  "code": "W.9-10.2e",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Establish and maintain a formal style and objective tone while attending to the norms and conventions of the discipline in which they are writing."
+ },
+ {
+  "code": "W.9-10.2f",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Provide a concluding statement or section that follows from and supports the information or explanation presented (e.g., articulating implications or the significance of the topic)."
+ },
+ {
+  "code": "W.8.2",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Write informative/explanatory texts to examine a topic and convey ideas, concepts, and information through the selection, organization, and analysis of relevant content."
+ },
+ {
+  "code": "W.8.2a",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Introduce a topic clearly, previewing what is to follow; organize ideas, concepts, and information into broader categories; include formatting (e.g., headings), graphics (e.g., charts, tables), and multimedia when useful to aiding comprehension."
+ },
+ {
+  "code": "W.8.2b",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Develop the topic with relevant, well-chosen facts, definitions, concrete details, quotations, or other information and examples."
+ },
+ {
+  "code": "W.8.2c",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Use appropriate and varied transitions to create cohesion and clarify the relationships among ideas and concepts."
+ },
+ {
+  "code": "W.8.2d",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Use precise language and domain-specific vocabulary to inform about or explain the topic."
+ },
+ {
+  "code": "W.8.2e",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Establish and maintain a formal style."
+ },
+ {
+  "code": "W.8.2f",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Provide a concluding statement or section that follows from and supports the information or explanation presented."
+ },
+ {
+  "code": "W.7.2",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Write informative/explanatory texts to examine a topic and convey ideas, concepts, and information through the selection, organization, and analysis of relevant content."
+ },
+ {
+  "code": "W.7.2a",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Introduce a topic clearly, previewing what is to follow; organize ideas, concepts, and information, using strategies such as definition, classification, comparison/contrast, and cause/effect; include formatting (e.g., headings), graphics (e.g., charts, tables), and multimedia when useful to aiding comprehension."
+ },
+ {
+  "code": "W.7.2b",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Develop the topic with relevant facts, definitions, concrete details, quotations, or other information and examples."
+ },
+ {
+  "code": "W.7.2c",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Use appropriate transitions to create cohesion and clarify the relationships among ideas and concepts."
+ },
+ {
+  "code": "W.7.2d",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Use precise language and domain-specific vocabulary to inform about or explain the topic."
+ },
+ {
+  "code": "W.7.2e",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Establish and maintain a formal style."
+ },
+ {
+  "code": "W.7.2f",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Provide a concluding statement or section that follows from and supports the information or explanation presented."
+ },
+ {
+  "code": "W.6.2",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Write informative/explanatory texts to examine a topic and convey ideas, concepts, and information through the selection, organization, and analysis of relevant content."
+ },
+ {
+  "code": "W.6.2a",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Introduce a topic; organize ideas, concepts, and information, using strategies such as definition, classification, comparison/contrast, and cause/effect; include formatting (e.g., headings), graphics (e.g., charts, tables), and multimedia when useful to aiding comprehension."
+ },
+ {
+  "code": "W.6.2b",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Develop the topic with relevant facts, definitions, concrete details, quotations, or other information and examples."
+ },
+ {
+  "code": "W.6.2c",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Use appropriate transitions to clarify the relationships among ideas and concepts."
+ },
+ {
+  "code": "W.6.2d",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Use precise language and domain-specific vocabulary to inform about or explain the topic."
+ },
+ {
+  "code": "W.6.2e",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Establish and maintain a formal style."
+ },
+ {
+  "code": "W.6.2f",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Provide a concluding statement or section that follows from the information or explanation presented."
+ },
+ {
+  "code": "W.11-12.3",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Write narratives to develop real or imagined experiences or events using effective technique, well-chosen details, and well-structured event sequences."
+ },
+ {
+  "code": "W.11-12.3a",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Engage and orient the reader by setting out a problem, situation, or observation and its significance, establishing one or multiple point(s) of view, and introducing a narrator and/or characters; create a smooth progression of experiences or events."
+ },
+ {
+  "code": "W.11-12.3b",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Use narrative techniques, such as dialogue, pacing, description, reflection, and multiple plot lines, to develop experiences, events, and/or characters."
+ },
+ {
+  "code": "W.11-12.3c",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Use a variety of techniques to sequence events so that they build on one another to create a coherent whole and build toward a particular tone and outcome (e.g., a sense of mystery, suspense, growth, or resolution)."
+ },
+ {
+  "code": "W.11-12.3d",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Use precise words and phrases, telling details, and sensory language to convey a vivid picture of the experiences, events, setting, and/or characters."
+ },
+ {
+  "code": "W.11-12.3e",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Provide a conclusion that follows from and reflects on what is experienced, observed, or resolved over the course of the narrative."
+ },
+ {
+  "code": "W.9-10.3",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Write narratives to develop real or imagined experiences or events using effective technique, well-chosen details, and well-structured event sequences."
+ },
+ {
+  "code": "W.9-10.3a",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Engage and orient the reader by setting out a problem, situation, or observation, establishing one or multiple point(s) of view, and introducing a narrator and/or characters; create a smooth progression of experiences or events."
+ },
+ {
+  "code": "W.9-10.3b",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Use narrative techniques, such as dialogue, pacing, description, reflection, and multiple plot lines, to develop experiences, events, and/or characters."
+ },
+ {
+  "code": "W.9-10.3c",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Use a variety of techniques to sequence events so that they build on one another to create a coherent whole."
+ },
+ {
+  "code": "W.9-10.3d",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Use precise words and phrases, telling details, and sensory language to convey a vivid picture of the experiences, events, setting, and/or characters."
+ },
+ {
+  "code": "W.9-10.3e",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Provide a conclusion that follows from and reflects on what is experienced, observed, or resolved over the course of the narrative."
+ },
+ {
+  "code": "W.8.3",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Write narratives to develop real or imagined experiences or events using effective technique, relevant descriptive details, and well-structured event sequences."
+ },
+ {
+  "code": "W.8.3a",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Engage and orient the reader by establishing a context and point of view and introducing a narrator and/or characters; organize an event sequence that unfolds naturally and logically."
+ },
+ {
+  "code": "W.8.3b",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Use narrative techniques, such as dialogue, pacing, description, and reflection, to develop experiences, events, and/or characters."
+ },
+ {
+  "code": "W.8.3c",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Use a variety of transition words, phrases, and clauses to convey sequence, signal shifts from one time frame or setting to another, and show the relationships among experiences and events."
+ },
+ {
+  "code": "W.8.3d",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Use precise words and phrases, relevant descriptive details, and sensory language to capture the action and convey experiences and events."
+ },
+ {
+  "code": "W.8.3e",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Provide a conclusion that follows from and reflects on the narrated experiences or events."
+ },
+ {
+  "code": "W.7.3",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Write narratives to develop real or imagined experiences or events using effective technique, relevant descriptive details, and well-structured event sequences."
+ },
+ {
+  "code": "W.7.3a",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Engage and orient the reader by establishing a context and point of view and introducing a narrator and/or characters; organize an event sequence that unfolds naturally and logically."
+ },
+ {
+  "code": "W.7.3b",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Use narrative techniques, such as dialogue, pacing, and description, to develop experiences, events, and/or characters."
+ },
+ {
+  "code": "W.7.3c",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Use a variety of transition words, phrases, and clauses to convey sequence and signal shifts from one time frame or setting to another."
+ },
+ {
+  "code": "W.7.3d",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Use precise words and phrases, relevant descriptive details, and sensory language to capture the action and convey experiences and events."
+ },
+ {
+  "code": "W.7.3e",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Provide a conclusion that follows from and reflects on the narrated experiences or events."
+ },
+ {
+  "code": "W.6.3",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Write narratives to develop real or imagined experiences or events using effective technique, relevant descriptive details, and well-structured event sequences."
+ },
+ {
+  "code": "W.6.3a",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Engage and orient the reader by establishing a context and introducing a narrator and/or characters; organize an event sequence that unfolds naturally and logically."
+ },
+ {
+  "code": "W.6.3b",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Use narrative techniques, such as dialogue, pacing, and description, to develop experiences, events, and/or characters."
+ },
+ {
+  "code": "W.6.3c",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Use a variety of transition words, phrases, and clauses to convey sequence and signal shifts from one time frame or setting to another."
+ },
+ {
+  "code": "W.6.3d",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Use precise words and phrases, relevant descriptive details, and sensory language to convey experiences and events."
+ },
+ {
+  "code": "W.6.3e",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Provide a conclusion that follows from the narrated experiences or events."
+ },
+ {
+  "code": "W.11-12.4",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Produce clear and coherent writing in which the development, organization, and style are appropriate to task, purpose, and audience. (Grade-specific expectations for writing types are defined in standards 1–3 above.)"
+ },
+ {
+  "code": "W.9-10.4",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Produce clear and coherent writing in which the development, organization, and style are appropriate to task, purpose, and audience. (Grade-specific expectations for writing types are defined in standards 1–3 above.)"
+ },
+ {
+  "code": "W.8.4",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Produce clear and coherent writing in which the development, organization, and style are appropriate to task, purpose, and audience. (Grade-specific expectations for writing types are defined in standards 1–3 above.)"
+ },
+ {
+  "code": "W.7.4",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Produce clear and coherent writing in which the development, organization, and style are appropriate to task, purpose, and audience. (Grade-specific expectations for writing types are defined in standards 1–3 above.)"
+ },
+ {
+  "code": "W.6.4",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Produce clear and coherent writing in which the development, organization, and style are appropriate to task, purpose, and audience. (Grade-specific expectations for writing types are defined in standards 1–3 above.)"
+ },
+ {
+  "code": "W.11-12.5",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Develop and strengthen writing as needed by planning, revising, editing, rewriting, or trying a new approach, focusing on addressing what is most significant for a specific purpose and audience."
+ },
+ {
+  "code": "W.9-10.5",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Develop and strengthen writing as needed by planning, revising, editing, rewriting, or trying a new approach, focusing on addressing what is most significant for a specific purpose and audience."
+ },
+ {
+  "code": "W.8.5",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "With some guidance and support from peers and adults, develop and strengthen writing as needed by planning, revising, editing, rewriting, or trying a new approach, focusing on how well purpose and audience have been addressed."
+ },
+ {
+  "code": "W.7.5",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "With some guidance and support from peers and adults, develop and strengthen writing as needed by planning, revising, editing, rewriting, or trying a new approach, focusing on how well purpose and audience have been addressed."
+ },
+ {
+  "code": "W.6.5",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "With some guidance and support from peers and adults, develop and strengthen writing as needed by planning, revising, editing, rewriting, or trying a new approach."
+ },
+ {
+  "code": "W.11-12.6",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Use technology, including the Internet, to produce, publish, and update individual or shared writing products in response to ongoing feedback, including new arguments or information."
+ },
+ {
+  "code": "W.9-10.6",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Use technology, including the Internet, to produce, publish, and update individual or shared writing products, taking advantage of technology’s capacity to link to other information and to display information flexibly and dynamically."
+ },
+ {
+  "code": "W.8.6",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Use technology, including the Internet, to produce and publish writing and present the relationships between information and ideas efficiently as well as to interact and collaborate with others."
+ },
+ {
+  "code": "W.7.6",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Use technology, including the Internet, to produce and publish writing and link to and cite sources as well as to interact and collaborate with others, including linking to and citing sources."
+ },
+ {
+  "code": "W.6.6",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Use technology, including the Internet, to produce and publish writing as well as to interact and collaborate with others; demonstrate sufficient command of keyboarding skills to type a minimum of three pages in a single sitting."
+ },
+ {
+  "code": "W.11-12.7",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Conduct short as well as more sustained research projects to answer a question (including a self-generated question) or solve a problem; narrow or broaden the inquiry when appropriate; synthesize multiple sources on the subject, demonstrating understanding of the subject under investigation."
+ },
+ {
+  "code": "W.9-10.7",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Conduct short as well as more sustained research projects to answer a question (including a self-generated question) or solve a problem; narrow or broaden the inquiry when appropriate; synthesize multiple sources on the subject, demonstrating understanding of the subject under investigation."
+ },
+ {
+  "code": "W.8.7",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Conduct short research projects to answer a question (including a self-generated question), drawing on several sources and generating additional related, focused questions that allow for multiple avenues of exploration."
+ },
+ {
+  "code": "W.7.7",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Conduct short research projects to answer a question, drawing on several sources and generating additional related, focused questions for further research and investigation."
+ },
+ {
+  "code": "W.6.7",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Conduct short research projects to answer a question, drawing on several sources and refocusing the inquiry when appropriate."
+ },
+ {
+  "code": "W.11-12.8",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Gather relevant information from multiple authoritative print and digital sources, using advanced searches effectively; assess the strengths and limitations of each source in terms of the task, purpose, and audience; integrate information into the text selectively to maintain the flow of ideas, avoiding plagiarism and overreliance on any one source and following a standard format for citation."
+ },
+ {
+  "code": "W.9-10.8",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Gather relevant information from multiple authoritative print and digital sources, using advanced searches effectively; assess the usefulness of each source in answering the research question; integrate information into the text selectively to maintain the flow of ideas, avoiding plagiarism and following a standard format for citation."
+ },
+ {
+  "code": "W.8.8",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Gather relevant information from multiple print and digital sources, using search terms effectively; assess the credibility and accuracy of each source; and quote or paraphrase the data and conclusions of others while avoiding plagiarism and following a standard format for citation."
+ },
+ {
+  "code": "W.7.8",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Gather relevant information from multiple print and digital sources, using search terms effectively; assess the credibility and accuracy of each source; and quote or paraphrase the data and conclusions of others while avoiding plagiarism and following a standard format for citation."
+ },
+ {
+  "code": "W.6.8",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Gather relevant information from multiple print and digital sources; assess the credibility of each source; and quote or paraphrase the data and conclusions of others while avoiding plagiarism and providing basic bibliographic information for sources."
+ },
+ {
+  "code": "W.11-12.9",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Draw evidence from literary or informational texts to support analysis, reflection, and research."
+ },
+ {
+  "code": "W.11-12.9a",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Apply grades 11–12 Reading standards to literature (e.g., “Demonstrate knowledge of eighteenth-, nineteenth- and early-twentieth-century foundational works of American literature, including how two or more texts from the same period treat similar themes or topics”)."
+ },
+ {
+  "code": "W.11-12.9b",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Apply grades 11–12 Reading standards to literary nonfiction (e.g., “Delineate and evaluate the reasoning in seminal U.S. texts, including the application of constitutional principles and use of legal reasoning [e.g., in U.S. Supreme Court Case majority opinions and dissents] and the premises, purposes, and arguments in works of public advocacy [e.g., The Federalist, presidential addresses]”)."
+ },
+ {
+  "code": "W.9-10.9",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Draw evidence from literary or informational texts to support analysis, reflection, and research."
+ },
+ {
+  "code": "W.9-10.9a",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Apply grades 9–10 Reading standards to literature (e.g., “Analyze how an author draws on and transforms source material in a specific work [e.g., how Shakespeare treats a theme or topic from Ovid or the Bible or how a later author draws on a play by Shakespeare]”)."
+ },
+ {
+  "code": "W.9-10.9b",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Apply grades 9–10 Reading standards to literary nonfiction (e.g., “Delineate and evaluate the argument and specific claims in a text, assessing whether the reasoning is valid and the evidence is relevant and sufficient; identify false statements and fallacious reasoning”)."
+ },
+ {
+  "code": "W.8.9",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Draw evidence from literary or informational texts to support analysis, reflection, and research."
+ },
+ {
+  "code": "W.8.9a",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Apply grade 8 Reading standards to literature (e.g., “Analyze how a modern work of fiction draws on themes, patterns of events, or character types from myths, traditional stories, or religious works such as the Bible, including describing how the material is rendered new”)."
+ },
+ {
+  "code": "W.8.9b",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Apply grade 8 Reading standards to literary nonfiction (e.g., “Delineate and evaluate the argument and specific claims in a text, assessing whether the reasoning is sound and the evidence is relevant and sufficient; recognize when irrelevant evidence is introduced”)."
+ },
+ {
+  "code": "W.7.9",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Draw evidence from literary or informational texts to support analysis, reflection, and research."
+ },
+ {
+  "code": "W.7.9a",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Apply grade 7 Reading standards to literature (e.g. “Compare and contrast a fictional portrayal of a time, place, or character and a historical account of the same period as a means of understanding how authors of fiction use or alter history”)."
+ },
+ {
+  "code": "W.7.9b",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Apply grade 7 Reading standards to literary nonfiction (e.g. “Trace and evaluate the argument and specific claims in a text, assessing whether the reasoning is sound and the evidence is relevant and sufficient to support the claims”)."
+ },
+ {
+  "code": "W.6.9",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Draw evidence from literary or informational texts to support analysis, reflection, and research."
+ },
+ {
+  "code": "W.6.9a",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Apply grade 6 Reading standards to literature (e.g., “Compare and contrast texts in different forms or genres [e.g., stories and poems; historical novels and fantasy stories] in terms of their approaches to similar themes and topics”)."
+ },
+ {
+  "code": "W.6.9b",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Apply grade 6 Reading standards to literary nonfiction (e.g., “Trace and evaluate the argument and specific claims in a text, distinguishing claims that are supported by reasons and evidence from claims that are not”)."
+ },
+ {
+  "code": "W.11-12.10",
+  "strand": "Writing Standards (W)",
+  "grade_band": "11-12",
+  "text": "Write routinely over extended time frames (time for research, reflection, and revision) and shorter time frames (a single sitting or a day or two) for a range of tasks, purposes, and audiences."
+ },
+ {
+  "code": "W.9-10.10",
+  "strand": "Writing Standards (W)",
+  "grade_band": "9-10",
+  "text": "Write routinely over extended time frames (time for research, reflection, and revision) and shorter time frames (a single sitting or a day or two) for a range of tasks, purposes, and audiences."
+ },
+ {
+  "code": "W.8.10",
+  "strand": "Writing Standards (W)",
+  "grade_band": "8",
+  "text": "Write routinely over extended time frames (time for research, reflection, and revision) and shorter time frames (a single sitting or a day or two) for a range of discipline-specific tasks, purposes, and audiences."
+ },
+ {
+  "code": "W.7.10",
+  "strand": "Writing Standards (W)",
+  "grade_band": "7",
+  "text": "Write routinely over extended time frames (time for research, reflection, and revision) and shorter time frames (a single sitting or a day or two) for a range of discipline-specific tasks, purposes, and audiences."
+ },
+ {
+  "code": "W.6.10",
+  "strand": "Writing Standards (W)",
+  "grade_band": "6",
+  "text": "Write routinely over extended time frames (time for research, reflection, and revision) and shorter time frames (a single sitting or a day or two) for a range of discipline-specific tasks, purposes, and audiences."
+ },
+ {
+  "code": "SL.11-12.1",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "11-12",
+  "text": "Initiate and participate effectively in a range of collaborative discussions (one-on-one, in groups, and teacher-led) with diverse partners on grades 11–12 topics, texts, and issues, building on others’ ideas and expressing their own clearly and persuasively."
+ },
+ {
+  "code": "SL.11-12.1a",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "11-12",
+  "text": "Come to discussions prepared, having read and researched material under study; explicitly draw on that preparation by referring to evidence from texts and other research on the topic or issue to stimulate a thoughtful, well-reasoned exchange of ideas."
+ },
+ {
+  "code": "SL.11-12.1b",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "11-12",
+  "text": "Work with peers to promote civil, democratic discussions and decision-making, set clear goals and deadlines, and establish individual roles as needed"
+ },
+ {
+  "code": "SL.11-12.1c",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "11-12",
+  "text": "Propel conversations by posing and responding to questions that probe reasoning and evidence; ensure a hearing for a full range of positions on a topic or issue; clarify, verify, or challenge ideas and conclusions; and promote divergent and creative perspectives."
+ },
+ {
+  "code": "SL.11-12.1d",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "11-12",
+  "text": "Respond thoughtfully to diverse perspectives; synthesize comments, claims, and evidence made on all sides of an issue; resolve contradictions when possible; and determine what additional information or research is required to deepen the investigation or complete the task."
+ },
+ {
+  "code": "SL.9-10.1",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "9-10",
+  "text": "Initiate and participate effectively in a range of collaborative discussions (one-on-one, in groups, and teacher-led) with diverse partners on grades 9–10 topics, texts, and issues, building on others’ ideas and expressing their own clearly and persuasively."
+ },
+ {
+  "code": "SL.9-10.1a",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "9-10",
+  "text": "Come to discussions prepared, having read and researched material under study; explicitly draw on that preparation by referring to evidence from texts and other research on the topic or issue to stimulate a thoughtful, well-reasoned exchange of ideas."
+ },
+ {
+  "code": "SL.9-10.1b",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "9-10",
+  "text": "Work with peers to set rules for collegial discussions and decision-making (e.g., informal consensus, taking votes on key issues, presentation of alternate views), clear goals and deadlines, and individual roles as needed."
+ },
+ {
+  "code": "SL.9-10.1c",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "9-10",
+  "text": "Propel conversations by posing and responding to questions that relate the current discussion to broader themes or larger ideas; actively incorporate others into the discussion; and clarify, verify, or challenge ideas and conclusions."
+ },
+ {
+  "code": "SL.9-10.1d",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "9-10",
+  "text": "Respond thoughtfully to diverse perspectives, summarize points of agreement and disagreement, and, when warranted, qualify or justify their own views and understanding and make new connections in light of the evidence and reasoning presented."
+ },
+ {
+  "code": "SL.8.1",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "8",
+  "text": "Engage effectively in a range of collaborative discussions (one-on-one, in groups, and teacher-led) with diverse partners on grade 8 topics, texts, and issues, building on others’ ideas and expressing their own clearly."
+ },
+ {
+  "code": "SL.8.1a",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "8",
+  "text": "Come to discussions prepared, having read or researched material under study; explicitly draw on that preparation by referring to evidence on the topic, text, or issue to probe and reflect on ideas under discussion."
+ },
+ {
+  "code": "SL.8.1b",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "8",
+  "text": "Follow rules for collegial discussions and decision-making, track progress toward specific goals and deadlines, and define individual roles as needed."
+ },
+ {
+  "code": "SL.8.1c",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "8",
+  "text": "Pose questions that connect the ideas of several speakers and respond to others’ questions and comments with relevant evidence, observations, and ideas."
+ },
+ {
+  "code": "SL.8.1d",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "8",
+  "text": "Acknowledge new information expressed by others, and, when warranted, qualify or justify their own views in light of the evidence presented."
+ },
+ {
+  "code": "SL.7.1",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "7",
+  "text": "Engage effectively in a range of collaborative discussions (one-on-one, in groups, and teacher-led) with diverse partners on grade 7 topics, texts, and issues, building on others’ ideas and expressing their own clearly."
+ },
+ {
+  "code": "SL.7.1a",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "7",
+  "text": "Come to discussions prepared, having read or researched material under study; explicitly draw on that preparation by referring to evidence on the topic, text, or issue to probe and reflect on ideas under discussion."
+ },
+ {
+  "code": "SL.7.1b",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "7",
+  "text": "Follow rules for collegial discussions, track progress toward specific goals and deadlines, and define individual roles as needed."
+ },
+ {
+  "code": "SL.7.1c",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "7",
+  "text": "Pose questions that elicit elaboration and respond to others’ questions and comments with relevant observations and ideas that bring the discussion back on topic as needed."
+ },
+ {
+  "code": "SL.7.1d",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "7",
+  "text": "Acknowledge new information expressed by others and, when warranted, modify their own views."
+ },
+ {
+  "code": "SL.6.1",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "6",
+  "text": "Engage effectively in a range of collaborative discussions (one-on-one, in groups, and teacher-led) with diverse partners on grade 6 topics, texts, and issues, building on others’ ideas and expressing their own clearly."
+ },
+ {
+  "code": "SL.6.1a",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "6",
+  "text": "Come to discussions prepared, having read or studied required material; explicitly draw on that preparation by referring to evidence on the topic, text, or issue to probe and reflect on ideas under discussion."
+ },
+ {
+  "code": "SL.6.1b",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "6",
+  "text": "Follow rules for collegial discussions, set specific goals and deadlines, and define individual roles as needed."
+ },
+ {
+  "code": "SL.6.1c",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "6",
+  "text": "Pose and respond to specific questions with elaboration and detail by making comments that contribute to the topic, text, or issue under discussion."
+ },
+ {
+  "code": "SL.6.1d",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "6",
+  "text": "Review the key ideas expressed and demonstrate understanding of multiple perspectives through reflection and paraphrasing."
+ },
+ {
+  "code": "SL.11-12.2",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "11-12",
+  "text": "Integrate multiple sources of information presented in diverse formats and media (e.g., visually, quantitatively, orally) in order to make informed decisions and solve problems, evaluating the credibility and accuracy of each source and noting any discrepancies among the data."
+ },
+ {
+  "code": "SL.9-10.2",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "9-10",
+  "text": "Integrate multiple sources of information presented in diverse media or formats (e.g., visually, quantitatively, orally) evaluating the credibility and accuracy of each source."
+ },
+ {
+  "code": "SL.8.2",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "8",
+  "text": "Analyze the purpose of information presented in diverse media and formats (e.g., visually, quantitatively, orally) and evaluate the motives (e.g., social, commercial, political) behind its presentation."
+ },
+ {
+  "code": "SL.7.2",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "7",
+  "text": "Analyze the main ideas and supporting details presented in diverse media and formats (e.g., visually, quantitatively, orally) and explain how the ideas clarify a topic, text, or issue under study."
+ },
+ {
+  "code": "SL.6.2",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "6",
+  "text": "Interpret information presented in diverse media and formats (e.g., visually, quantitatively, orally) and explain how it contributes to a topic, text, or issue under study."
+ },
+ {
+  "code": "SL.11-12.3",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "11-12",
+  "text": "Evaluate a speaker’s point of view, reasoning, and use of evidence and rhetoric, assessing the stance, premises, links among ideas, word choice, points of emphasis, and tone used."
+ },
+ {
+  "code": "SL.9-10.3",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "9-10",
+  "text": "Evaluate a speaker’s point of view, reasoning, and use of evidence and rhetoric, identifying any fallacious reasoning or exaggerated or distorted evidence."
+ },
+ {
+  "code": "SL.8.3",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "8",
+  "text": "Delineate a speaker’s argument and specific claims, evaluating the soundness of the reasoning and relevance and sufficiency of the evidence and identifying when irrelevant evidence is introduced."
+ },
+ {
+  "code": "SL.7.3",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "7",
+  "text": "Delineate a speaker’s argument and specific claims, evaluating the soundness of the reasoning and the relevance and sufficiency of the evidence."
+ },
+ {
+  "code": "SL.6.3",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "6",
+  "text": "Delineate a speaker’s argument and specific claims, distinguishing claims that are supported by reasons and evidence from claims that are not."
+ },
+ {
+  "code": "SL.11-12.4",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "11-12",
+  "text": "Present information, findings, and supporting evidence, conveying a clear and distinct perspective, such that listeners can follow the line of reasoning, alternative or opposing perspectives are addressed, and the organization, development, substance, and style are appropriate to purpose, audience, and a range of formal and informal tasks."
+ },
+ {
+  "code": "SL.9-10.4",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "9-10",
+  "text": "Present information, findings, and supporting evidence clearly, concisely, and logically such that listeners can follow the line of reasoning and the organization, development, substance, and style are appropriate to purpose, audience, and task."
+ },
+ {
+  "code": "SL.8.4",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "8",
+  "text": "Present claims and findings, emphasizing salient points in a focused, coherent manner with relevant evidence, sound valid reasoning, and well-chosen details; use appropriate eye contact, adequate volume, and clear pronunciation."
+ },
+ {
+  "code": "SL.7.4",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "7",
+  "text": "Present claims and findings, emphasizing salient points in a focused, coherent manner with pertinent descriptions, facts, details, and examples; use appropriate eye contact, adequate volume, and clear pronunciation."
+ },
+ {
+  "code": "SL.6.4",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "6",
+  "text": "Present claims and findings, sequencing ideas logically and using pertinent descriptions, facts, and details to accentuate main ideas or themes; use appropriate eye contact, adequate volume, and clear pronunciation."
+ },
+ {
+  "code": "SL.11-12.5",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "11-12",
+  "text": "Make strategic use of digital media (e.g., textual, graphical, audio, visual, and interactive elements) in presentations to enhance understanding of findings, reasoning, and evidence and to add interest."
+ },
+ {
+  "code": "SL.9-10.5",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "9-10",
+  "text": "Make strategic use of digital media (e.g., textual, graphical, audio, visual, and interactive elements) in presentations to enhance understanding of findings, reasoning, and evidence and to add interest."
+ },
+ {
+  "code": "SL.8.5",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "8",
+  "text": "Integrate multimedia and visual displays into presentations to clarify information, strengthen claims and evidence, and add interest."
+ },
+ {
+  "code": "SL.7.5",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "7",
+  "text": "Include multimedia components and visual displays in presentations to clarify claims and findings and emphasize salient points."
+ },
+ {
+  "code": "SL.6.5",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "6",
+  "text": "Include multimedia components (e.g., graphics, images, music, sound) and visual displays in presentations to clarify information."
+ },
+ {
+  "code": "SL.11-12.6",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "11-12",
+  "text": "Adapt speech to a variety of contexts and tasks, demonstrating a command of formal English when indicated or appropriate. (See grades 11-12 Language standards 1 and 3 for specific expectations.)"
+ },
+ {
+  "code": "SL.9-10.6",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "9-10",
+  "text": "Adapt speech to a variety of contexts and tasks, demonstrating command of formal English when indicated or appropriate. (See grades 9-10 Language standards 1 and 3 for specific expectations.)"
+ },
+ {
+  "code": "SL.8.6",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "8",
+  "text": "Adapt speech to a variety of contexts and tasks, demonstrating command of formal English when indicated or appropriate. (See grade 8 Language standards 1 and 3 for specific expectations.)"
+ },
+ {
+  "code": "SL.7.6",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "7",
+  "text": "Adapt speech to a variety of contexts and tasks, demonstrating command of formal English when indicated or appropriate. (See grade 7 Language standards 1 and 3 for specific expectations.)"
+ },
+ {
+  "code": "SL.6.6",
+  "strand": "Speaking and Listening Standards (SL)",
+  "grade_band": "6",
+  "text": "Adapt speech to a variety of contexts and tasks, demonstrating command of formal English when indicated or appropriate. (See grade 6 Language standards 1 and 3 for specific expectations.)"
+ },
+ {
+  "code": "L.11-12.1",
+  "strand": "Language Standards (L)",
+  "grade_band": "11-12",
+  "text": "Demonstrate command of the conventions of standard English grammar and usage when writing or speaking."
+ },
+ {
+  "code": "L.11-12.1a",
+  "strand": "Language Standards (L)",
+  "grade_band": "11-12",
+  "text": "Apply the understanding that usage is a matter of convention, can change over time, and is sometimes contested."
+ },
+ {
+  "code": "L.11-12.1b",
+  "strand": "Language Standards (L)",
+  "grade_band": "11-12",
+  "text": "Resolve issues of complex or contested usage, consulting references (e.g., Merriam-Webster’s Dictionary of English Usage, Garner’s Modern American Usage) as needed."
+ },
+ {
+  "code": "L.9-10.1",
+  "strand": "Language Standards (L)",
+  "grade_band": "9-10",
+  "text": "Demonstrate command of the conventions of standard English grammar and usage when writing or speaking."
+ },
+ {
+  "code": "L.9-10.1a",
+  "strand": "Language Standards (L)",
+  "grade_band": "9-10",
+  "text": "Use parallel structure."
+ },
+ {
+  "code": "L.9-10.1b",
+  "strand": "Language Standards (L)",
+  "grade_band": "9-10",
+  "text": "Use various types of phrases (noun, verb, adjectival, adverbial, participial, prepositional, absolute) and clauses (independent, dependent; noun, relative, adverbial) to convey specific meanings and add variety and interest to writing or presentations."
+ },
+ {
+  "code": "L.8.1",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Demonstrate command of the conventions of standard English grammar and usage when writing or speaking."
+ },
+ {
+  "code": "L.8.1a",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Explain the function of verbals (gerunds, participles, infinitives) in general and their function in particular sentences."
+ },
+ {
+  "code": "L.8.1b",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Form and use verbs in the active and passive voice."
+ },
+ {
+  "code": "L.8.1c",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Form and use verbs in the indicative, imperative, interrogative, conditional, and subjunctive mood."
+ },
+ {
+  "code": "L.8.1d",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Recognize and correct inappropriate shifts in verb voice and mood."
+ },
+ {
+  "code": "L.7.1",
+  "strand": "Language Standards (L)",
+  "grade_band": "7",
+  "text": "Demonstrate command of the conventions of standard English grammar and usage when writing or speaking."
+ },
+ {
+  "code": "L.7.1a",
+  "strand": "Language Standards (L)",
+  "grade_band": "7",
+  "text": "Explain the function of phrases and clauses in general and their function in specific sentences."
+ },
+ {
+  "code": "L.7.1b",
+  "strand": "Language Standards (L)",
+  "grade_band": "7",
+  "text": "Choose among simple, compound, complex, and compound-complex sentences to signal differing relationships among ideas."
+ },
+ {
+  "code": "L.7.1c",
+  "strand": "Language Standards (L)",
+  "grade_band": "7",
+  "text": "Place phrases and clauses within a sentence, recognizing and correcting misplaced and dangling modifiers."
+ },
+ {
+  "code": "L.6.1",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Demonstrate command of the conventions of standard English grammar and usage when writing or speaking."
+ },
+ {
+  "code": "L.6.1a",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Ensure that pronouns are in the proper case (subjective, objective, possessive)."
+ },
+ {
+  "code": "L.6.1b",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Use intensive pronouns (e.g., myself, ourselves)."
+ },
+ {
+  "code": "L.6.1c",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Recognize and correct inappropriate shifts in pronoun number and person."
+ },
+ {
+  "code": "L.6.1d",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Recognize and correct vague pronouns (i.e., ones with unclear or ambiguous antecedents)."
+ },
+ {
+  "code": "L.6.1e",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Recognize variations from standard English in their own and others' writing and speaking, and identify and use strategies to improve expression in conventional language."
+ },
+ {
+  "code": "L.11-12.2",
+  "strand": "Language Standards (L)",
+  "grade_band": "11-12",
+  "text": "Demonstrate command of the conventions of standard English capitalization, punctuation, and spelling when writing."
+ },
+ {
+  "code": "L.11-12.2a",
+  "strand": "Language Standards (L)",
+  "grade_band": "11-12",
+  "text": "Observe hyphenation conventions."
+ },
+ {
+  "code": "L.11-12.2b",
+  "strand": "Language Standards (L)",
+  "grade_band": "11-12",
+  "text": "Spell correctly."
+ },
+ {
+  "code": "L.9-10.2",
+  "strand": "Language Standards (L)",
+  "grade_band": "9-10",
+  "text": "Demonstrate command of the conventions of standard English capitalization, punctuation, and spelling when writing."
+ },
+ {
+  "code": "L.9-10.2a",
+  "strand": "Language Standards (L)",
+  "grade_band": "9-10",
+  "text": "Use a semicolon (and perhaps a conjunctive adverb) to link two or more closely related independent clauses."
+ },
+ {
+  "code": "L.9-10.2b",
+  "strand": "Language Standards (L)",
+  "grade_band": "9-10",
+  "text": "Use a colon to introduce a list or quotation."
+ },
+ {
+  "code": "L.9-10.2c",
+  "strand": "Language Standards (L)",
+  "grade_band": "9-10",
+  "text": "Spell correctly."
+ },
+ {
+  "code": "L.8.2",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Demonstrate command of the conventions of standard English capitalization, punctuation, and spelling when writing."
+ },
+ {
+  "code": "L.8.2a",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Use punctuation (comma, ellipsis, dash) to indicate a pause or break."
+ },
+ {
+  "code": "L.8.2b",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Use an ellipsis to indicate an omission."
+ },
+ {
+  "code": "L.8.2c",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Spell correctly."
+ },
+ {
+  "code": "L.7.2",
+  "strand": "Language Standards (L)",
+  "grade_band": "7",
+  "text": "Demonstrate command of the conventions of standard English capitalization, punctuation, and spelling when writing."
+ },
+ {
+  "code": "L.7.2a",
+  "strand": "Language Standards (L)",
+  "grade_band": "7",
+  "text": "Use a comma to separate coordinate adjectives (e.g., It was a fascinating, enjoyable movie but not He wore an old[,] green shirt)."
+ },
+ {
+  "code": "L.7.2b",
+  "strand": "Language Standards (L)",
+  "grade_band": "7",
+  "text": "Spell correctly."
+ },
+ {
+  "code": "L.6.2",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Demonstrate command of the conventions of standard English capitalization, punctuation, and spelling when writing."
+ },
+ {
+  "code": "L.6.2a",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Use punctuation (commas, parentheses, dashes) to set off nonrestrictive/parenthetical elements."
+ },
+ {
+  "code": "L.6.2b",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Spell correctly."
+ },
+ {
+  "code": "L.11-12.3",
+  "strand": "Language Standards (L)",
+  "grade_band": "11-12",
+  "text": "Apply knowledge of language to understand how language functions in different contexts, to make effective choices for meaning or style, and to comprehend more fully when reading or listening."
+ },
+ {
+  "code": "L.11-12.3a",
+  "strand": "Language Standards (L)",
+  "grade_band": "11-12",
+  "text": "Vary syntax for effect, consulting references (e.g., Tufte’s Artful Sentences) for guidance as needed; apply an understanding of syntax to the study of complex texts when reading."
+ },
+ {
+  "code": "L.9-10.3",
+  "strand": "Language Standards (L)",
+  "grade_band": "9-10",
+  "text": "Apply knowledge of language to understand how language functions in different contexts, to make effective choices for meaning or style, and to comprehend more fully when reading or listening."
+ },
+ {
+  "code": "L.9-10.3a",
+  "strand": "Language Standards (L)",
+  "grade_band": "9-10",
+  "text": "Write and edit work so that it conforms to the guidelines in a style manual (e.g., MLA Handbook, Turabian’s Manual for Writers) appropriate for the discipline and writing type."
+ },
+ {
+  "code": "L.8.3",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Use knowledge of language and its conventions when writing, speaking, reading, or listening."
+ },
+ {
+  "code": "L.8.3a",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Use verbs in the active and passive voice and in the conditional and subjunctive mood to achieve particular effects (e.g., emphasizing the actor or the action; expressing uncertainty or describing a state contrary to fact)."
+ },
+ {
+  "code": "L.7.3",
+  "strand": "Language Standards (L)",
+  "grade_band": "7",
+  "text": "Use knowledge of language and its conventions when writing, speaking, reading, or listening."
+ },
+ {
+  "code": "L.7.3a",
+  "strand": "Language Standards (L)",
+  "grade_band": "7",
+  "text": "Choose language that expresses ideas precisely and concisely, recognizing and eliminating wordiness and redundancy."
+ },
+ {
+  "code": "L.6.3",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Use knowledge of language and its conventions when writing, speaking, reading, or listening."
+ },
+ {
+  "code": "L.6.3a",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Vary sentence patterns for meaning, reader/listener interest, and style."
+ },
+ {
+  "code": "L.6.3b",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Maintain consistency in style and tone."
+ },
+ {
+  "code": "L.11-12.4",
+  "strand": "Language Standards (L)",
+  "grade_band": "11-12",
+  "text": "Determine or clarify the meaning of unknown and multiple-meaning words and phrases based on grades 11–12 reading and content, choosing flexibly from a range of strategies."
+ },
+ {
+  "code": "L.11-12.4a",
+  "strand": "Language Standards (L)",
+  "grade_band": "11-12",
+  "text": "Use context (e.g., the overall meaning of a sentence, paragraph, or text; a word’s position or function in a sentence) as a clue to the meaning of a word or phrase."
+ },
+ {
+  "code": "L.11-12.4b",
+  "strand": "Language Standards (L)",
+  "grade_band": "11-12",
+  "text": "Identify and correctly use patterns of word changes that indicate different meanings or parts of speech (e.g., conceive, conception, conceivable)."
+ },
+ {
+  "code": "L.11-12.4c",
+  "strand": "Language Standards (L)",
+  "grade_band": "11-12",
+  "text": "Consult general and specialized reference materials (e.g., dictionaries, glossaries, thesauruses), both print and digital, to find the pronunciation of a word or determine or clarify its precise meaning, its part of speech, its etymology, or its standard usage."
+ },
+ {
+  "code": "L.11-12.4d",
+  "strand": "Language Standards (L)",
+  "grade_band": "11-12",
+  "text": "Verify the preliminary determination of the meaning of a word or phrase (e.g., by checking the inferred meaning in context or in a dictionary)."
+ },
+ {
+  "code": "L.9-10.4",
+  "strand": "Language Standards (L)",
+  "grade_band": "9-10",
+  "text": "Determine or clarify the meaning of unknown and multiple-meaning words and phrases based on grades 9–10 reading and content, choosing flexibly from a range of strategies."
+ },
+ {
+  "code": "L.9-10.4a",
+  "strand": "Language Standards (L)",
+  "grade_band": "9-10",
+  "text": "Use context (e.g., the overall meaning of a sentence, paragraph, or text; a word’s position or function in a sentence) as a clue to the meaning of a word or phrase."
+ },
+ {
+  "code": "L.9-10.4b",
+  "strand": "Language Standards (L)",
+  "grade_band": "9-10",
+  "text": "Identify and correctly use patterns of word changes that indicate different meanings or parts of speech (e.g., analyze, analysis, analytical; advocate, advocacy)."
+ },
+ {
+  "code": "L.9-10.4c",
+  "strand": "Language Standards (L)",
+  "grade_band": "9-10",
+  "text": "Consult general and specialized reference materials (e.g., dictionaries, glossaries, thesauruses), both print and digital, to find the pronunciation of a word or determine or clarify its precise meaning, its part of speech, or its etymology."
+ },
+ {
+  "code": "L.9-10.4d",
+  "strand": "Language Standards (L)",
+  "grade_band": "9-10",
+  "text": "Verify the preliminary determination of the meaning of a word or phrase (e.g., by checking the inferred meaning in context or in a dictionary)."
+ },
+ {
+  "code": "L.8.4",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Determine or clarify the meaning of unknown and multiple-meaning words or phrases based on grade 8 reading and content, choosing flexibly from a range of strategies."
+ },
+ {
+  "code": "L.8.4a",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Use context (e.g., the overall meaning of a sentence or paragraph; a word’s position or function in a sentence) as a clue to the meaning of a word or phrase."
+ },
+ {
+  "code": "L.8.4b",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Use common, grade-appropriate Greek or Latin affixes and roots as clues to the meaning of a word (e.g., precede, recede, secede)."
+ },
+ {
+  "code": "L.8.4c",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Consult general and specialized reference materials (e.g., dictionaries, glossaries, thesauruses), both print and digital, to find the pronunciation of a word or determine or clarify its precise meaning or its part of speech."
+ },
+ {
+  "code": "L.8.4d",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Verify the preliminary determination of the meaning of a word or phrase (e.g., by checking the inferred meaning in context or in a dictionary)."
+ },
+ {
+  "code": "L.7.4",
+  "strand": "Language Standards (L)",
+  "grade_band": "7",
+  "text": "Determine or clarify the meaning of unknown and multiple-meaning words and phrases based on grade 7 reading and content, choosing flexibly from a range of strategies."
+ },
+ {
+  "code": "L.7.4a",
+  "strand": "Language Standards (L)",
+  "grade_band": "7",
+  "text": "Use context (e.g., the overall meaning of a sentence or paragraph; a word’s position or function in a sentence) as a clue to the meaning of a word or phrase."
+ },
+ {
+  "code": "L.7.4b",
+  "strand": "Language Standards (L)",
+  "grade_band": "7",
+  "text": "Use common, grade-appropriate Greek or Latin affixes and roots as clues to the meaning of a word (e.g., belligerent, bellicose, rebel)."
+ },
+ {
+  "code": "L.7.4c",
+  "strand": "Language Standards (L)",
+  "grade_band": "7",
+  "text": "Consult general and specialized reference materials (e.g., dictionaries, glossaries, thesauruses), both print and digital, to find the pronunciation of a word or determine or clarify its precise meaning or its part of speech."
+ },
+ {
+  "code": "L.7.4d",
+  "strand": "Language Standards (L)",
+  "grade_band": "7",
+  "text": "Verify the preliminary determination of the meaning of a word or phrase (e.g., by checking the inferred meaning in context or in a dictionary)."
+ },
+ {
+  "code": "L.6.4",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Determine or clarify the meaning of unknown and multiple-meaning words and phrases based on grade 6 reading and content, choosing flexibly from a range of strategies."
+ },
+ {
+  "code": "L.6.4a",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Use context (e.g., the overall meaning of a sentence or paragraph; a word’s position or function in a sentence) as a clue to the meaning of a word or phrase."
+ },
+ {
+  "code": "L.6.4b",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Use common, grade-appropriate Greek or Latin affixes and roots as clues to the meaning of a word (e.g., audience, auditory, audible)."
+ },
+ {
+  "code": "L.6.4c",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Consult reference materials (e.g., dictionaries, glossaries, thesauruses), both print and digital, to find the pronunciation of a word or determine or clarify its precise meaning or its part of speech."
+ },
+ {
+  "code": "L.6.4d",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Verify the preliminary determination of the meaning of a word or phrase (e.g., by checking the inferred meaning in context or in a dictionary)."
+ },
+ {
+  "code": "L.11-12.5",
+  "strand": "Language Standards (L)",
+  "grade_band": "11-12",
+  "text": "Demonstrate understanding of figurative language, word relationships, and nuances in word meanings."
+ },
+ {
+  "code": "L.11-12.5a",
+  "strand": "Language Standards (L)",
+  "grade_band": "11-12",
+  "text": "Interpret figures of speech (e.g., hyperbole, paradox) in context and analyze their role in the text."
+ },
+ {
+  "code": "L.11-12.5b",
+  "strand": "Language Standards (L)",
+  "grade_band": "11-12",
+  "text": "Analyze nuances in the meaning of words with similar denotations."
+ },
+ {
+  "code": "L.9-10.5",
+  "strand": "Language Standards (L)",
+  "grade_band": "9-10",
+  "text": "Demonstrate understanding of figurative language, word relationships, and nuances in word meanings."
+ },
+ {
+  "code": "L.9-10.5a",
+  "strand": "Language Standards (L)",
+  "grade_band": "9-10",
+  "text": "Interpret figures of speech (e.g., euphemism, oxymoron) in context and analyze their role in the text."
+ },
+ {
+  "code": "L.9-10.5b",
+  "strand": "Language Standards (L)",
+  "grade_band": "9-10",
+  "text": "Analyze nuances in the meaning of words with similar denotations."
+ },
+ {
+  "code": "L.8.5",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Demonstrate understanding of figurative language, word relationships, and nuances in word meanings."
+ },
+ {
+  "code": "L.8.5a",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Interpret figures of speech (e.g. verbal irony, puns) in context."
+ },
+ {
+  "code": "L.8.5b",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Use the relationship between particular words to better understand each of the words."
+ },
+ {
+  "code": "L.8.5c",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Distinguish among the connotations (associations) of words with similar denotations (definitions) (e.g., bullheaded, willful, firm, persistent, resolute)."
+ },
+ {
+  "code": "L.7.5",
+  "strand": "Language Standards (L)",
+  "grade_band": "7",
+  "text": "Demonstrate understanding of figurative language, word relationships, and nuances in word meanings."
+ },
+ {
+  "code": "L.7.5a",
+  "strand": "Language Standards (L)",
+  "grade_band": "7",
+  "text": "Interpret figures of speech (e.g., literary, biblical, and mythological allusions) in context."
+ },
+ {
+  "code": "L.7.5b",
+  "strand": "Language Standards (L)",
+  "grade_band": "7",
+  "text": "Use the relationship between particular words (e.g., synonym/antonym, analogy) to better understand each of the words."
+ },
+ {
+  "code": "L.7.5c",
+  "strand": "Language Standards (L)",
+  "grade_band": "7",
+  "text": "Distinguish among the connotations (associations) of words with similar denotations (definitions) (e.g., refined, respectful, polite, diplomatic, condescending)."
+ },
+ {
+  "code": "L.6.5",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Demonstrate understanding of figurative language, word relationships, and nuances in word meanings."
+ },
+ {
+  "code": "L.6.5a",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Interpret figures of speech (e.g., personification) in context."
+ },
+ {
+  "code": "L.6.5b",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Use the relationship between particular words (e.g., cause/effect, part/whole, item/category) to better understand each of the words."
+ },
+ {
+  "code": "L.6.5c",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Distinguish among the connotations (associations) of words with similar denotations (definitions) (e.g., stingy, scrimping, economical, unwasteful, thrifty)."
+ },
+ {
+  "code": "L.11-12.6",
+  "strand": "Language Standards (L)",
+  "grade_band": "11-12",
+  "text": "Acquire and use accurately general academic and domain-specific words and phrases, sufficient for reading, writing, speaking, and listening at the college and career readiness level; demonstrate independence in gathering vocabulary knowledge when considering a word or phrase important to comprehension or expression."
+ },
+ {
+  "code": "L.9-10.6",
+  "strand": "Language Standards (L)",
+  "grade_band": "9-10",
+  "text": "Acquire and use accurately general academic and domain-specific words and phrases, sufficient for reading, writing, speaking, and listening at the college and career readiness level; demonstrate independence in gathering vocabulary knowledge when considering a word or phrase important to comprehension or expression."
+ },
+ {
+  "code": "L.8.6",
+  "strand": "Language Standards (L)",
+  "grade_band": "8",
+  "text": "Acquire and use accurately grade-appropriate general academic and domain-specific words and phrases; gather vocabulary knowledge when considering a word or phrase important to comprehension or expression."
+ },
+ {
+  "code": "L.7.6",
+  "strand": "Language Standards (L)",
+  "grade_band": "7",
+  "text": "Acquire and use accurately grade-appropriate general academic and domain-specific words and phrases; gather vocabulary knowledge when considering a word or phrase important to comprehension or expression."
+ },
+ {
+  "code": "L.6.6",
+  "strand": "Language Standards (L)",
+  "grade_band": "6",
+  "text": "Acquire and use accurately grade-appropriate general academic and domain-specific words and phrases; gather vocabulary knowledge when considering a word or phrase important to comprehension or expression."
+ }
+]
