@@ -19,9 +19,25 @@
   "name": "Revised Bloom's taxonomy (Anderson & Krathwohl)",
   "apa7_reference": "Anderson, L. W., & Krathwohl, D. R. (Eds.). (2001). *A taxonomy for learning, teaching, and assessing: A revision of Bloom's taxonomy of educational objectives*. Longman.",
   "in_text": "(Anderson & Krathwohl, 2001)",
-  "use_when": "Writing the objective (SWBAT) at a chosen cognitive level, or sequencing tasks from lower to higher levels.",
-  "connection_template": "The objective is written at the {cognitive level} level, using the verb \"{verb}\" (Anderson & Krathwohl, 2001).",
-  "verified_via": "Reference list in a Boston University provost-office handout (editors, title, Longman, New York); title also appears in several library catalogs"
+  "use_when": "Writing the objective (SWBAT) at a chosen cognitive process level and knowledge type, or sequencing tasks from lower to higher levels.",
+  "connection_template": "The objective uses the verb \"{verb}\", which sits at the {level} level (Remember, Understand, Apply, Analyze, Evaluate, or Create) of the revised Bloom's taxonomy, and asks students to work with {knowledge type} knowledge (factual, conceptual, procedural, or metacognitive) (Anderson & Krathwohl, 2001).",
+  "verified_via": "Reference list in a Boston University provost-office handout (editors, title, Longman, New York); title also appears in several library catalogs",
+  "selectors": {
+   "level": [
+    "Remember",
+    "Understand",
+    "Apply",
+    "Analyze",
+    "Evaluate",
+    "Create"
+   ],
+   "knowledge type": [
+    "factual",
+    "conceptual",
+    "procedural",
+    "metacognitive"
+   ]
+  }
  },
  {
   "name": "Scaffolding (Wood, Bruner & Ross)",
