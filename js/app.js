@@ -33,7 +33,8 @@
       assessment: { informal: [], formal: [], graded: '', rubric: '' },
       struggling: [{ initials: '', evidence: '', strategy: '' }], noStruggling: false,
       enrichment: [{ initials: '', evidence: '', strategy: '' }], noEnrichment: false,
-      research: { initialized: false, checked: {}, sentences: {}, auto: {} }
+      research: { initialized: false, checked: {}, sentences: {}, auto: {} },
+      plan: { edits: {}, auto: {} }
     };
   }
   var answers = blank();
@@ -42,6 +43,7 @@
 
   function merge(base, saved) {
     if (saved == null || typeof saved !== 'object' || Array.isArray(base) || Array.isArray(saved)) return saved === undefined ? base : saved;
+    if (Object.keys(base).length === 0) return saved;   // free-form dictionaries (research picks, plan edits)
     var out = {};
     Object.keys(base).forEach(function (k) { out[k] = (k in saved) ? merge(base[k], saved[k]) : base[k]; });
     return out;
@@ -560,31 +562,7 @@
     'Add a row for each student who is ready for more.', diffScreen('enrichment', 'noEnrichment', 'enrich'));
 
   /* Research connections: suggested from your earlier answers, all editable. */
-  function slotValues(entry) {
-    var a = answers, o = a.objectives[0] || {};
-    var focus = a.focus.text ? lowerFirst(a.focus.text) : '{topic}';
-    var partnered = (a.grouping.picks || []).some(function (p) { return /partner|group|jigsaw|stations/i.test(p); });
-    var v = {};
-    if (/Bloom/.test(entry.name)) { v['verb'] = o.verb || '{verb}'; v['level'] = o.level || '{level}'; v['knowledge type'] = o.knowledge || '{knowledge type}'; }
-    if (/Gradual/.test(entry.name)) {
-      v['modeled'] = lowerFirst(a.instruction.direct.pick || 'teacher modeling');
-      v['guided'] = lowerFirst(a.guided.task.pick || 'guided practice');
-      v['independent'] = lowerFirst(a.independent.task.pick || 'independent practice');
-    }
-    if (/Zone/.test(entry.name)) { v['task'] = focus; v['teacher or peers'] = partnered ? 'the teacher and partners' : 'the teacher'; }
-    if (/Schema/.test(entry.name)) v['topic'] = focus;
-    if (/Formative/.test(entry.name)) v['informal assessment'] = (a.assessment.informal || []).map(lowerFirst).join(', ') || '{informal assessment}';
-    if (/Culturally/.test(entry.name)) v['connection'] = (a.assets.picks || []).map(lowerFirst).join(', ') || '{connection}';
-    if (/Differentiated/.test(entry.name)) {
-      var cats = (a.struggling || []).map(function (r) { return r.evidence; }).filter(Boolean);
-      v['learner group'] = cats.length ? 'students with ' + cats.join(' and ') + ' needs' : '{learner group}';
-    }
-    return v;
-  }
-  function fillSentence(entry) {
-    var v = slotValues(entry);
-    return entry.connection_template.replace(/\{([^}]+)\}/g, function (m, k) { return v[k] != null ? v[k] : m; });
-  }
+  function fillSentence(entry) { return window.LessonAssemble.fillSentence(entry, answers); }
   function suggest(list) {
     var a = answers, ids = {}, why = {};
     function on(name, reason) { var e = list.filter(function (x) { return x.name.indexOf(name) === 0; })[0]; if (e) { ids[e.name] = true; why[e.name] = reason; } }
@@ -639,39 +617,126 @@
       return root;
     });
 
-  /* ---------- review (answers so far; assembly comes next) ---------- */
-  function review() {
-    var a = answers;
-    function line(t) { return t ? h('p', null, t) : h('p', { class: 'missing' }, 'Not answered'); }
-    function sec(title, screenIx, nodes) {
-      return h('section', null, h('h2', null, title, h('button', { type: 'button', class: 'btn quiet small', onclick: function () { go(screenIx); } }, 'Edit')), nodes);
-    }
-    var tot = totalMinutes(), per = Number(a.basics.period) || 0;
-    var ob = a.objectives.map(swbat).filter(Boolean);
-    var terms = a.content.terms.filter(function (t) { return t.term || t.definition; }).map(function (t) { return t.term + ' - ' + t.definition; });
-    function pt(x) { return [x.pick, x.text].filter(Boolean).join(': ') || ''; }
-    var root = h('div', { class: 'review' });
-    root.append(
-      sec('Header', 0, [line('Teacher: ' + (a.basics.teacher || '')), line('Grade ' + a.basics.grade + ', ' + a.basics.subject + ', ' + a.basics.period + ' minutes'), line('Central focus: ' + a.focus.text), line('Skills: ' + (a.focus.skills || []).concat(a.focus.other ? [a.focus.other] : []).join(', '))]),
-      sec('A. Standards', 2, [line(a.standards.join(', '))]),
-      sec('B. Learners’ background', 3, [line(a.prior.text), line(a.assets.picks.join(', ') + (a.assets.detail ? '. ' + a.assets.detail : ''))]),
-      sec('C. Content knowledge', 5, [line(a.content.ideas), line(terms.join('; ')), line(a.content.links.join(', '))]),
-      sec('D. Objective and essential question', 6, [].concat(ob.length ? ob.map(line) : [line('')], [line(a.eq.text)])),
-      sec('E. Materials', 8, [line([a.materials.text].concat(a.materials.picks, [a.materials.other]).filter(Boolean).join(', '))]),
-      sec('F. Grouping', 9, [line(a.grouping.picks.join(', ')), line(a.grouping.seating), line(a.grouping.movement)]),
-      sec('G. Learning activities (' + tot + (per ? ' of ' + per : '') + ' minutes)', 10, [
-        line('Initiation (' + (a.initiation.minutes || 0) + ' min): ' + [pt(a.initiation.motivating), pt(a.initiation.bg)].filter(Boolean).join(' / ')),
-        line('Instruction (' + (a.instruction.minutes || 0) + ' min): ' + [pt(a.instruction.lang), pt(a.instruction.direct), a.instruction.probing].filter(Boolean).join(' / ')),
-        line('Guided practice (' + (a.guided.minutes || 0) + ' min): ' + [a.guided.grouping, pt(a.guided.task)].filter(Boolean).join(': ')),
-        line('Independent practice (' + (a.independent.minutes || 0) + ' min): ' + pt(a.independent.task)),
-        line('Closure (' + (a.closure.minutes || 0) + ' min): ' + [pt(a.closure.act), a.closure.language].filter(Boolean).join(' / ')),
-        line('Homework: ' + (a.closure.homework || 'None'))]),
-      sec('H. Assessment', 15, [line('Informal: ' + a.assessment.informal.join(', ')), line('Formal: ' + a.assessment.formal.join(', ') + (a.assessment.graded ? ' (graded: ' + a.assessment.graded + ')' : ''))]),
-      sec('I. Differentiation', 16, [].concat(
-        a.noStruggling ? [line('No students need extra support.')] : a.struggling.filter(function (r) { return r.initials || r.strategy; }).map(function (r) { return line(r.initials + ' (' + r.evidence + '): ' + r.strategy); }),
-        a.noEnrichment ? [line('No students need enrichment.')] : a.enrichment.filter(function (r) { return r.initials || r.strategy; }).map(function (r) { return line(r.initials + ' (' + r.evidence + '): ' + r.strategy); }))),
-      sec('J. Research', 18, Object.keys(a.research.checked).filter(function (k) { return a.research.checked[k]; }).map(function (k) { return line(a.research.sentences[k] || k); }))
-    );
+  /* ---------- your plan: assembled text, editable, then download ---------- */
+  function fileName() {
+    var f = (answers.focus.text || 'lesson').replace(/[\\/:*?"<>|]+/g, '').replace(/\s+/g, ' ').trim().slice(0, 60);
+    return 'Lesson Plan - ' + f + '.docx';
+  }
+  function planScreen(statusEl) {
+    var root = h('div', { class: 'review' }, h('p', { class: 'hint' }, 'Building your plan…'));
+    Promise.all([standards(), citations()]).then(function (res) {
+      var LA = window.LessonAssemble;
+      var model = LA.build(answers, res[0], res[1]);
+      var P = answers.plan;
+      function cur(key, auto) {
+        if (P.edits[key] == null || P.edits[key] === P.auto[key]) P.edits[key] = auto;
+        P.auto[key] = auto;
+        return P.edits[key];
+      }
+      function head(title, screenIx, reset) {
+        return h('h2', null, title, h('span', null, reset,
+          screenIx != null ? h('button', { type: 'button', class: 'btn quiet small', onclick: function () { go(screenIx); } }, 'Change answers') : null));
+      }
+      function box(key, title, screenIx, auto) {
+        var value = cur(key, auto);
+        var ta = h('textarea', { 'aria-label': title });
+        ta.value = value;
+        ta.rows = Math.min(16, Math.max(3, value.split('\n').length + Math.ceil(value.length / 80)));
+        var warn = h('p', { class: 'warn' });
+        function chk() { var n = LA.placeholders(ta.value).length; warn.textContent = n ? n + ' {slot' + (n > 1 ? 's' : '') + '} still need filling in.' : ''; }
+        ta.addEventListener('input', function () { P.edits[key] = ta.value; persist(); chk(); });
+        var reset = h('button', { type: 'button', class: 'btn quiet small', onclick: function () { P.edits[key] = auto; ta.value = auto; persist(); chk(); } }, 'Reset');
+        chk();
+        return h('section', null, head(title, screenIx, reset), ta, warn);
+      }
+      function table(key, title, screenIx, rows) {
+        var auto = JSON.stringify(rows);
+        var data = JSON.parse(cur(key, auto));
+        var body = h('div', { class: 'fields' });
+        if (!data.length) body.append(h('p', { class: 'hint' }, 'No students listed. Use Change answers to add some, or leave this blank.'));
+        data.forEach(function (r) {
+          function save() { P.edits[key] = JSON.stringify(data); persist(); }
+          var ini = h('input', { type: 'text', 'aria-label': 'Initials', value: r.initials });
+          var ev = h('input', { type: 'text', 'aria-label': 'Evidence', value: r.evidence });
+          var st = h('textarea', { rows: 3, 'aria-label': 'Strategy' }); st.value = r.strategy;
+          ini.addEventListener('input', function () { r.initials = ini.value; save(); });
+          ev.addEventListener('input', function () { r.evidence = ev.value; save(); });
+          st.addEventListener('input', function () { r.strategy = st.value; save(); });
+          body.append(h('div', { class: 'sub' }, h('div', { class: 'row3' }, ini, ev), st));
+        });
+        var reset = h('button', { type: 'button', class: 'btn quiet small', onclick: function () { P.edits[key] = auto; persist(); renderPlanInto(); } }, 'Reset');
+        return h('section', null, head(title, screenIx, reset), body);
+      }
+      function header() {
+        var f = [['teacher', 'Teacher'], ['grade', 'Grade'], ['subject', 'Subject'], ['centralFocus', 'Central focus'], ['relatedSkill', 'Related skills']];
+        var wrap = h('div', { class: 'fields' });
+        f.forEach(function (x) {
+          var id = nid(), val = cur('h.' + x[0], model.header[x[0]]);
+          var inp = h('input', { id: id, type: 'text', value: val });
+          inp.addEventListener('input', function () { P.edits['h.' + x[0]] = inp.value; persist(); });
+          wrap.append(field(x[1], inp, null, id));
+        });
+        return h('section', null, head('Header', 0, null), wrap);
+      }
+      var els = [header(),
+        box('A', 'A. Standards', 2, model.sections.A),
+        box('B', 'B. Learners’ background', 3, model.sections.B),
+        box('C', 'C. Content knowledge', 5, model.sections.C),
+        box('D', 'D. Objective and essential question', 6, model.sections.D),
+        box('E', 'E. Materials', 8, model.sections.E),
+        box('F', 'F. Grouping', 9, model.sections.F)];
+      var gScreens = [10, 11, 12, 13, 14, 14];
+      model.phases.forEach(function (ph, k) {
+        els.push(box('G' + k, 'G. ' + ph.title + (ph.minutes ? ' (' + ph.minutes + ' min)' : ''), gScreens[k], ph.text));
+      });
+      els.push(box('H', 'H. Assessment', 15, model.sections.H));
+      els.push(table('tbl.struggling', 'I. Students who may struggle', 16, model.struggling));
+      els.push(table('tbl.enrichment', 'I. Students who need enrichment', 17, model.enrichment));
+      els.push(box('J', 'J. Research connections', 18, model.sections.J));
+      if (model.references.length) {
+        els.push(h('section', null, h('h2', null, 'J. References (from your checked research)'),
+          model.references.map(function (r) {
+            var p = h('p', { style: 'padding-left:1.5rem;text-indent:-1.5rem' });
+            r.split(/(\*[^*]+\*)/).forEach(function (part) { if (/^\*[^*]+\*$/.test(part)) p.append(h('i', null, part.slice(1, -1))); else p.append(part); });
+            return p;
+          })));
+      }
+      root.textContent = '';
+      els.forEach(function (e) { root.append(e); });
+      persist();
+
+      function currentModel() {
+        var hd = {};
+        ['teacher', 'grade', 'subject', 'centralFocus', 'relatedSkill'].forEach(function (k) { hd[k] = P.edits['h.' + k]; });
+        var secs = {};
+        ['A', 'B', 'C', 'D', 'E', 'F', 'H', 'J'].forEach(function (k) { secs[k] = P.edits[k]; });
+        return {
+          header: hd, sections: secs,
+          phases: model.phases.map(function (ph, k) { return { title: ph.title, minutes: ph.minutes, text: P.edits['G' + k] }; }),
+          struggling: JSON.parse(P.edits['tbl.struggling']), enrichment: JSON.parse(P.edits['tbl.enrichment']),
+          references: model.references
+        };
+      }
+      root.download = function () {
+        statusEl.className = 'msg';
+        statusEl.textContent = 'Building your .docx…';
+        window.LessonFiller.fillFromUrl(LA.toPlan(currentModel()), 'assets/template.docx').then(function (blob) {
+          var url = URL.createObjectURL(blob);
+          var a = h('a', { href: url, download: fileName() });
+          document.body.append(a); a.click(); a.remove();
+          setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+          statusEl.className = 'okmsg msg';
+          statusEl.textContent = 'Downloaded ' + fileName() + '. Open it in Word to check it.';
+        }).catch(function (err) {
+          statusEl.className = 'warn msg';
+          statusEl.textContent = 'The .docx could not be built (' + err.message + '). Reload the page and try again. Your answers are saved.';
+        });
+      };
+    }).catch(function () {
+      root.textContent = '';
+      root.append(h('p', { class: 'warn' }, 'Your plan could not be built because the data files did not load. Reload the page.'));
+    });
+    function renderPlanInto() { render(); }
     return root;
   }
 
@@ -688,7 +753,7 @@
     { label: 'Assessment', letter: 'H', screens: [15] },
     { label: 'Differentiation', letter: 'I', screens: [16, 17] },
     { label: 'Research', letter: 'J', screens: [18] },
-    { label: 'Check your answers', letter: '✓', screens: [19] }
+    { label: 'Your plan', letter: '✓', screens: [19] }
   ];
   var SECTION_NAMES = { basics: 'Basics', A: 'Section A. Standards', B: 'Section B. Learners’ background', C: 'Section C. Content knowledge', D: 'Section D. Objective and essential question', E: 'Section E. Materials', F: 'Section F. Grouping', G: 'Section G. Learning activities', H: 'Section H. Assessment', I: 'Section I. Differentiation', J: 'Section J. Research' };
 
@@ -755,10 +820,14 @@
       return;
     }
     if (i === TOTAL) {
-      head = h('h1', { class: 'q', tabindex: '-1' }, 'Check your answers');
-      main.append(h('p', { class: 'where' }, 'All sections'), head, h('p', { class: 'help' }, 'These are your answers as you gave them. Use Edit to change any section.'), review(),
-        h('div', { class: 'nav' }, h('button', { type: 'button', class: 'btn', onclick: back }, 'Back')));
-      head.focus();
+      head = h('h1', { class: 'q', tabindex: '-1' }, 'Your lesson plan');
+      var status = h('p', { class: 'msg', role: 'status', 'aria-live': 'polite' });
+      var planEl = planScreen(status);
+      main.append(h('p', { class: 'where' }, 'Ready to download'), head,
+        h('p', { class: 'help' }, 'This is your plan in the template\u2019s order. Edit any section, then download it as a Word file.'), planEl, status,
+        h('div', { class: 'nav' }, h('button', { type: 'button', class: 'btn', onclick: back }, 'Back'), h('span', { class: 'spacer' }),
+          h('button', { type: 'button', class: 'btn primary', onclick: function () { if (planEl.download) planEl.download(); } }, 'Download .docx')));
+      head.focus({ preventScroll: true });
       return;
     }
     var s = SCREENS[i];
@@ -769,7 +838,7 @@
       h('div', { class: 'nav' },
         h('button', { type: 'button', class: 'btn', onclick: back }, 'Back'),
         h('span', { class: 'spacer' }),
-        h('button', { type: 'button', class: 'btn primary', onclick: next }, i === TOTAL - 1 ? 'Check your answers' : 'Continue')));
+        h('button', { type: 'button', class: 'btn primary', onclick: next }, i === TOTAL - 1 ? 'Build my plan' : 'Continue')));
     head.focus({ preventScroll: true });
   }
 

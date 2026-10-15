@@ -20,7 +20,7 @@
   "apa7_reference": "Anderson, L. W., & Krathwohl, D. R. (Eds.). (2001). *A taxonomy for learning, teaching, and assessing: A revision of Bloom's taxonomy of educational objectives*. Longman.",
   "in_text": "(Anderson & Krathwohl, 2001)",
   "use_when": "Writing the objective (SWBAT) at a chosen cognitive process level and knowledge type, or sequencing tasks from lower to higher levels.",
-  "connection_template": "The objective uses the verb \"{verb}\", which sits at the {level} level (Remember, Understand, Apply, Analyze, Evaluate, or Create) of the revised Bloom's taxonomy, and asks students to work with {knowledge type} knowledge (factual, conceptual, procedural, or metacognitive) (Anderson & Krathwohl, 2001).",
+  "connection_template": "The objective uses the verb \"{verb}\", which sits at the {level} level of the revised Bloom's taxonomy and asks students to work with {knowledge type} knowledge (Anderson & Krathwohl, 2001).",
   "verified_via": "Reference list in a Boston University provost-office handout (editors, title, Longman, New York); title also appears in several library catalogs",
   "selectors": {
    "level": [
@@ -68,7 +68,7 @@
   "apa7_reference": "Black, P., & Wiliam, D. (1998). Assessment and classroom learning. *Assessment in Education: Principles, Policy & Practice, 5*(1), 7–74. https://doi.org/10.1080/0969595980050102",
   "in_text": "(Black & Wiliam, 1998)",
   "use_when": "Informal checks during the lesson (exit tickets, questioning, observation) are used to adjust teaching.",
-  "connection_template": "The teacher checks understanding through {informal assessment} during the lesson and adjusts instruction based on what students show (Black & Wiliam, 1998).",
+  "connection_template": "The teacher checks understanding through {informal assessment} and adjusts instruction based on what students show (Black & Wiliam, 1998).",
   "verified_via": "First page of the article PDF (University of Glasgow copy) and DOI 10.1080/0969595980050102"
  },
  {
@@ -92,7 +92,7 @@
   "apa7_reference": "Ladson-Billings, G. (1995). Toward a theory of culturally relevant pedagogy. *American Educational Research Journal, 32*(3), 465–491. https://doi.org/10.3102/00028312032003465",
   "in_text": "(Ladson-Billings, 1995)",
   "use_when": "The lesson draws on students' cultural and linguistic backgrounds (template section B).",
-  "connection_template": "The lesson connects to students' cultural and linguistic assets by {connection}, in line with culturally relevant pedagogy (Ladson-Billings, 1995).",
+  "connection_template": "The lesson connects to students' cultural and linguistic assets by drawing on {connection}, in line with culturally relevant pedagogy (Ladson-Billings, 1995).",
   "verified_via": "Crossref record for DOI 10.3102/00028312032003465"
  },
  {
