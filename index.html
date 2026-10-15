@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lesson Planner</title>
+<meta name="description" content="Answer questions one at a time and get a finished lesson plan in the University of Bridgeport template. Free, no account, no AI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&display=swap">
+<style>
+/*
+  Design plan
+  Layout: a left rail of template sections (A to J) beside one question at a time; a ruler along the top
+  marks progress, one tick per question, with the current tick in highlighter yellow.
+  Type: Bricolage Grotesque for questions, Atkinson Hyperlegible for everything you read and type in.
+  Color: ink navy on cool paper, a highlighter yellow for "chosen", a red pen for problems.
+*/
+:root {
+  --paper: #F3F5FA;
+  --surface: #FFFFFF;
+  --ink: #16213A;
+  --ink-soft: #46526F;
+  --rule: #C9D1E2;
+  --hl: #FFD93D;
+  --hl-ink: #16213A;
+  --pen: #B3261E;
+  --ok: #1B6B45;
+  --focus: #2B59FF;
+  --font-q: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0E1424; --surface: #162038; --ink: #E9EDF8; --ink-soft: #A6B1CC; --rule: #2C3856;
+    --pen: #FF8A7D; --ok: #62D494; --focus: #8FA9FF;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0E1424; --surface: #162038; --ink: #E9EDF8; --ink-soft: #A6B1CC; --rule: #2C3856;
+  --pen: #FF8A7D; --ok: #62D494; --focus: #8FA9FF;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 400 1.0625rem/1.55 var(--font-body);
+  padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 40px;
+}
+button, input, textarea, select { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+[hidden] { display: none !important; }
+
+.wrap { max-width: 64rem; margin-inline: auto; }
+.topbar { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+.brand { font: 700 1.25rem/1 var(--font-q); letter-spacing: -0.01em; margin: 0; }
+.brand small { font: 400 0.9rem var(--font-body); color: var(--ink-soft); margin-left: 8px; letter-spacing: 0; }
+.count { color: var(--ink-soft); font-size: 0.95rem; font-variant-numeric: tabular-nums; }
+
+/* The ruler */
+.ruler { display: flex; gap: 3px; margin: 0 0 28px; padding: 0; list-style: none; }
+.ruler li { flex: 1; min-width: 0; }
+.tick { display: block; width: 100%; height: 22px; border: 1.5px solid var(--rule); background: transparent; border-radius: 2px; padding: 0; cursor: default; }
+.tick.done { background: var(--ink); border-color: var(--ink); cursor: pointer; }
+.tick.now { background: var(--hl); border-color: var(--ink); height: 30px; margin-top: -4px; }
+.tick.seen { border-color: var(--ink); cursor: pointer; }
+
+.shell { display: grid; grid-template-columns: 14rem minmax(0, 1fr); gap: 48px; align-items: start; }
+.rail { position: sticky; top: 16px; }
+.rail ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.rail button { width: 100%; text-align: left; background: none; border: 0; padding: 7px 10px; border-radius: 6px; color: var(--ink-soft); cursor: pointer; display: flex; gap: 10px; align-items: baseline; }
+.rail .letter { font: 700 0.95rem var(--font-q); width: 1.4rem; flex: none; color: var(--ink-soft); }
+.rail button[aria-current="step"] { background: var(--hl); color: var(--hl-ink); font-weight: 700; }
+.rail button[aria-current="step"] .letter { color: var(--hl-ink); }
+.rail button.complete .letter::after { content: "\2713"; margin-left: 2px; color: var(--ok); }
+.rail button:hover:not([aria-current="step"]) { background: color-mix(in srgb, var(--ink) 8%, transparent); }
+
+.card { max-width: 40rem; min-width: 0; }
+.where { margin: 0 0 6px; color: var(--ink-soft); font-size: 0.95rem; }
+h1.q { font: 700 clamp(1.7rem, 4.6vw, 2.35rem)/1.12 var(--font-q); letter-spacing: -0.02em; margin: 0 0 10px; text-wrap: balance; }
+h1.q:focus { outline: none; }
+.help { color: var(--ink-soft); margin: 0 0 24px; max-width: 34rem; }
+.fields { display: grid; gap: 22px; }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field > label, .field > .lab { font-weight: 700; }
+.hint { color: var(--ink-soft); font-size: 0.93rem; margin: 0; }
+input[type=text], input[type=number], textarea {
+  width: 100%; background: var(--surface); border: 1.5px solid var(--rule); border-radius: 8px; padding: 10px 12px; min-height: 46px;
+}
+textarea { resize: vertical; min-height: 96px; }
+input:hover, textarea:hover { border-color: var(--ink-soft); }
+input:focus-visible, textarea:focus-visible { border-color: var(--focus); outline-offset: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { background: var(--surface); border: 1.5px solid var(--rule); border-radius: 999px; padding: 7px 14px; cursor: pointer; min-height: 40px; line-height: 1.2; text-align: left; }
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--hl); color: var(--hl-ink); border-color: var(--hl-ink); font-weight: 700; }
+.chip.small { min-height: 34px; padding: 5px 12px; font-size: 0.95rem; }
+.warn { color: var(--pen); font-size: 0.93rem; margin: 0; }
+.okmsg { color: var(--ok); font-size: 0.93rem; margin: 0; }
+
+.sub { border: 1.5px solid var(--rule); border-radius: 10px; padding: 16px; display: grid; gap: 16px; background: var(--surface); }
+.sub-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.sub-head strong { font-family: var(--font-q); font-size: 1.05rem; }
+.preview { background: color-mix(in srgb, var(--hl) 26%, var(--surface)); border-left: 4px solid var(--hl); padding: 10px 14px; border-radius: 4px; margin: 0; }
+.row3 { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: 12px; }
+.row2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 12px; }
+@media (max-width: 560px) { .row3, .row2 { grid-template-columns: minmax(0, 1fr); } }
+
+.btn { border-radius: 8px; border: 1.5px solid var(--ink); background: transparent; padding: 10px 18px; min-height: 46px; cursor: pointer; font-weight: 700; }
+.btn:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); }
+.btn.primary { background: var(--ink); color: var(--paper); }
+.btn.primary:hover { background: var(--ink-soft); }
+.btn.quiet { border-color: transparent; text-decoration: underline; text-underline-offset: 3px; font-weight: 400; padding-inline: 8px; }
+.btn.small { min-height: 36px; padding: 5px 12px; font-size: 0.95rem; }
+.nav { display: flex; align-items: center; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+.nav .spacer { flex: 1; }
+.msg { min-height: 1.4em; margin: 14px 0 0; }
+
+.timeline { display: flex; gap: 12px; align-items: center; margin-top: 4px; font-variant-numeric: tabular-nums; }
+.timeline .bar { flex: 1; height: 10px; border: 1.5px solid var(--ink); border-radius: 2px; position: relative; overflow: hidden; background: var(--surface); }
+.timeline .bar i { position: absolute; inset: 0 auto 0 0; background: var(--hl); border-right: 1.5px solid var(--ink); }
+.timeline.over .bar i { background: var(--pen); }
+
+.std-list { display: grid; gap: 6px; max-height: 22rem; overflow-y: auto; padding: 2px; margin: 0; list-style: none; border: 1.5px solid var(--rule); border-radius: 10px; background: var(--surface); }
+.std { display: grid; gap: 2px; width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--rule); padding: 10px 12px; cursor: pointer; border-radius: 0; }
+.std:hover { background: color-mix(in srgb, var(--ink) 6%, transparent); }
+.std[aria-pressed="true"] { background: var(--hl); color: var(--hl-ink); }
+.std b { font-family: var(--font-q); }
+.std span { font-size: 0.95rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+.review { display: grid; gap: 14px; }
+.review section { border: 1.5px solid var(--rule); border-radius: 10px; padding: 14px 16px; background: var(--surface); }
+.review h2 { font: 700 1.05rem var(--font-q); margin: 0 0 6px; display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.review p { margin: 4px 0; overflow-wrap: anywhere; }
+.review .missing { color: var(--pen); }
+
+.cite { border: 1.5px solid var(--rule); border-radius: 10px; background: var(--surface); padding: 12px 14px; display: grid; gap: 8px; }
+.cite label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+.cite input[type=checkbox] { width: 1.3rem; height: 1.3rem; margin-top: 2px; flex: none; accent-color: var(--ink); }
+.cite .why { color: var(--ink-soft); font-size: 0.93rem; margin: 0; }
+
+.intro .lede { font-size: 1.2rem; max-width: 32rem; }
+.intro ul { padding-left: 1.2rem; margin: 18px 0 28px; display: grid; gap: 6px; max-width: 32rem; }
+
+.footer { margin-top: 56px; padding-top: 16px; border-top: 1.5px solid var(--rule); color: var(--ink-soft); font-size: 0.93rem; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.footer p { margin: 0; max-width: 40rem; }
+
+@media (max-width: 860px) {
+  .shell { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .rail { display: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tick { transition: background .15s, height .15s; }
+}
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="topbar">
+    <p class="brand">Lesson Planner<small>for the UB lesson plan template</small></p>
+    <span class="count" id="count" aria-live="polite"></span>
+  </header>
+  <ol class="ruler" id="ruler" aria-label="Progress"></ol>
+  <div class="shell">
+    <nav class="rail" aria-label="Template sections"><ol id="rail"></ol></nav>
+    <main class="card" id="main"></main>
+  </div>
+  <footer class="footer">
+    <p>Unofficial. Not affiliated with or endorsed by the University of Bridgeport. Everything you type stays in this browser. Use initials or S1, S2 for students, never full names.</p>
+    <button class="btn quiet" id="restart" type="button">Start over</button>
+  </footer>
+</div>
+<noscript><p>This page needs JavaScript to ask its questions.</p></noscript>
+<!-- JSZip is used when the plan is downloaded as a .docx. Pinned version. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="js/banks.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
