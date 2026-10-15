@@ -38,7 +38,7 @@
   /* ---- research sentences (also used by the interview screen) ---- */
   function slotValues(entry, a) {
     var o = a.objectives[0] || {}, v = {};
-    var focus = a.focus.text ? lowerFirst(a.focus.text).replace(/:\s*/, ', ') : '{topic}';
+    var focus = a.focus.text ? trim(lowerFirst(a.focus.text).split(':')[0]) : '{topic}';
     var partnered = (a.grouping.picks || []).some(function (p) { return /partner|group|jigsaw|stations/i.test(p); });
     if (/Bloom/.test(entry.name)) { v['verb'] = o.verb || '{verb}'; v['level'] = o.level || '{level}'; v['knowledge type'] = o.knowledge || '{knowledge type}'; }
     if (/Gradual/.test(entry.name)) {
@@ -52,10 +52,11 @@
     if (/Culturally/.test(entry.name)) v['connection'] = list((a.assets.picks || []).map(lowerFirst)) || '{connection}';
     if (/Differentiated/.test(entry.name)) {
       var cats = (a.struggling || []).map(function (r) { return r.evidence; }).filter(Boolean);
-      v['learner group'] = cats.length ? 'students with ' + cats.join(' and ') + ' needs' : '{learner group}';
+      v['learner group'] = cats.length ? list(cats.map(function (c) { return LEARNERS[c] || 'students who need support'; }).filter(function (x, k, arr) { return arr.indexOf(x) === k; })) : '{learner group}';
     }
     return v;
   }
+  var LEARNERS = { 'ELL': 'English language learners', 'IEP': 'students with IEPs', '504 plan': 'students with 504 plans', 'ADHD': 'students with ADHD', 'Struggling reader': 'struggling readers' };
   function fillSentence(entry, a) {
     var v = slotValues(entry, a);
     return entry.connection_template.replace(/\{([^}]+)\}/g, function (m, k) { return v[k] != null ? v[k] : m; });
@@ -68,7 +69,7 @@
   }
   var SEATING = {
     'Normal seats': 'sit in their normal seats',
-    'Rearranged desks': 'work in rearranged desks',
+    'Rearranged desks': 'sit in rearranged desks',
     'Stations around the room': 'move between stations around the room',
     'Floor or other space': 'work on the floor or in another space'
   };
@@ -114,7 +115,7 @@
     var mats = [];
     if (trim(a.materials.text)) mats.push(trim(a.materials.text));
     (a.materials.picks || []).forEach(function (p) { if (!(p === 'The book or text' && trim(a.materials.text))) mats.push(lowerFirst(p)); });
-    if (trim(a.materials.other)) mats.push(stripEnd(a.materials.other));
+    if (trim(a.materials.other)) mats.push(lowerFirst(stripEnd(a.materials.other)));
     m.sections.E = mats.length ? mats.join(', ') + '.' : '';
 
     // F
@@ -122,8 +123,8 @@
     var f = [];
     var seat = SEATING[a.grouping.seating];
     var f1 = '';
-    if (seat || gp.length) f1 = 'The class will ' + (seat || 'sit in their normal seats') + (gp.length ? ', working in ' + list(gp) + ' during the lesson' : '') + '.';
-    if (a.guided.grouping) f1 += (f1 ? ' ' : '') + 'Guided practice is done in ' + lowerFirst(a.guided.grouping) + '.';
+    if (seat || gp.length) f1 = 'The class will ' + (seat || 'sit in their normal seats') + '.' + (gp.length ? ' Students will work in ' + list(gp) + ' during the lesson.' : '');
+    if (a.guided.grouping && (a.grouping.picks || []).indexOf(a.guided.grouping) < 0) f1 += (f1 ? ' ' : '') + 'Guided practice is done in ' + lowerFirst(a.guided.grouping) + '.';
     if (f1) f.push(f1);
     if (trim(a.grouping.movement)) f.push(endSentence(a.grouping.movement));
     m.sections.F = f.join('\n');
@@ -143,7 +144,7 @@
     var h = [];
     if ((a.assessment.informal || []).length) h.push('Informal: ' + endSentence(sentenceList(a.assessment.informal)));
     var formal = (a.assessment.formal || []).length ? endSentence(sentenceList(a.assessment.formal)) : '';
-    var grade = a.assessment.graded === 'Yes' ? (trim(a.assessment.rubric) ? 'Graded using ' + stripEnd(a.assessment.rubric) + '.' : 'Graded.')
+    var grade = a.assessment.graded === 'Yes' ? (trim(a.assessment.rubric) ? 'Graded. ' + endSentence(a.assessment.rubric) : 'Graded.')
       : a.assessment.graded === 'No' ? 'Not graded.'
       : a.assessment.graded === 'Used for progress only' ? 'Not graded, used to monitor progress.' : '';
     if (formal || grade) { if (h.length) h.push(''); h.push('Formal: ' + [formal, grade].filter(Boolean).join(' ')); }

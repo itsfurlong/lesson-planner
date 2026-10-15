@@ -256,7 +256,7 @@
       }
       return [
         bar,
-        textField('focus.text', { label: 'Central focus', placeholder: 'Narrative writing: dialogue and inner thoughts', enter: true }),
+        textField('focus.text', { label: 'Central focus', placeholder: 'Narrative writing: dialogue and inner thoughts', enter: true, hint: 'Keep it short. It is reused inside the research sentences.' }),
         chipsField('focus.skills', { label: 'Related skills', options: B.skills, multi: true, small: true, hint: 'Pick any that apply.' }),
         textField('focus.other', { label: 'Another skill (optional)', placeholder: 'Subtext' })
       ];
@@ -665,7 +665,8 @@
 
   /* ---------- your plan: assembled text, editable, then download ---------- */
   function fileName() {
-    var f = (answers.focus.text || 'lesson').replace(/\u2014/g, ' ').replace(/[\\/:*?"<>|]+/g, '').replace(/\s+/g, ' ').trim().slice(0, 60);
+    var f = (answers.focus.text || 'lesson').replace(/\u2014/g, ' ').replace(/[\\/:*?"<>|]+/g, '').replace(/\s+/g, ' ').trim();
+    if (f.length > 60) f = f.slice(0, 60).replace(/\s+\S*$/, '');
     return 'Lesson Plan - ' + f + '.docx';
   }
   function planScreen(statusEl) {
