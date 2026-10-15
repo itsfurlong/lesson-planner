@@ -40,6 +40,7 @@
   var answers = blank();
   var i = -1;          // -1 is the welcome screen
   var maxSeen = 0;
+  var returnTo = null;  // set when a review link sends you to a question; the Continue button then returns to the review
 
   function merge(base, saved) {
     if (saved == null || typeof saved !== 'object' || Array.isArray(base) || Array.isArray(saved)) return saved === undefined ? base : saved;
@@ -617,9 +618,54 @@
       return root;
     });
 
+  /* ---------- review: the checks, run on the answers and on the text that will be downloaded ---------- */
+  function effective(std, cites) {
+    var model = window.LessonAssemble.build(answers, std, cites), P = answers.plan;
+    function pick(key, auto) { return (P.edits[key] != null && P.edits[key] !== P.auto[key]) ? P.edits[key] : auto; }
+    function rows(key, auto) { try { return JSON.parse(pick(key, JSON.stringify(auto))); } catch (e) { return auto; } }
+    var hd = {}, secs = {};
+    ['teacher', 'grade', 'subject', 'centralFocus', 'relatedSkill'].forEach(function (k) { hd[k] = pick('h.' + k, model.header[k]); });
+    ['A', 'B', 'C', 'D', 'E', 'F', 'H', 'J'].forEach(function (k) { secs[k] = pick(k, model.sections[k]); });
+    return {
+      header: hd, sections: secs,
+      phases: model.phases.map(function (ph, k) { return { title: ph.title, minutes: ph.minutes, text: pick('G' + k, ph.text) }; }),
+      struggling: rows('tbl.struggling', model.struggling), enrichment: rows('tbl.enrichment', model.enrichment),
+      references: model.references
+    };
+  }
+  function checkNow() {
+    return Promise.all([standards(), citations()]).then(function (res) {
+      return window.LessonValidate.run({ answers: answers, model: effective(res[0], res[1]), standards: res[0], cites: res[1], banks: B });
+    });
+  }
+  function reviewScreen() {
+    var root = h('div', { class: 'review' }, h('p', { class: 'hint' }, 'Checking your plan…'));
+    checkNow().then(function (r) {
+      var bad = r.rules.filter(function (x) { return x.failures.length; });
+      var good = r.rules.filter(function (x) { return !x.failures.length; });
+      root.textContent = '';
+      root.append(h('section', { class: 'summary ' + (bad.length ? 'bad' : 'good'), role: 'status' },
+        h('h2', null, r.failCount ? r.failCount + (r.failCount > 1 ? ' things' : ' thing') + ' to fix' : 'Every check passed'),
+        h('p', null, r.failCount ? 'Each one has a button that takes you to the question. You can still download with these open.' : 'Your plan is ready to download.')));
+      bad.forEach(function (rule) {
+        root.append(h('section', { class: 'fail' }, h('h2', null, rule.name),
+          h('ul', null, rule.failures.map(function (f) {
+            return h('li', null, h('span', null, f.message),
+              f.fix.map(function (x) { return h('button', { type: 'button', class: 'btn small', onclick: function () { go(x.screen, TOTAL); } }, x.label); }));
+          }))));
+      });
+      if (good.length) root.append(h('section', null, h('h2', null, 'Passed (' + good.length + ')'),
+        h('ul', { class: 'passed' }, good.map(function (x) { return h('li', null, '✓ ' + x.name); }))));
+    }).catch(function () {
+      root.textContent = '';
+      root.append(h('p', { class: 'warn' }, 'The checks could not run because the data files did not load. Reload the page.'));
+    });
+    return root;
+  }
+
   /* ---------- your plan: assembled text, editable, then download ---------- */
   function fileName() {
-    var f = (answers.focus.text || 'lesson').replace(/[\\/:*?"<>|]+/g, '').replace(/\s+/g, ' ').trim().slice(0, 60);
+    var f = (answers.focus.text || 'lesson').replace(/\u2014/g, ' ').replace(/[\\/:*?"<>|]+/g, '').replace(/\s+/g, ' ').trim().slice(0, 60);
     return 'Lesson Plan - ' + f + '.docx';
   }
   function planScreen(statusEl) {
@@ -717,7 +763,7 @@
           references: model.references
         };
       }
-      root.download = function () {
+      root.download = function (failCount) {
         statusEl.className = 'msg';
         statusEl.textContent = 'Building your .docx…';
         window.LessonFiller.fillFromUrl(LA.toPlan(currentModel()), 'assets/template.docx').then(function (blob) {
@@ -725,8 +771,8 @@
           var a = h('a', { href: url, download: fileName() });
           document.body.append(a); a.click(); a.remove();
           setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
-          statusEl.className = 'okmsg msg';
-          statusEl.textContent = 'Downloaded ' + fileName() + '. Open it in Word to check it.';
+          statusEl.className = failCount ? 'warn msg' : 'okmsg msg';
+          statusEl.textContent = 'Downloaded ' + fileName() + '. ' + (failCount ? 'It still has ' + failCount + ' failed check' + (failCount > 1 ? 's' : '') + '. Use Back to see them. ' : '') + 'Open it in Word to check it.';
         }).catch(function (err) {
           statusEl.className = 'warn msg';
           statusEl.textContent = 'The .docx could not be built (' + err.message + '). Reload the page and try again. Your answers are saved.';
@@ -753,7 +799,8 @@
     { label: 'Assessment', letter: 'H', screens: [15] },
     { label: 'Differentiation', letter: 'I', screens: [16, 17] },
     { label: 'Research', letter: 'J', screens: [18] },
-    { label: 'Your plan', letter: '✓', screens: [19] }
+    { label: 'Review', letter: '\u2713', screens: [19] },
+    { label: 'Your plan', letter: '\u2193', screens: [20] }
   ];
   var SECTION_NAMES = { basics: 'Basics', A: 'Section A. Standards', B: 'Section B. Learners’ background', C: 'Section C. Content knowledge', D: 'Section D. Objective and essential question', E: 'Section E. Materials', F: 'Section F. Grouping', G: 'Section G. Learning activities', H: 'Section H. Assessment', I: 'Section I. Differentiation', J: 'Section J. Research' };
 
@@ -767,8 +814,9 @@
     if (n === 18) { var c = Object.keys(a.research.checked).filter(function (k) { return a.research.checked[k]; }).length; if (c < 2) return 'Check at least two research connections to continue.'; }
     return '';
   }
-  function go(n) {
+  function go(n, ret) {
     i = n;
+    returnTo = ret == null ? null : ret;
     if (n > maxSeen) maxSeen = n;
     persist();
     render();
@@ -777,9 +825,9 @@
   function next() {
     var m = blocker(i);
     if (m) { var el = document.getElementById('msg'); if (el) el.textContent = m; return; }
-    go(i + 1);
+    go(returnTo != null ? returnTo : i + 1);
   }
-  function back() { go(i - 1); }
+  function back() { go(i - 1, returnTo); }
 
   function paintChrome() {
     var ruler = document.getElementById('ruler'), rail = document.getElementById('rail'), count = document.getElementById('count');
@@ -814,19 +862,36 @@
         h('p', { class: 'lede' }, 'One question at a time. You end up with a finished plan in the University of Bridgeport template, ready for Word.'),
         h('ul', null, h('li', null, 'No account and no sign-in.'), h('li', null, 'No AI writing for you. You choose from lists and write your own answers.'), h('li', null, 'Nothing leaves your browser. Use initials or S1, S2 for students.')),
         h('div', { class: 'nav', style: 'margin-top:0' },
-          hasDraft ? h('button', { type: 'button', class: 'btn primary', onclick: function () { go(Math.min(Math.max(draft.i, 0), TOTAL)); } }, 'Continue where you left off (question ' + (Math.min(Math.max(draft.i, 0), TOTAL - 1) + 1) + ' of ' + TOTAL + ')') : null,
+          hasDraft ? h('button', { type: 'button', class: 'btn primary', onclick: function () { go(Math.min(Math.max(draft.i, 0), TOTAL + 1)); } }, 'Continue where you left off (question ' + (Math.min(Math.max(draft.i, 0), TOTAL - 1) + 1) + ' of ' + TOTAL + ')') : null,
           h('button', { type: 'button', class: hasDraft ? 'btn' : 'btn primary', onclick: function () { if (hasDraft) { answers = blank(); maxSeen = 0; hasDraft = false; } go(profileComplete() ? 1 : 0); } }, hasDraft ? 'Start a new plan' : 'Start'))));
       head.focus();
       return;
     }
     if (i === TOTAL) {
+      head = h('h1', { class: 'q', tabindex: '-1' }, 'Check your plan');
+      main.append(h('p', { class: 'where' }, 'Review'), head,
+        h('p', { class: 'help' }, 'These checks run on your answers and on the text that goes into the file.'), reviewScreen(),
+        h('div', { class: 'nav' }, h('button', { type: 'button', class: 'btn', onclick: back }, 'Back'), h('span', { class: 'spacer' }),
+          h('button', { type: 'button', class: 'btn primary', onclick: next }, 'Continue to my plan')));
+      head.focus({ preventScroll: true });
+      return;
+    }
+    if (i === TOTAL + 1) {
       head = h('h1', { class: 'q', tabindex: '-1' }, 'Your lesson plan');
       var status = h('p', { class: 'msg', role: 'status', 'aria-live': 'polite' });
       var planEl = planScreen(status);
+      var failNote = h('p', { class: 'warn msg', role: 'status' });
+      checkNow().then(function (r) {
+        if (r.failCount) failNote.append(r.failCount + (r.failCount > 1 ? ' checks still fail. ' : ' check still fails. ') + 'You can download anyway. ',
+          h('button', { type: 'button', class: 'btn quiet small', onclick: function () { go(TOTAL); } }, 'See the checks'));
+      }).catch(function () { /* the review screen reports data problems */ });
       main.append(h('p', { class: 'where' }, 'Ready to download'), head,
-        h('p', { class: 'help' }, 'This is your plan in the template\u2019s order. Edit any section, then download it as a Word file.'), planEl, status,
+        h('p', { class: 'help' }, 'This is your plan in the template\u2019s order. Edit any section, then download it as a Word file.'), failNote, planEl, status,
         h('div', { class: 'nav' }, h('button', { type: 'button', class: 'btn', onclick: back }, 'Back'), h('span', { class: 'spacer' }),
-          h('button', { type: 'button', class: 'btn primary', onclick: function () { if (planEl.download) planEl.download(); } }, 'Download .docx')));
+          h('button', { type: 'button', class: 'btn primary', onclick: function () {
+            if (!planEl.download) return;
+            checkNow().then(function (r) { planEl.download(r.failCount); }, function () { planEl.download(0); });
+          } }, 'Download .docx')));
       head.focus({ preventScroll: true });
       return;
     }
@@ -838,7 +903,7 @@
       h('div', { class: 'nav' },
         h('button', { type: 'button', class: 'btn', onclick: back }, 'Back'),
         h('span', { class: 'spacer' }),
-        h('button', { type: 'button', class: 'btn primary', onclick: next }, i === TOTAL - 1 ? 'Build my plan' : 'Continue')));
+        h('button', { type: 'button', class: 'btn primary', onclick: next }, returnTo != null ? 'Back to review' : i === TOTAL - 1 ? 'Review my plan' : 'Continue')));
     head.focus({ preventScroll: true });
   }
 

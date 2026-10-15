@@ -140,6 +140,12 @@ input:focus-visible, textarea:focus-visible { border-color: var(--focus); outlin
 .review textarea { margin-top: 8px; }
 .review h2 > span { display: flex; gap: 4px; flex: none; }
 .review .missing { color: var(--pen); }
+.review .fail ul, .review .passed { list-style: none; padding: 0; margin: 6px 0 0; }
+.review .fail li { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; margin: 8px 0; }
+.review .summary.bad { border-color: var(--pen); }
+.review .summary.good { border-color: var(--ok); }
+.review .passed { color: var(--ok); }
+.review .passed li { margin: 3px 0; }
 
 .cite { border: 1.5px solid var(--rule); border-radius: 10px; background: var(--surface); padding: 12px 14px; display: grid; gap: 8px; }
 .cite label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
@@ -184,6 +190,7 @@ input:focus-visible, textarea:focus-visible { border-color: var(--focus); outlin
 <script src="js/banks.js"></script>
 <script src="js/filler.js"></script>
 <script src="js/assemble.js"></script>
+<script src="js/validate.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
