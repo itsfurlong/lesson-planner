@@ -1,0 +1,98 @@
+[
+ {
+  "name": "Zone of proximal development (Vygotsky)",
+  "apa7_reference": "Vygotsky, L. S. (1978). *Mind in society: The development of higher psychological processes*. Harvard University Press.",
+  "in_text": "(Vygotsky, 1978)",
+  "use_when": "Students work on tasks just beyond what they can do alone, with support from the teacher or peers.",
+  "connection_template": "Students work on {task} with support from {teacher or peers}, which targets the gap between what they can do alone and what they can do with help (Vygotsky, 1978).",
+  "verified_via": "WorldCat record 3517053 (Harvard University Press, Cambridge, 1978)"
+ },
+ {
+  "name": "Gradual release of responsibility (Pearson & Gallagher)",
+  "apa7_reference": "Pearson, P. D., & Gallagher, M. C. (1983). The instruction of reading comprehension. *Contemporary Educational Psychology, 8*(3), 317–344. https://doi.org/10.1016/0361-476X(83)90019-X",
+  "in_text": "(Pearson & Gallagher, 1983)",
+  "use_when": "The lesson moves from teacher modeling to guided practice to independent practice.",
+  "connection_template": "Students move from {modeled} to {guided} to {independent}, following the gradual release model (Pearson & Gallagher, 1983).",
+  "verified_via": "Crossref record for DOI 10.1016/0361-476X(83)90019-X"
+ },
+ {
+  "name": "Revised Bloom's taxonomy (Anderson & Krathwohl)",
+  "apa7_reference": "Anderson, L. W., & Krathwohl, D. R. (Eds.). (2001). *A taxonomy for learning, teaching, and assessing: A revision of Bloom's taxonomy of educational objectives*. Longman.",
+  "in_text": "(Anderson & Krathwohl, 2001)",
+  "use_when": "Writing the objective (SWBAT) at a chosen cognitive level, or sequencing tasks from lower to higher levels.",
+  "connection_template": "The objective is written at the {cognitive level} level, using the verb \"{verb}\" (Anderson & Krathwohl, 2001).",
+  "verified_via": "Reference list in a Boston University provost-office handout (editors, title, Longman, New York); title also appears in several library catalogs"
+ },
+ {
+  "name": "Scaffolding (Wood, Bruner & Ross)",
+  "apa7_reference": "Wood, D., Bruner, J. S., & Ross, G. (1976). The role of tutoring in problem solving. *Journal of Child Psychology and Psychiatry, 17*(2), 89–100. https://doi.org/10.1111/j.1469-7610.1976.tb00381.x",
+  "in_text": "(Wood et al., 1976)",
+  "use_when": "The teacher provides temporary supports (models, sentence frames, organizers) that are removed as students gain skill.",
+  "connection_template": "The teacher provides {support} for {task} and removes it as students become more independent, a form of scaffolding (Wood et al., 1976).",
+  "verified_via": "PubMed record 932126"
+ },
+ {
+  "name": "Understanding by Design (Wiggins & McTighe)",
+  "apa7_reference": "Wiggins, G., & McTighe, J. (2005). *Understanding by design* (Expanded 2nd ed.). Association for Supervision and Curriculum Development.",
+  "in_text": "(Wiggins & McTighe, 2005)",
+  "use_when": "The lesson is planned backward from the desired results and assessment evidence, as in the UB template (adapted from UbD).",
+  "connection_template": "The lesson was planned backward from the desired result, {objective}, and the evidence of learning, {assessment}, before the activities were chosen (Wiggins & McTighe, 2005).",
+  "verified_via": "UNT library catalog record (ASCD, Alexandria, VA, 2005, Expanded 2nd ed.)"
+ },
+ {
+  "name": "Universal Design for Learning (CAST)",
+  "apa7_reference": "CAST. (2024). *Universal Design for Learning guidelines version 3.0*. https://udlguidelines.cast.org",
+  "in_text": "(CAST, 2024)",
+  "use_when": "The lesson offers multiple ways to engage, to represent content, and to show learning.",
+  "connection_template": "Students can {engage / access content / show learning} in more than one way, including {options}, consistent with the UDL guidelines (CAST, 2024).",
+  "verified_via": "CAST UDL Guidelines downloads page, which states the recommended citation (version 3.0, 2024)"
+ },
+ {
+  "name": "Formative assessment (Black & Wiliam)",
+  "apa7_reference": "Black, P., & Wiliam, D. (1998). Assessment and classroom learning. *Assessment in Education: Principles, Policy & Practice, 5*(1), 7–74. https://doi.org/10.1080/0969595980050102",
+  "in_text": "(Black & Wiliam, 1998)",
+  "use_when": "Informal checks during the lesson (exit tickets, questioning, observation) are used to adjust teaching.",
+  "connection_template": "The teacher checks understanding through {informal assessment} during the lesson and adjusts instruction based on what students show (Black & Wiliam, 1998).",
+  "verified_via": "First page of the article PDF (University of Glasgow copy) and DOI 10.1080/0969595980050102"
+ },
+ {
+  "name": "Differentiated instruction (Tomlinson)",
+  "apa7_reference": "Tomlinson, C. A. (2014). *The differentiated classroom: Responding to the needs of all learners* (2nd ed.). ASCD.",
+  "in_text": "(Tomlinson, 2014)",
+  "use_when": "Content, process, or product is adjusted for readiness, interest, or learning profile.",
+  "connection_template": "Instruction is adjusted for {learner group} by changing {content / process / product}, so that all students work toward the same objective (Tomlinson, 2014).",
+  "verified_via": "ASCD book page (2nd ed., ISBN 978-1-4166-1860-7) and Open Library record (ASCD, 2014)"
+ },
+ {
+  "name": "Self-efficacy (Bandura)",
+  "apa7_reference": "Bandura, A. (1977). Self-efficacy: Toward a unifying theory of behavioral change. *Psychological Review, 84*(2), 191–215. https://doi.org/10.1037/0033-295X.84.2.191",
+  "in_text": "(Bandura, 1977)",
+  "use_when": "The lesson builds student confidence through achievable tasks, success experiences, and modeling.",
+  "connection_template": "Students begin with {accessible task} so they experience early success and build confidence for {harder task} (Bandura, 1977).",
+  "verified_via": "Crossref record for DOI 10.1037/0033-295X.84.2.191"
+ },
+ {
+  "name": "Culturally relevant pedagogy (Ladson-Billings)",
+  "apa7_reference": "Ladson-Billings, G. (1995). Toward a theory of culturally relevant pedagogy. *American Educational Research Journal, 32*(3), 465–491. https://doi.org/10.3102/00028312032003465",
+  "in_text": "(Ladson-Billings, 1995)",
+  "use_when": "The lesson draws on students' cultural and linguistic backgrounds (template section B).",
+  "connection_template": "The lesson connects to students' cultural and linguistic assets by {connection}, in line with culturally relevant pedagogy (Ladson-Billings, 1995).",
+  "verified_via": "Crossref record for DOI 10.3102/00028312032003465"
+ },
+ {
+  "name": "Transactional theory of reading (Rosenblatt)",
+  "apa7_reference": "Rosenblatt, L. M. (1978). *The reader, the text, the poem: The transactional theory of the literary work*. Southern Illinois University Press.",
+  "in_text": "(Rosenblatt, 1978)",
+  "use_when": "ELA lessons where students build meaning from a text through their own responses and experiences.",
+  "connection_template": "Students bring their own experiences to {text} and build meaning through response before analysis, following Rosenblatt's transactional view of reading (Rosenblatt, 1978).",
+  "verified_via": "Texas A&M library catalog record (Southern Illinois University Press, Carbondale, 1978)"
+ },
+ {
+  "name": "Schema and cognitive development (Piaget)",
+  "apa7_reference": "Piaget, J. (1952). *The origins of intelligence in children* (M. Cook, Trans.). International Universities Press.",
+  "in_text": "(Piaget, 1952)",
+  "use_when": "The lesson activates prior knowledge (schema) and connects new ideas to it.",
+  "connection_template": "Students activate what they already know about {topic} so that new ideas can be connected to existing schema (Piaget, 1952).",
+  "verified_via": "University of Southern Indiana library record (International Universities Press, New York, 1952, trans. Margaret Cook)"
+ }
+]
