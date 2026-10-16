@@ -167,7 +167,7 @@
   // What students already know: suggestions from the skills picked on the second question. A click adds the sentence to the box, a second click takes it out.
   function priorField() {
     var id = nid();
-    var ta = h('textarea', { id: id, rows: 5, placeholder: 'Students have read Six of Crows up to chapters 19 and 20.' });
+    var ta = h('textarea', { id: id, rows: 5, placeholder: 'Write what students already know or can do, in a sentence or two.' });
     ta.value = get('prior.text') || '';
     var topic = String(answers.focus.text || '').split(':')[0].trim();
     function fill(t) { return topic ? t.replace(/\{topic\}/g, topic) : t; }
@@ -386,9 +386,9 @@
         get: function () { return String(answers.basics.period || ''); },
         set: function (v) { set('basics.period', Number(v)); other.value = ''; } });
       return [
-        textField('basics.teacher', { label: 'Your name as it should print on the plan', placeholder: 'Mr. Furlong', autocomplete: 'name', enter: true }),
+        textField('basics.teacher', { label: 'Your name as it should print on the plan', placeholder: 'Type your name the way it should print on the plan.', autocomplete: 'name', enter: true }),
         chipsField('basics.grade', { label: 'Grade you teach', options: ['6', '7', '8', '9', '10', '11', '12'], sticky: true }),
-        textField('basics.subject', { label: 'Subject', placeholder: 'English', enter: true, hint: 'The standards in this tool are Connecticut Core ELA, grades 6 to 12.' }),
+        textField('basics.subject', { label: 'Subject', placeholder: 'Type the subject you teach.', enter: true, hint: 'The standards in this tool are Connecticut Core ELA, grades 6 to 12.' }),
         h('div', { class: 'field' }, h('div', { class: 'lab' }, 'Class period length'), g, h('label', { for: otherId, class: 'sr' }, 'Other class length in minutes'), other)
       ];
     });
@@ -404,9 +404,9 @@
       }
       return [
         bar,
-        textField('focus.text', { label: 'Central focus', placeholder: 'Narrative writing: dialogue and inner thoughts', enter: true, hint: 'Keep it short. It is reused inside the research sentences.' }),
+        textField('focus.text', { label: 'Central focus', placeholder: 'Name the lesson\'s main topic and skill in a few words.', enter: true, hint: 'Keep it short. It is reused inside the research sentences.' }),
         chipsField('focus.skills', { label: 'Related skills', options: B.skills, multi: true, small: true, hint: 'Pick any that apply.' }),
-        textField('focus.other', { label: 'Another skill (optional)', placeholder: 'Subtext' })
+        textField('focus.other', { label: 'Another skill (optional)', placeholder: 'Type a skill that is not in the list.' })
       ];
     });
 
@@ -498,7 +498,7 @@
     function () {
       return [
         chipsField('assets.picks', { label: 'Pick all that apply', options: B.assets, multi: true, small: true }),
-        textField('assets.detail', { label: 'One sentence of detail', multiline: true, rows: 3, placeholder: 'Specifically, how they talk to people they know compared to what they think.' })
+        textField('assets.detail', { label: 'One sentence of detail', multiline: true, rows: 3, placeholder: 'Say in one sentence how students will use this strength.' })
       ];
     });
 
@@ -547,8 +547,8 @@
         termsBox.textContent = '';
         answers.content.terms.forEach(function (t, ix) {
           var a = nid(), b = nid();
-          var ti = h('input', { id: a, type: 'text', placeholder: 'Subtext', value: t.term });
-          var di = h('input', { id: b, type: 'text', placeholder: 'What the contrast between what is said and what is thought tells the reader', value: t.definition });
+          var ti = h('input', { id: a, type: 'text', placeholder: 'Type a key term.', value: t.term });
+          var di = h('input', { id: b, type: 'text', placeholder: 'Write what the term means in student-friendly words.', value: t.definition });
           ti.addEventListener('input', function () { t.term = ti.value; answers.content.termsAuto = false; persist(); });
           di.addEventListener('input', function () { t.definition = di.value; answers.content.termsAuto = false; persist(); });
           var rm = h('button', { type: 'button', class: 'btn quiet small', onclick: function () { answers.content.termsAuto = false; answers.content.terms.splice(ix, 1); if (!answers.content.terms.length) answers.content.terms.push({ term: '', definition: '' }); persist(); paintTerms(); } }, 'Remove');
@@ -561,7 +561,7 @@
       }
       paintTerms();
       return [
-        textField('content.ideas', { label: 'Core ideas and concepts', multiline: true, rows: 4, placeholder: 'Dialogue must serve a purpose. It reveals character, shows relationships, or moves the story forward.' }),
+        textField('content.ideas', { label: 'Core ideas and concepts', multiline: true, rows: 4, placeholder: 'Write the big ideas students need to understand, in a few sentences.' }),
         field('Key academic language', [h('p', { class: 'hint' }, suggested().length ? 'These come from the skills you picked. Change, remove, or add any of them.' : 'Add the words students need to know.'), termsBox, h('div', { class: 'chips' }, addBtn, resetBtn)]),
         chipsField('content.links', { label: 'Connections to other content areas', options: B.connections, multi: true, small: true })
       ];
@@ -599,8 +599,8 @@
           }
           var whatId = nid(), purId = nid();
           var whatLab = h('label', { for: whatId, class: 'lab', style: 'font-weight:700' }, 'Students will ' + (window.LessonAssemble.joinAnd(o.verb) || 'do what?'));
-          var what = h('input', { id: whatId, type: 'text', placeholder: 'Bardugo’s use of dialogue and inner thoughts in chapters 19 and 20', value: o.what });
-          var pur = h('input', { id: purId, type: 'text', placeholder: 'to develop the relationship between Nina and Matthias', value: o.purpose });
+          var what = h('input', { id: whatId, type: 'text', placeholder: 'Say what students will do or produce.', value: o.what });
+          var pur = h('input', { id: purId, type: 'text', placeholder: 'Optional: say why, or what students will use it for.', value: o.purpose });
           what.addEventListener('input', function () { o.what = what.value; upd(); });
           pur.addEventListener('input', function () { o.purpose = pur.value; upd(); });
           var rm = ix > 0 ? h('button', { type: 'button', class: 'btn quiet small', onclick: function () { answers.objectives.splice(ix, 1); persist(); paint(); } }, 'Remove') : null;
@@ -631,16 +631,16 @@
   screen('eq', 'D', 'What essential question will drive the lesson?',
     'A question students can keep coming back to. Start from a stem or write your own.',
     function () {
-      return [pickText('eq', { label: 'Essential question', options: B.eqStems, prefill: true, rows: 3, placeholder: 'How do writers use dialogue and inner thoughts to develop characters and relationships?', hint: 'Fill in anything in {braces}.' })];
+      return [pickText('eq', { label: 'Essential question', options: B.eqStems, prefill: true, rows: 3, placeholder: 'Write one open question the whole lesson works toward.', hint: 'Fill in anything in {braces}.' })];
     });
 
   screen('materials', 'E', 'What materials do you need?',
     'Pick what applies, then add the specific text and anything else.',
     function () {
       return [
-        textField('materials.text', { label: 'Text or book (if any)', placeholder: 'Six of Crows by Leigh Bardugo', enter: true }),
+        textField('materials.text', { label: 'Text or book (if any)', placeholder: 'Type the title and author of the text, if you use one.', enter: true }),
         chipsField('materials.picks', { label: 'Materials', options: B.materials, multi: true, small: true }),
-        textField('materials.other', { label: 'Anything else', placeholder: 'Printed copies of chapters 19 and 20', enter: true })
+        textField('materials.other', { label: 'Anything else', placeholder: 'List any other materials students or you will need.', enter: true })
       ];
     });
 
@@ -649,10 +649,10 @@
     function () {
       return [
         chipsField('grouping.picks', { label: 'Grouping patterns', options: B.grouping, multi: true, small: true }),
-        textField('grouping.otherPattern', { label: 'Other grouping pattern (optional)', placeholder: 'Gallery walk', enter: true, hint: 'A few words, like "gallery walk". Reads as "Students will work in ..." in section F.' }),
+        textField('grouping.otherPattern', { label: 'Other grouping pattern (optional)', placeholder: 'Name the grouping pattern in a few words.', enter: true, hint: 'A few words, like "gallery walk". Reads as "Students will work in ..." in section F.' }),
         chipsField('grouping.seating', { label: 'Seating', options: B.seating, small: true }),
-        textField('grouping.otherSeating', { label: 'Other seating (optional)', placeholder: 'gather in a circle on the rug', enter: true, hint: 'Start with a verb. Reads as "The class will ..." in section F. With a seating pick above it reads "sit in rearranged desks and ...".' }),
-        textField('grouping.movement', { label: 'Student movement (optional)', multiline: true, rows: 3, placeholder: 'Two volunteers stand at the front to show the distance between thoughts and dialogue.' })
+        textField('grouping.otherSeating', { label: 'Other seating (optional)', placeholder: 'Describe the seating, starting with a verb.', enter: true, hint: 'Start with a verb. Reads as "The class will ..." in section F. With a seating pick above it reads "sit in rearranged desks and ...".' }),
+        textField('grouping.movement', { label: 'Student movement (optional)', multiline: true, rows: 3, placeholder: 'Describe how students will move around the room, if they do.' })
       ];
     });
 
@@ -660,8 +660,8 @@
     'Plan the opening activity and how you will bring out what students already know.',
     function () {
       return [
-        activityField('initiation.motivating.text', { key: 'initiation.motivating', pickPath: 'initiation.motivating.pick', label: 'Motivating and engaging activity', types: B.activities.motivating, placeholder: 'Journal prompt: Who are you most honest with? Why?' }),
-        activityField('initiation.bg.text', { key: 'initiation.bg', pickPath: 'initiation.bg.pick', label: 'Activity for background knowledge', types: B.activities.background, placeholder: 'Discussion: What do you say to people you know, and what do you think?' }),
+        activityField('initiation.motivating.text', { key: 'initiation.motivating', pickPath: 'initiation.motivating.pick', label: 'Motivating and engaging activity', types: B.activities.motivating, placeholder: 'Describe the opening activity that gets students interested.' }),
+        activityField('initiation.bg.text', { key: 'initiation.bg', pickPath: 'initiation.bg.pick', label: 'Activity for background knowledge', types: B.activities.background, placeholder: 'Describe how students will bring up what they already know.' }),
         minutesField('initiation.minutes')
       ];
     });
@@ -670,9 +670,9 @@
     'Cover the academic language, how you will model it, and the questions you will ask.',
     function () {
       return [
-        activityField('instruction.lang.text', { key: 'instruction.lang', pickPath: 'instruction.lang.pick', label: 'Academic language instruction', types: B.activities.language, placeholder: 'Slides define dialogue and inner thoughts.' }),
-        activityField('instruction.direct.text', { key: 'instruction.direct', pickPath: 'instruction.direct.pick', label: 'Direct instruction or modeling', types: B.activities.direct, placeholder: 'Two volunteers demonstrate how Bardugo uses dialogue and inner thoughts.' }),
-        activityField('instruction.probing', { key: 'instruction.probing', rows: 3, label: 'Probing questions that push thinking', placeholder: 'Why is it important to have both?', hint: 'One to three questions.' }),
+        activityField('instruction.lang.text', { key: 'instruction.lang', pickPath: 'instruction.lang.pick', label: 'Academic language instruction', types: B.activities.language, placeholder: 'Describe how you will teach the key terms.' }),
+        activityField('instruction.direct.text', { key: 'instruction.direct', pickPath: 'instruction.direct.pick', label: 'Direct instruction or modeling', types: B.activities.direct, placeholder: 'Describe how you will teach or model the new idea.' }),
+        activityField('instruction.probing', { key: 'instruction.probing', rows: 3, label: 'Probing questions that push thinking', placeholder: 'Write one to three questions you will ask to push thinking.', hint: 'One to three questions.' }),
         minutesField('instruction.minutes')
       ];
     });
@@ -682,7 +682,7 @@
     function () {
       return [
         chipsField('guided.grouping', { label: 'How are students grouped?', options: B.grouping, small: true }),
-        activityField('guided.task.text', { key: 'guided.task', pickPath: 'guided.task.pick', label: 'Practice task', types: B.activities.guided, placeholder: 'Pairs find a moment in chapter 19 or 20 and explain why it works.' }),
+        activityField('guided.task.text', { key: 'guided.task', pickPath: 'guided.task.pick', label: 'Practice task', types: B.activities.guided, placeholder: 'Describe what students practice while you support them.' }),
         minutesField('guided.minutes')
       ];
     });
@@ -691,7 +691,7 @@
     'Independent practice shows who can use the skill without help.',
     function () {
       return [
-        activityField('independent.task.text', { key: 'independent.task', pickPath: 'independent.task.pick', label: 'Independent task', types: B.activities.independent, placeholder: 'Students apply what they learned from the mentor text to their own writing.' }),
+        activityField('independent.task.text', { key: 'independent.task', pickPath: 'independent.task.pick', label: 'Independent task', types: B.activities.independent, placeholder: 'Describe what students do on their own.' }),
         checkField('independent.same', 'This is also the assessment', 'The template allows independent practice to double as the assessment.'),
         minutesField('independent.minutes')
       ];
@@ -701,9 +701,9 @@
     'Wrap up the main points and the purpose, and give any homework.',
     function () {
       return [
-        activityField('closure.act.text', { key: 'closure.act', pickPath: 'closure.act.pick', label: 'Closure activity', types: B.activities.closure, placeholder: 'Ask how students used dialogue and inner thoughts in their writing.' }),
-        textField('closure.language', { label: 'How students use academic language', multiline: true, rows: 2, placeholder: 'Students use the terms subtext and inner thought in the share-out.' }),
-        activityField('closure.homework', { key: 'closure.homework', rows: 2, label: 'Homework (optional)', placeholder: 'Leave blank for none' }),
+        activityField('closure.act.text', { key: 'closure.act', pickPath: 'closure.act.pick', label: 'Closure activity', types: B.activities.closure, placeholder: 'Describe how you will wrap up the lesson.' }),
+        textField('closure.language', { label: 'How students use academic language', multiline: true, rows: 2, placeholder: 'Describe how students will use the key terms to close the lesson.' }),
+        activityField('closure.homework', { key: 'closure.homework', rows: 2, label: 'Homework (optional)', placeholder: 'Write the homework, or leave this blank for none.' }),
         minutesField('closure.minutes')
       ];
     });
@@ -711,7 +711,7 @@
   screen('assessment', 'H', 'How will you check that students learned it?',
     'Pick the informal checks and any formal assessment.',
     function () {
-      var rub = textField('assessment.rubric', { label: 'Rubric or grading elements', multiline: true, rows: 3, placeholder: 'Four-point rubric: evidence, explanation, use of terms.' });
+      var rub = textField('assessment.rubric', { label: 'Rubric or grading elements', multiline: true, rows: 3, placeholder: 'List what the rubric or grade will measure.' });
       function sync() { rub.hidden = get('assessment.graded') !== 'Yes'; }
       var out = [
         chipsField('assessment.informal', { label: 'Informal assessment', options: B.assessments.informal, multi: true, small: true }),
