@@ -394,7 +394,7 @@
     });
 
   screen('focus', 'basics', 'What is this lesson about?',
-    'Name the central focus in a short phrase, then pick the skills it builds.',
+    'Name the lesson topic in a short phrase, then pick the skills it builds.',
     function () {
       var bar = null;
       if (profileComplete()) {
@@ -404,8 +404,8 @@
       }
       return [
         bar,
-        textField('focus.text', { label: 'Central focus', placeholder: 'Name the lesson\'s main topic and skill in a few words.', enter: true, hint: 'Keep it short. It is reused inside the research sentences.' }),
-        chipsField('focus.skills', { label: 'Related skills', options: B.skills, multi: true, small: true, hint: 'Pick any that apply.' }),
+        textField('focus.text', { label: 'Lesson topic (the template calls this the central focus)', placeholder: 'Name the lesson\'s main topic and skill in a few words.', enter: true, hint: 'Keep it short. It is reused inside the research sentences.' }),
+        chipsField('focus.skills', { label: 'Skills this lesson builds', options: B.skills, multi: true, small: true, hint: 'Pick any that apply.' }),
         textField('focus.other', { label: 'Another skill (optional)', placeholder: 'Type a skill that is not in the list.' })
       ];
     });
@@ -1052,25 +1052,25 @@
   var RAIL = [
     { label: 'Basics', letter: '•', screens: [0, 1] },
     { label: 'Standards', letter: 'A', screens: [2] },
-    { label: 'Learners', letter: 'B', screens: [3, 4] },
+    { label: 'Your students', letter: 'B', screens: [3, 4] },
     { label: 'Content', letter: 'C', screens: [5] },
-    { label: 'Objective', letter: 'D', screens: [6, 7] },
+    { label: 'Goal', letter: 'D', screens: [6, 7] },
     { label: 'Materials', letter: 'E', screens: [8] },
     { label: 'Grouping', letter: 'F', screens: [9] },
-    { label: 'Activities', letter: 'G', screens: [10, 11, 12, 13, 14] },
-    { label: 'Assessment', letter: 'H', screens: [15] },
-    { label: 'Differentiation', letter: 'I', screens: [16, 17] },
+    { label: 'Lesson steps', letter: 'G', screens: [10, 11, 12, 13, 14] },
+    { label: 'Checking learning', letter: 'H', screens: [15] },
+    { label: 'Support and challenge', letter: 'I', screens: [16, 17] },
     { label: 'Research', letter: 'J', screens: [18] },
     { label: 'Review', letter: '\u2713', screens: [19] },
     { label: 'Your plan', letter: '\u2193', screens: [20] }
   ];
-  var SECTION_NAMES = { basics: 'Basics', A: 'Section A. Standards', B: 'Section B. Learners’ background', C: 'Section C. Content knowledge', D: 'Section D. Objective and essential question', E: 'Section E. Materials', F: 'Section F. Grouping', G: 'Section G. Learning activities', H: 'Section H. Assessment', I: 'Section I. Differentiation', J: 'Section J. Research' };
+  var SECTION_NAMES = { basics: 'Basics', A: 'Standards (template section A)', B: 'Your students and their background (template section B)', C: 'Content (template section C)', D: 'Goal and big question (template section D)', E: 'Materials (template section E)', F: 'Grouping (template section F)', G: 'Lesson steps (template section G)', H: 'Checking learning (template section H)', I: 'Support and challenge (template section I)', J: 'Research (template section J)' };
 
   /* ---------- navigation ---------- */
   function blocker(n) {
     var a = answers;
     if (n === 0 && !(a.basics.teacher.trim() && a.basics.grade && a.basics.period)) return 'Add your name, grade, and class length to continue.';
-    if (n === 1 && !a.focus.text.trim()) return 'Add a central focus to continue.';
+    if (n === 1 && !a.focus.text.trim()) return 'Add a lesson topic to continue.';
     if (n === 2 && !a.standards.length) return 'Pick at least one standard to continue.';
     if (n === 6) { var o = a.objectives[0]; if (!(o.level.length && o.verb.length && o.knowledge.length && o.what.trim())) return 'Pick how hard students think, an action word, and the kind of knowing, then say what students will do.'; }
     if (n === 18) { var c = Object.keys(a.research.checked).filter(function (k) { return a.research.checked[k]; }).length; if (c < 2) return 'Check at least two research connections to continue.'; }
@@ -1122,6 +1122,11 @@
       head = h('h1', { class: 'q', tabindex: '-1' }, 'Build a lesson plan by answering questions.');
       main.append(h('div', { class: 'intro' }, head,
         h('p', { class: 'lede' }, 'One question at a time. You end up with a finished plan in the University of Bridgeport template, ready for Word.'),
+        h('h2', { class: 'intro-h' }, 'Have these ready'),
+        h('ul', null, h('li', null, 'Your lesson topic, in a few words.'), h('li', null, 'The text or book you will use, if any.'), h('li', null, 'The standards you plan to teach. You can search for them as you go.')),
+        h('h2', { class: 'intro-h' }, 'What you get'),
+        h('p', null, 'A Word file in the University of Bridgeport lesson plan template. You can edit every section before you download it.'),
+        h('h2', { class: 'intro-h' }, 'Good to know'),
         h('ul', null, h('li', null, 'No account and no sign-in.'), h('li', null, 'No AI writing for you. You choose from lists and write your own answers.'), h('li', null, 'Your answers stay in your browser, saved on this device. The page loads fonts from Google and one script from cdnjs, so those sites can see that you visited. Use initials or S1, S2 for students.')),
         h('div', { class: 'nav', style: 'margin-top:0' },
           hasDraft ? h('button', { type: 'button', class: 'btn primary', onclick: function () { go(Math.min(Math.max(draft.i, 0), TOTAL + 1)); } }, 'Continue where you left off (question ' + (Math.min(Math.max(draft.i, 0), TOTAL - 1) + 1) + ' of ' + TOTAL + ')') : null,
