@@ -239,7 +239,7 @@
   function swbat(o) {
     var vs = window.LessonAssemble.asList(o.verb);
     if (!vs.length && !o.what) return '';
-    return 'Students will be able to ' + (window.LessonAssemble.joinAnd(vs) || '{verb}') + ' ' + (o.what || '{what}') + (o.purpose ? ' ' + o.purpose : '') + '.';
+    return 'Students will be able to ' + (window.LessonAssemble.joinAnd(vs) || '[action word]') + ' ' + (o.what || '[what students do]') + (o.purpose ? ' ' + o.purpose : '') + '.';
   }
   var PHASES = ['initiation', 'instruction', 'guided', 'independent', 'closure'];
   function totalMinutes() { return PHASES.reduce(function (s, p) { return s + (Number(get(p + '.minutes')) || 0); }, 0); }
@@ -568,23 +568,32 @@
     });
 
   screen('objective', 'D', 'What will students be able to do by the end?',
-    'Pick one or more thinking levels, verbs, and kinds of knowledge. Then say what students will do.',
+    'Build one goal sentence in three quick picks: how hard students think, the action word, and what kind of thing they are learning. Then finish the sentence in your own words.',
     function () {
       var box = h('div', { class: 'fields' });
-      var addBtn = h('button', { type: 'button', class: 'btn small', onclick: function () { answers.objectives.push({ level: [], verb: [], knowledge: [], what: '', purpose: '' }); persist(); paint(); } }, 'Add another objective');
+      var addBtn = h('button', { type: 'button', class: 'btn small', onclick: function () { answers.objectives.push({ level: [], verb: [], knowledge: [], what: '', purpose: '' }); persist(); paint(); } }, 'Add another goal');
       function paint() {
         box.textContent = '';
         answers.objectives.forEach(function (o, ix) {
-          var prev = h('p', { class: 'preview', 'aria-live': 'polite' }, swbat(o) || 'Your objective will appear here.');
-          function upd() { multiHint.hidden = o.verb.length < 2; prev.textContent = swbat(o) || 'Your objective will appear here.'; if (typeof whatLab !== 'undefined') whatLab.textContent = 'Students will ' + (window.LessonAssemble.joinAnd(o.verb) || 'do what?'); persist(); }
+          var prev = h('p', { class: 'preview', 'aria-live': 'polite' }, swbat(o) || 'Your goal sentence builds here as you pick.');
+          function upd() { multiHint.hidden = o.verb.length < 2; prev.textContent = swbat(o) || 'Your goal sentence builds here as you pick.'; if (typeof whatLab !== 'undefined') whatLab.textContent = 'Students will ' + (window.LessonAssemble.joinAnd(o.verb) || 'do what?'); persist(); }
           var verbWrap = h('div', { class: 'field' });
-          var multiHint = h('p', { class: 'hint' }, 'Every verb applies to everything you write below. If a verb fits only part of it, add a second objective.');
+          var multiHint = h('p', { class: 'hint' }, 'Every action word you pick applies to everything you write below. If a word fits only part of it, add a second goal.');
           multiHint.hidden = o.verb.length < 2;
+          var kEx = h('div', { class: 'fields', style: 'gap:2px' });
+          function paintKEx() {
+            kEx.textContent = '';
+            B.knowledge.filter(function (k) { return o.knowledge.indexOf(k) >= 0; }).forEach(function (k) {
+              kEx.append(h('p', { class: 'hint' }, k + ', for example: ' + B.knowledgeMeaning[k].example + '.'));
+            });
+          }
+          paintKEx();
           function paintVerbs() {
             verbWrap.textContent = '';
-            verbWrap.append(h('div', { class: 'lab' }, o.level.length > 1 ? 'Verbs' : 'Verb'));
-            if (!o.level.length) { verbWrap.append(h('p', { class: 'hint' }, 'Pick a level first.')); return; }
-            if (o.level.length > 1) verbWrap.append(h('p', { class: 'hint' }, 'Pick one or more. They are grouped by level.'));
+            verbWrap.append(h('div', { class: 'lab' }, o.level.length > 1 ? 'Pick the action words.' : 'Pick the action word.'));
+            verbWrap.append(h('p', { class: 'hint' }, 'Choose something you could watch or grade. Words like understand or know cannot be checked.'));
+            if (!o.level.length) { verbWrap.append(h('p', { class: 'hint' }, 'Pick how hard students think first. The action words appear here.')); return; }
+            if (o.level.length > 1) verbWrap.append(h('p', { class: 'hint' }, 'Pick one or more. They are grouped by how hard students think.'));
             // The verbs for each picked level, under the level name.
             Object.keys(B.bloom).filter(function (l) { return o.level.indexOf(l) >= 0; }).forEach(function (l) {
               if (o.level.length > 1) verbWrap.append(h('div', { class: 'hint', style: 'margin-top:8px' }, l));
@@ -600,14 +609,15 @@
           var whatId = nid(), purId = nid();
           var whatLab = h('label', { for: whatId, class: 'lab', style: 'font-weight:700' }, 'Students will ' + (window.LessonAssemble.joinAnd(o.verb) || 'do what?'));
           var what = h('input', { id: whatId, type: 'text', placeholder: 'Say what students will do or produce.', value: o.what });
-          var pur = h('input', { id: purId, type: 'text', placeholder: 'Optional: say why, or what students will use it for.', value: o.purpose });
+          var pur = h('input', { id: purId, type: 'text', placeholder: 'Optional: say why it matters, or what students will use it for.', value: o.purpose });
           what.addEventListener('input', function () { o.what = what.value; upd(); });
           pur.addEventListener('input', function () { o.purpose = pur.value; upd(); });
           var rm = ix > 0 ? h('button', { type: 'button', class: 'btn quiet small', onclick: function () { answers.objectives.splice(ix, 1); persist(); paint(); } }, 'Remove') : null;
           paintVerbs();
           box.append(h('div', { class: 'sub' },
-            h('div', { class: 'sub-head' }, h('strong', null, 'Objective ' + (ix + 1)), rm),
-            field('Level of thinking', chipGroup({ options: Object.keys(B.bloom), small: true, multi: true, aria: 'Level of thinking',
+            h('div', { class: 'sub-head' }, h('strong', null, 'Goal ' + (ix + 1)), rm),
+            field('How hard should students think?', chipGroup({ options: Object.keys(B.bloom), small: true, multi: true, aria: 'How hard should students think? (level of thinking)',
+              render: function (l) { return l + ': ' + B.levelMeaning[l]; },
               get: function () { return o.level; },
               set: function (a) {
                 o.level = Object.keys(B.bloom).filter(function (l) { return a.indexOf(l) >= 0; });
@@ -615,17 +625,23 @@
                 o.verb = o.verb.filter(function (x) { return o.level.some(function (l) { return B.bloom[l].indexOf(x) >= 0; }); });
                 upd();
               },
-              after: paintVerbs }), 'Pick one or more.'),
+              after: paintVerbs }), 'Pick the hardest thing you will ask of them. You can pick more than one.'),
             verbWrap, multiHint,
-            field('Kind of knowledge', chipGroup({ options: B.knowledge, small: true, multi: true, aria: 'Kind of knowledge', get: function () { return o.knowledge; }, set: function (a) { o.knowledge = B.knowledge.filter(function (k) { return a.indexOf(k) >= 0; }); upd(); } }), 'Pick one or more.'),
+            field('What kind of knowing is it?', [chipGroup({ options: B.knowledge, small: true, multi: true, aria: 'What kind of knowing is it? (kind of knowledge)',
+              render: function (k) { return k + ': ' + B.knowledgeMeaning[k].short; },
+              get: function () { return o.knowledge; }, set: function (a) { o.knowledge = B.knowledge.filter(function (k) { return a.indexOf(k) >= 0; }); upd(); paintKEx(); } }), kEx], 'Pick what students are learning. You can pick more than one.'),
             field(null, [whatLab, what], null, whatId),
-            field('To, or so that (optional)', pur, null, purId),
+            field('Why does it matter? (optional)', pur, 'This ends the sentence, for example: so they can show a character\u2019s thoughts.', purId),
             prev));
         });
         addBtn.hidden = answers.objectives.length >= 3;
       }
       paint();
-      return [box, addBtn];
+      var explain = h('details', { class: 'explain' },
+        h('summary', null, 'What are these picks?'),
+        h('p', { class: 'hint' }, 'How hard students think comes from Bloom\u2019s taxonomy, a common way to describe thinking from remembering up to creating.'),
+        h('p', { class: 'hint' }, 'The kind of knowing describes what students are learning: facts, ideas, steps, or thinking about their own thinking. Your picks also shape the research sentence about Bloom later in the plan.'));
+      return [explain, box, addBtn];
     });
 
   screen('eq', 'D', 'What essential question will drive the lesson?',
@@ -1056,7 +1072,7 @@
     if (n === 0 && !(a.basics.teacher.trim() && a.basics.grade && a.basics.period)) return 'Add your name, grade, and class length to continue.';
     if (n === 1 && !a.focus.text.trim()) return 'Add a central focus to continue.';
     if (n === 2 && !a.standards.length) return 'Pick at least one standard to continue.';
-    if (n === 6) { var o = a.objectives[0]; if (!(o.level.length && o.verb.length && o.knowledge.length && o.what.trim())) return 'Pick at least one level, verb, and kind of knowledge, and say what students will do.'; }
+    if (n === 6) { var o = a.objectives[0]; if (!(o.level.length && o.verb.length && o.knowledge.length && o.what.trim())) return 'Pick how hard students think, an action word, and the kind of knowing, then say what students will do.'; }
     if (n === 18) { var c = Object.keys(a.research.checked).filter(function (k) { return a.research.checked[k]; }).length; if (c < 2) return 'Check at least two research connections to continue.'; }
     return '';
   }

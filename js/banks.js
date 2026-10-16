@@ -9,6 +9,21 @@ window.LP_BANKS = {
     Create: ['write', 'compose', 'design', 'develop', 'produce', 'plan']
   },
   knowledge: ['factual', 'conceptual', 'procedural', 'metacognitive'],
+  // Plain meanings shown next to the level and knowledge picks on the objective screen. Display only: the stored values stay the words above.
+  levelMeaning: {
+    Remember: 'recall facts or terms',
+    Understand: 'explain in their own words',
+    Apply: 'use a skill in a new situation',
+    Analyze: 'break something apart to see how it works',
+    Evaluate: 'judge something and defend the judgment',
+    Create: 'make something new'
+  },
+  knowledgeMeaning: {
+    factual: { short: 'facts and vocabulary', example: 'the parts of a dialogue tag' },
+    conceptual: { short: 'ideas and how things connect', example: 'how dialogue shows character' },
+    procedural: { short: 'steps and how to do something', example: 'how to punctuate dialogue' },
+    metacognitive: { short: 'thinking about their own thinking', example: 'noticing which revision habits work for you' }
+  },
   notMeasurable: ['understand', 'know', 'learn', 'appreciate', 'be aware of', 'become familiar with'],
   priorStarters: [
     'Students have read {text} up to {point}.',
