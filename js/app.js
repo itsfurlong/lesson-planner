@@ -21,7 +21,7 @@
       prior: { pick: '', text: '' },
       assets: { picks: [], detail: '' },
       content: { ideas: '', terms: [{ term: '', definition: '' }], termsAuto: true, links: [] },
-      objectives: [{ level: '', verb: '', knowledge: '', what: '', purpose: '' }],
+      objectives: [{ level: [], verb: [], knowledge: [], what: '', purpose: '' }],
       eq: { pick: '', text: '' },
       materials: { picks: [], text: '', other: '' },
       grouping: { picks: [], otherPattern: '', seating: '', otherSeating: '', movement: '' },
@@ -52,7 +52,14 @@
   var draft = store.read('lp.draft');
   var hasDraft = !!(draft && draft.answers && draft.i >= 0);
   if (hasDraft) { answers = merge(blank(), draft.answers); answers.focus.skills = (answers.focus.skills || []).map(function (x) { return x === 'Informational writing' ? 'Informational/Expository writing' : x; }); if (!draft.answers.content || draft.answers.content.termsAuto === undefined) answers.content.termsAuto = (answers.content.terms || []).every(function (t) { return !String(t.term || '').trim() && !String(t.definition || '').trim(); });
+    normObjectives();
     i = -1; maxSeen = draft.maxSeen || draft.i || 0; }
+
+  // Level, verb and knowledge are lists. Older drafts saved single strings.
+  function normObjectives() {
+    var AL = window.LessonAssemble.asList;
+    (answers.objectives || []).forEach(function (o) { o.level = AL(o.level); o.verb = AL(o.verb); o.knowledge = AL(o.knowledge); });
+  }
 
   function persist() {
     store.write('lp.draft', { answers: answers, i: i, maxSeen: maxSeen });
@@ -225,8 +232,9 @@
   /* ---------- helpers for derived text ---------- */
   function lowerFirst(s) { return s ? s.charAt(0).toLowerCase() + s.slice(1) : s; }
   function swbat(o) {
-    if (!o.verb && !o.what) return '';
-    return 'Students will be able to ' + (o.verb || '{verb}') + ' ' + (o.what || '{what}') + (o.purpose ? ' ' + o.purpose : '') + '.';
+    var vs = window.LessonAssemble.asList(o.verb);
+    if (!vs.length && !o.what) return '';
+    return 'Students will be able to ' + (window.LessonAssemble.joinAnd(vs) || '{verb}') + ' ' + (o.what || '{what}') + (o.purpose ? ' ' + o.purpose : '') + '.';
   }
   var PHASES = ['initiation', 'instruction', 'guided', 'independent', 'closure'];
   function totalMinutes() { return PHASES.reduce(function (s, p) { return s + (Number(get(p + '.minutes')) || 0); }, 0); }
@@ -458,21 +466,21 @@
     'Pick the thinking level, a verb, and the kind of knowledge. Then say what students will do.',
     function () {
       var box = h('div', { class: 'fields' });
-      var addBtn = h('button', { type: 'button', class: 'btn small', onclick: function () { answers.objectives.push({ level: '', verb: '', knowledge: '', what: '', purpose: '' }); persist(); paint(); } }, 'Add another objective');
+      var addBtn = h('button', { type: 'button', class: 'btn small', onclick: function () { answers.objectives.push({ level: [], verb: [], knowledge: [], what: '', purpose: '' }); persist(); paint(); } }, 'Add another objective');
       function paint() {
         box.textContent = '';
         answers.objectives.forEach(function (o, ix) {
           var prev = h('p', { class: 'preview', 'aria-live': 'polite' }, swbat(o) || 'Your objective will appear here.');
-          function upd() { prev.textContent = swbat(o) || 'Your objective will appear here.'; if (typeof whatLab !== 'undefined') whatLab.textContent = 'Students will ' + (o.verb || 'do what?'); persist(); }
+          function upd() { prev.textContent = swbat(o) || 'Your objective will appear here.'; if (typeof whatLab !== 'undefined') whatLab.textContent = 'Students will ' + (window.LessonAssemble.joinAnd(o.verb) || 'do what?'); persist(); }
           var verbWrap = h('div', { class: 'field' });
           function paintVerbs() {
             verbWrap.textContent = '';
-            if (!o.level) { verbWrap.append(h('div', { class: 'lab' }, 'Verb'), h('p', { class: 'hint' }, 'Pick a level first.')); return; }
-            verbWrap.append(h('div', { class: 'lab' }, 'Verb'), chipGroup({ options: B.bloom[o.level], small: true, aria: 'Verb',
-              get: function () { return o.verb; }, set: function (v) { o.verb = v; upd(); } }));
+            if (!o.level.length) { verbWrap.append(h('div', { class: 'lab' }, 'Verb'), h('p', { class: 'hint' }, 'Pick a level first.')); return; }
+            verbWrap.append(h('div', { class: 'lab' }, 'Verb'), chipGroup({ options: B.bloom[o.level[0]], small: true, aria: 'Verb',
+              get: function () { return o.verb[0] || ''; }, set: function (v) { o.verb = v ? [v] : []; upd(); } }));
           }
           var whatId = nid(), purId = nid();
-          var whatLab = h('label', { for: whatId, class: 'lab', style: 'font-weight:700' }, 'Students will ' + (o.verb || 'do what?'));
+          var whatLab = h('label', { for: whatId, class: 'lab', style: 'font-weight:700' }, 'Students will ' + (window.LessonAssemble.joinAnd(o.verb) || 'do what?'));
           var what = h('input', { id: whatId, type: 'text', placeholder: 'Bardugo’s use of dialogue and inner thoughts in chapters 19 and 20', value: o.what });
           var pur = h('input', { id: purId, type: 'text', placeholder: 'to develop the relationship between Nina and Matthias', value: o.purpose });
           what.addEventListener('input', function () { o.what = what.value; upd(); });
@@ -482,11 +490,11 @@
           box.append(h('div', { class: 'sub' },
             h('div', { class: 'sub-head' }, h('strong', null, 'Objective ' + (ix + 1)), rm),
             field('Level of thinking', chipGroup({ options: Object.keys(B.bloom), small: true, aria: 'Level of thinking',
-              get: function () { return o.level; },
-              set: function (v) { o.level = v; if (o.verb && B.bloom[v] && B.bloom[v].indexOf(o.verb) < 0) o.verb = ''; upd(); },
+              get: function () { return o.level[0] || ''; },
+              set: function (v) { o.level = v ? [v] : []; o.verb = o.verb.filter(function (x) { return v && B.bloom[v] && B.bloom[v].indexOf(x) >= 0; }); upd(); },
               after: paintVerbs })),
             verbWrap,
-            field('Kind of knowledge', chipGroup({ options: B.knowledge, small: true, aria: 'Kind of knowledge', get: function () { return o.knowledge; }, set: function (v) { o.knowledge = v; upd(); } })),
+            field('Kind of knowledge', chipGroup({ options: B.knowledge, small: true, aria: 'Kind of knowledge', get: function () { return o.knowledge[0] || ''; }, set: function (v) { o.knowledge = v ? [v] : []; upd(); } })),
             field(null, [whatLab, what], null, whatId),
             field('To, or so that (optional)', pur, null, purId),
             prev));
@@ -904,7 +912,7 @@
     if (n === 0 && !(a.basics.teacher.trim() && a.basics.grade && a.basics.period)) return 'Add your name, grade, and class length to continue.';
     if (n === 1 && !a.focus.text.trim()) return 'Add a central focus to continue.';
     if (n === 2 && !a.standards.length) return 'Pick at least one standard to continue.';
-    if (n === 6) { var o = a.objectives[0]; if (!(o.level && o.verb && o.knowledge && o.what.trim())) return 'Pick a level, verb, and kind of knowledge, and say what students will do.'; }
+    if (n === 6) { var o = a.objectives[0]; if (!(o.level.length && o.verb.length && o.knowledge.length && o.what.trim())) return 'Pick a level, verb, and kind of knowledge, and say what students will do.'; }
     if (n === 18) { var c = Object.keys(a.research.checked).filter(function (k) { return a.research.checked[k]; }).length; if (c < 2) return 'Check at least two research connections to continue.'; }
     return '';
   }

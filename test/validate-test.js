@@ -32,3 +32,13 @@ t('em dash edit',(a,m)=>{m.sections.B='a—b';},[8]);
 t('rubric',a=>{a.assessment.graded='Yes';},[9]);
 t('slot',(a,m)=>{m.sections.E='{x}';},[10]);
 t('D edited to understand',(a,m)=>{m.sections.D='SWBAT: Students will be able to understand x.';},[2]);
+
+// Several levels, verbs and kinds; older drafts saved single strings.
+t('string draft still clean',()=>{},[]);
+t('two levels, two verbs, two kinds',a=>{a.objectives[0]={level:['Analyze','Create'],verb:['analyze','write'],knowledge:['conceptual','procedural'],what:'x',purpose:''};},[]);
+t('verbs from different picked levels ok',a=>{a.objectives[0]={level:['Analyze','Create'],verb:['examine','design'],knowledge:['conceptual'],what:'x',purpose:''};},[]);
+t('not measurable verb in a list',a=>{a.objectives[0]={level:['Analyze','Create'],verb:['analyze','understand'],knowledge:['conceptual'],what:'x',purpose:''};},[2]);
+t('verb outside every picked level',a=>{a.objectives[0]={level:['Analyze','Create'],verb:['analyze','define'],knowledge:['conceptual'],what:'x',purpose:''};},[2]);
+t('empty lists',a=>{a.objectives[0]={level:[],verb:[],knowledge:[],what:'x',purpose:''};},[2,3]);
+t('no kinds, level and verb present',a=>{a.objectives[0]={level:['Analyze'],verb:['analyze'],knowledge:[],what:'x',purpose:''};},[3]);
+t('second objective empty lists is skipped',a=>{a.objectives.push({level:[],verb:[],knowledge:[],what:'',purpose:''});},[]);

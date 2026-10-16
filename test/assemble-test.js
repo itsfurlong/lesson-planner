@@ -27,4 +27,23 @@ eq('other seating alone', F({ otherSeating: 'Gather in a circle on the rug' }), 
 eq('chip seating plus other seating', F({ seating: 'Rearranged desks', otherSeating: 'gather on the rug.' }), 'The class will sit in rearranged desks, and gather on the rug.');
 eq('no other fields, same as before', F({ picks: ['Partners'], seating: 'Rearranged desks' }), 'The class will sit in rearranged desks. Students will work in partners during the lesson.');
 eq('old draft without other fields still builds', LA.build(answers({ grouping: { picks: ['Partners'], seating: 'Normal seats', movement: '' } }), [], []).sections.F, 'The class will sit in their normal seats. Students will work in partners during the lesson.');
+
+// Objective and Bloom sentence with one or several levels, verbs and kinds.
+const cites = require('../data/citations.json');
+const bloom = cites.filter(c => /Bloom/.test(c.name))[0];
+const OB = (o) => answers({ objectives: [Object.assign({ level: [], verb: [], knowledge: [], what: 'a three-paragraph scene', purpose: '' }, o)] });
+const J = (o) => LA.fillSentence(bloom, OB(o));
+const S = (o) => LA.swbat(OB(o).objectives[0]);
+eq('one verb, string draft', S({ verb: 'write', level: 'Create', knowledge: 'procedural' }), 'Students will be able to write a three-paragraph scene.');
+eq('one verb, list', S({ verb: ['write'] }), 'Students will be able to write a three-paragraph scene.');
+eq('two verbs', S({ verb: ['analyze', 'write'] }), 'Students will be able to analyze and write a three-paragraph scene.');
+eq('three verbs', S({ verb: ['analyze', 'compare', 'write'] }), 'Students will be able to analyze, compare and write a three-paragraph scene.');
+eq('no verb, no sentence', S({ verb: [] }), '');
+eq('Bloom sentence, one of each (string)', J({ verb: 'write', level: 'Create', knowledge: 'procedural' }), 'The objective uses the verb "write", which sits at the Create level of the revised Bloom\'s taxonomy and asks students to work with procedural knowledge (Anderson & Krathwohl, 2001).');
+eq('Bloom sentence, one of each (list) same', J({ verb: ['write'], level: ['Create'], knowledge: ['procedural'] }), J({ verb: 'write', level: 'Create', knowledge: 'procedural' }));
+eq('Bloom sentence, several', J({ verb: ['analyze', 'write'], level: ['Analyze', 'Create'], knowledge: ['conceptual', 'procedural'] }), 'The objective uses the verbs "analyze" and "write", which sit at the Analyze and Create levels of the revised Bloom\'s taxonomy and ask students to work with conceptual and procedural knowledge (Anderson & Krathwohl, 2001).');
+eq('Bloom sentence, two verbs one level', J({ verb: ['analyze', 'compare'], level: ['Analyze'], knowledge: ['conceptual'] }), 'The objective uses the verbs "analyze" and "compare", which sit at the Analyze level of the revised Bloom\'s taxonomy and ask students to work with conceptual knowledge (Anderson & Krathwohl, 2001).');
+eq('Bloom sentence, one verb two levels', J({ verb: ['write'], level: ['Create', 'Evaluate'], knowledge: ['procedural'] }), 'The objective uses the verb "write", which sits at the Create and Evaluate levels of the revised Bloom\'s taxonomy and asks students to work with procedural knowledge (Anderson & Krathwohl, 2001).');
+eq('Bloom sentence, nothing picked keeps slots', J({}), 'The objective uses the verb "{verb}", which sits at the {level} level of the revised Bloom\'s taxonomy and asks students to work with {knowledge type} knowledge (Anderson & Krathwohl, 2001).');
+eq('Section D uses the joined verbs', LA.build(OB({ verb: ['analyze', 'write'], level: ['Analyze', 'Create'], knowledge: ['conceptual'] }), [], []).sections.D.indexOf('analyze and write a three-paragraph scene') >= 0, true);
 process.exit(fails ? 1 : 0);

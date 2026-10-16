@@ -24,6 +24,12 @@
     if (items.length <= 1) return items.join('');
     return items.slice(0, -1).join(', ') + ' and ' + items[items.length - 1];
   }
+  // Level, verb and knowledge can be one string (older drafts) or a list. Always work with a list of non-empty strings.
+  function asList(x) {
+    if (Array.isArray(x)) return x.map(trim).filter(Boolean);
+    var s = trim(x);
+    return s ? [s] : [];
+  }
   function sentenceList(items) {
     items = items.filter(Boolean).map(trim);
     return list(items.map(function (x, i) { return i === 0 ? x : lowerFirst(x); }));
@@ -40,7 +46,12 @@
     var o = a.objectives[0] || {}, v = {};
     var focus = a.focus.text ? trim(lowerFirst(a.focus.text).split(':')[0]) : '{topic}';
     var partnered = (a.grouping.picks || []).some(function (p) { return /partner|group|jigsaw|stations/i.test(p); });
-    if (/Bloom/.test(entry.name)) { v['verb'] = o.verb || '{verb}'; v['level'] = o.level || '{level}'; v['knowledge type'] = o.knowledge || '{knowledge type}'; }
+    if (/Bloom/.test(entry.name)) {
+      var vs = asList(o.verb), ls = asList(o.level), ks = asList(o.knowledge);
+      v['verb'] = vs.length > 1 ? list(vs.map(function (x) { return '"' + x + '"'; })) : (vs[0] || '{verb}');
+      v['level'] = list(ls) || '{level}';
+      v['knowledge type'] = list(ks) || '{knowledge type}';
+    }
     if (/Gradual/.test(entry.name)) {
       v['modeled'] = lowerFirst(a.instruction.direct.pick || 'teacher modeling');
       v['guided'] = lowerFirst(a.guided.task.pick || 'guided practice');
@@ -58,14 +69,21 @@
   }
   var LEARNERS = { 'ELL': 'English language learners', 'IEP': 'students with IEPs', '504 plan': 'students with 504 plans', 'ADHD': 'students with ADHD', 'Struggling reader': 'struggling readers' };
   function fillSentence(entry, a) {
-    var v = slotValues(entry, a);
-    return entry.connection_template.replace(/\{([^}]+)\}/g, function (m, k) { return v[k] != null ? v[k] : m; });
+    var v = slotValues(entry, a), tpl = entry.connection_template;
+    if (/Bloom/.test(entry.name)) {
+      // Plural wording on top of the template. One of each reads exactly as the template says.
+      var bo = (a.objectives || [])[0] || {};
+      if (asList(bo.verb).length > 1) tpl = tpl.replace('the verb "{verb}"', 'the verbs {verb}').replace('which sits at', 'which sit at').replace('and asks students', 'and ask students');
+      if (asList(bo.level).length > 1) tpl = tpl.replace('{level} level of', '{level} levels of');
+    }
+    return tpl.replace(/\{([^}]+)\}/g, function (m, k) { return v[k] != null ? v[k] : m; });
   }
 
   /* ---- sections ---- */
   function swbat(o) {
-    if (!o.verb || !trim(o.what)) return '';
-    return 'Students will be able to ' + o.verb + ' ' + stripEnd(o.what) + (trim(o.purpose) ? ' ' + stripEnd(o.purpose) : '') + '.';
+    var vs = asList(o.verb);
+    if (!vs.length || !trim(o.what)) return '';
+    return 'Students will be able to ' + list(vs) + ' ' + stripEnd(o.what) + (trim(o.purpose) ? ' ' + stripEnd(o.purpose) : '') + '.';
   }
   var SEATING = {
     'Normal seats': 'sit in their normal seats',
@@ -215,5 +233,5 @@
     return plan;
   }
 
-  return { build: build, toPlan: toPlan, fillSentence: fillSentence, placeholders: placeholders, swbat: swbat };
+  return { build: build, toPlan: toPlan, fillSentence: fillSentence, placeholders: placeholders, swbat: swbat, asList: asList, joinAnd: list };
 });

@@ -67,17 +67,22 @@
     }
 
     /* 2 and 3. Objectives */
+    function asList(x) { return (Array.isArray(x) ? x : [x]).map(function (y) { return str(y).trim(); }).filter(Boolean); }
     var notMeasurable = (banks.notMeasurable || []).map(function (x) { return x.toLowerCase(); });
     (a.objectives || []).forEach(function (o, n) {
-      var any = o.level || o.verb || o.knowledge || !blank(o.what) || !blank(o.purpose);
+      var levels = asList(o.level), verbs = asList(o.verb), kinds = asList(o.knowledge);
+      var any = levels.length || verbs.length || kinds.length || !blank(o.what) || !blank(o.purpose);
       if (n > 0 && !any) return;
       var label = 'Objective' + ordinal(n);
-      var verb = str(o.verb).trim().toLowerCase();
-      if (!verb) fail(2, label + ' has no verb.', [fix('Pick a verb', S.objective)]);
-      else if (notMeasurable.indexOf(verb) >= 0) fail(2, label + ' uses “' + verb + '”, which cannot be measured. Pick a verb you could watch or grade.', [fix('Change the verb', S.objective)]);
-      else if (o.level && banks.bloom && banks.bloom[o.level] && banks.bloom[o.level].indexOf(verb) < 0) fail(2, label + ' uses “' + verb + '”, which is not a ' + o.level + ' verb.', [fix('Change the verb', S.objective)]);
-      if (!o.level) fail(3, label + ' has no Bloom level.', [fix('Pick a level', S.objective)]);
-      if (!o.knowledge) fail(3, label + ' has no kind of knowledge (factual, conceptual, procedural, metacognitive).', [fix('Pick a kind', S.objective)]);
+      if (!verbs.length) fail(2, label + ' has no verb.', [fix('Pick a verb', S.objective)]);
+      verbs.forEach(function (raw) {
+        var verb = raw.toLowerCase();
+        var known = levels.filter(function (l) { return banks.bloom && banks.bloom[l]; });
+        if (notMeasurable.indexOf(verb) >= 0) fail(2, label + ' uses “' + verb + '”, which cannot be measured. Pick a verb you could watch or grade.', [fix('Change the verb', S.objective)]);
+        else if (known.length && !known.some(function (l) { return banks.bloom[l].indexOf(verb) >= 0; })) fail(2, label + ' uses “' + verb + '”, which is not a ' + (known.length > 1 ? 'verb for any picked level (' + known.join(', ') + ')' : known[0] + ' verb') + '.', [fix('Change the verb', S.objective)]);
+      });
+      if (!levels.length) fail(3, label + ' has no Bloom level.', [fix('Pick a level', S.objective)]);
+      if (!kinds.length) fail(3, label + ' has no kind of knowledge (factual, conceptual, procedural, metacognitive).', [fix('Pick a kind', S.objective)]);
       if (blank(o.what)) fail(3, label + ' does not say what students will do.', [fix('Finish the objective', S.objective)]);
     });
     // The text that goes into the file can still be edited on the plan screen.
