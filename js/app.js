@@ -154,6 +154,51 @@
       get: function () { return get(path); }, set: function (v) { set(path, v); }, after: o.after });
     return field(o.label, g, o.hint);
   }
+  // What students already know: suggestions from the skills picked on the second question. A click adds the sentence to the box, a second click takes it out.
+  function priorField() {
+    var id = nid();
+    var ta = h('textarea', { id: id, rows: 5, placeholder: 'Students have read Six of Crows up to chapters 19 and 20.' });
+    ta.value = get('prior.text') || '';
+    var topic = String(answers.focus.text || '').split(':')[0].trim();
+    function fill(t) { return topic ? t.replace(/\{topic\}/g, topic) : t; }
+    var skills = (answers.focus.skills || []).filter(function (k) { return B.priorSuggestions[k]; });
+    var groups = skills.length ? skills.map(function (k) { return { name: k, items: B.priorSuggestions[k].map(fill) }; })
+      : [{ name: '', items: B.priorStarters }];
+    var wrap = h('div', { class: 'suggest' });
+    function lines() { return ta.value.split('\n').map(function (x) { return x.trim(); }); }
+    function save() { set('prior.text', ta.value); paint(); }
+    function paint() {
+      wrap.textContent = '';
+      var have = lines();
+      groups.forEach(function (g) {
+        if (g.name) wrap.append(h('div', { class: 'hint', style: 'margin-top:10px' }, g.name));
+        var row = h('div', { class: 'chips' });
+        g.items.forEach(function (t) {
+          var on = have.indexOf(t) >= 0;
+          var b = h('button', { type: 'button', class: 'chip small', 'aria-pressed': String(on) }, t);
+          b.addEventListener('click', function () {
+            if (on) {
+              ta.value = ta.value.split('\n').filter(function (x) { return x.trim() !== t; }).join('\n').replace(/^\n+|\n+$/g, '');
+            } else {
+              ta.value = ta.value.trim() ? ta.value.replace(/\s+$/, '') + '\n' + t : t;
+            }
+            save();
+          });
+          row.append(b);
+        });
+        wrap.append(row);
+      });
+    }
+    ta.addEventListener('input', function () { set('prior.text', ta.value); paint(); });
+    paint();
+    return h('div', { class: 'field' },
+      h('div', { class: 'lab' }, 'What students already know'),
+      h('p', { class: 'hint' }, skills.length ? 'Suggestions come from the skills you picked. Click one to add it, then edit it to match your class. Fill in anything in {braces}.' : 'Click a starter and finish it, or write your own. Fill in anything in {braces}.'),
+      wrap,
+      h('label', { for: id, class: 'sr' }, 'What students already know details'),
+      ta);
+  }
+
   // Pick a starter or type of activity, then say the specifics in text.
   function pickText(base, o) {
     var id = nid();
@@ -342,7 +387,7 @@
   screen('prior', 'B', 'What do students already know?',
     'Start from a sentence and finish it, or write your own.',
     function () {
-      return [pickText('prior', { label: 'What students already know', options: B.priorStarters, prefill: true, rows: 4, placeholder: 'Students have read Six of Crows up to chapters 19 and 20.', hint: 'Fill in anything in {braces}.' })];
+      return [priorField()];
     });
 
   screen('assets', 'B', 'What strengths do students bring that this lesson can use?',
