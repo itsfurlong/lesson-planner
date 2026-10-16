@@ -160,7 +160,7 @@
     return wrap;
   }
   function chipsField(path, o) {
-    var g = chipGroup({ options: o.options, multi: o.multi, max: o.max, sticky: o.sticky, small: o.small, aria: o.label,
+    var g = chipGroup({ options: o.options, multi: o.multi, max: o.max, sticky: o.sticky, small: o.small, aria: o.label, render: o.render,
       get: function () { return get(path); }, set: function (v) { set(path, v); }, after: o.after });
     return field(o.label, g, o.hint);
   }
@@ -293,7 +293,7 @@
     for (var m = 1; m <= Math.max(max, Number(cur) || 0); m++) sel.append(h('option', { value: String(m) }, m + (m === 1 ? ' minute' : ' minutes')));
     sel.value = cur;
     sel.addEventListener('change', function () { set(path, sel.value); tl.update(); });
-    var f = field('How many minutes?', sel, 'Your class period is ' + (answers.basics.period || '?') + ' minutes. The five phases should add up to it.', id);
+    var f = field('How many minutes?', sel, 'Your class period is ' + (answers.basics.period || '?') + ' minutes. The five parts of the lesson should add up to it.', id);
     return [f, tl];
   }
 
@@ -687,8 +687,9 @@
     'Plan the opening activity and how you will bring out what students already know.',
     function () {
       return [
-        activityField('initiation.motivating.text', { key: 'initiation.motivating', pickPath: 'initiation.motivating.pick', label: 'Motivating and engaging activity', types: B.activities.motivating, placeholder: 'Describe the opening activity that gets students interested.' }),
-        activityField('initiation.bg.text', { key: 'initiation.bg', pickPath: 'initiation.bg.pick', label: 'Activity for background knowledge', types: B.activities.background, placeholder: 'Describe how students will bring up what they already know.' }),
+        activityField('initiation.motivating.text', { key: 'initiation.motivating', pickPath: 'initiation.motivating.pick', label: 'A hook that gets students interested', types: B.activities.motivating, placeholder: 'Describe the opening activity that gets students interested.' }),
+        activityField('initiation.bg.text', { key: 'initiation.bg', pickPath: 'initiation.bg.pick', label: 'An activity that brings out what students already know', types: B.activities.background, placeholder: 'Describe how students will bring up what they already know.' }),
+        glossaryFor(['KWL chart', 'Anticipation guide', 'Think-pair-share']),
         minutesField('initiation.minutes')
       ];
     });
@@ -697,9 +698,10 @@
     'Cover the academic language, how you will model it, and the questions you will ask.',
     function () {
       return [
-        activityField('instruction.lang.text', { key: 'instruction.lang', pickPath: 'instruction.lang.pick', label: 'Academic language instruction', types: B.activities.language, placeholder: 'Describe how you will teach the key terms.' }),
-        activityField('instruction.direct.text', { key: 'instruction.direct', pickPath: 'instruction.direct.pick', label: 'Direct instruction or modeling', types: B.activities.direct, placeholder: 'Describe how you will teach or model the new idea.' }),
-        activityField('instruction.probing', { key: 'instruction.probing', rows: 3, label: 'Probing questions that push thinking', placeholder: 'Write one to three questions you will ask to push thinking.', hint: 'One to three questions.' }),
+        activityField('instruction.lang.text', { key: 'instruction.lang', pickPath: 'instruction.lang.pick', label: 'Teaching the key words', types: B.activities.language, placeholder: 'Describe how you will teach the key terms.' }),
+        activityField('instruction.direct.text', { key: 'instruction.direct', pickPath: 'instruction.direct.pick', label: 'Teaching the new idea (you show how)', types: B.activities.direct, placeholder: 'Describe how you will teach or model the new idea.' }),
+        activityField('instruction.probing', { key: 'instruction.probing', rows: 3, label: 'Questions to ask while you teach', placeholder: 'Write one to three questions you will ask to push thinking.', hint: 'One to three questions that make students explain their thinking.' }),
+        glossaryFor(['Mentor text', 'Word wall', 'Graphic organizer']),
         minutesField('instruction.minutes')
       ];
     });
@@ -710,6 +712,7 @@
       return [
         chipsField('guided.grouping', { label: 'How are students grouped?', options: B.grouping, small: true }),
         activityField('guided.task.text', { key: 'guided.task', pickPath: 'guided.task.pick', label: 'Practice task', types: B.activities.guided, placeholder: 'Describe what students practice while you support them.' }),
+        glossaryFor(['Graphic organizer', 'Think-pair-share']),
         minutesField('guided.minutes')
       ];
     });
@@ -720,6 +723,7 @@
       return [
         activityField('independent.task.text', { key: 'independent.task', pickPath: 'independent.task.pick', label: 'Independent task', types: B.activities.independent, placeholder: 'Describe what students do on their own.' }),
         checkField('independent.same', 'This is also the assessment', 'The template allows independent practice to double as the assessment.'),
+        glossaryFor(['Exit slip']),
         minutesField('independent.minutes')
       ];
     });
@@ -729,8 +733,9 @@
     function () {
       return [
         activityField('closure.act.text', { key: 'closure.act', pickPath: 'closure.act.pick', label: 'Closure activity', types: B.activities.closure, placeholder: 'Describe how you will wrap up the lesson.' }),
-        textField('closure.language', { label: 'How students use academic language', multiline: true, rows: 2, placeholder: 'Describe how students will use the key terms to close the lesson.' }),
+        textField('closure.language', { label: 'How students use the key words to wrap up', multiline: true, rows: 2, placeholder: 'Describe how students will use the key terms to close the lesson.' }),
         activityField('closure.homework', { key: 'closure.homework', rows: 2, label: 'Homework (optional)', placeholder: 'Write the homework, or leave this blank for none.' }),
+        glossaryFor(['Exit slip', 'Think-pair-share']),
         minutesField('closure.minutes')
       ];
     });
@@ -738,12 +743,12 @@
   screen('assessment', 'H', 'How will you check that students learned it?',
     'Pick the informal checks and any formal assessment.',
     function () {
-      var rub = textField('assessment.rubric', { label: 'Rubric or grading elements', multiline: true, rows: 3, placeholder: 'List what the rubric or grade will measure.' });
+      var rub = textField('assessment.rubric', { label: 'What you will grade on (rubric)', multiline: true, rows: 3, placeholder: 'List what the rubric or grade will measure.' });
       function sync() { rub.hidden = get('assessment.graded') !== 'Yes'; }
       var out = [
-        chipsField('assessment.informal', { label: 'Informal assessment', options: B.assessments.informal, multi: true, small: true }),
-        chipsField('assessment.formal', { label: 'Formal assessment', options: B.assessments.formal, multi: true, small: true }),
-        chipsField('assessment.graded', { label: 'Is the formal assessment graded?', options: ['Yes', 'No', 'Used for progress only'], small: true, after: sync }),
+        chipsField('assessment.informal', { label: 'Quick checks during the lesson (informal)', options: B.assessments.informal, multi: true, small: true }),
+        chipsField('assessment.formal', { label: 'Work you collect or grade (formal)', options: B.assessments.formal, multi: true, small: true }),
+        chipsField('assessment.graded', { label: 'Is the formal assessment graded?', options: ['Yes', 'No', 'Used for progress only'], render: function (x) { return x === 'Used for progress only' ? 'Not graded, only to see progress' : x; }, small: true, after: sync }),
         rub
       ];
       sync();
@@ -788,7 +793,7 @@
             });
             if (!opts.length) stratBox.append(h('span', { class: 'hint' }, kind === 'struggle' && !r.evidence ? 'Pick the evidence first to see suggestions.' : 'Write your own below.'));
           }
-          var evid = chipGroup({ options: kind === 'struggle' ? B.diff.evidence : B.enrich.evidence, small: true, aria: 'Evidence',
+          var evid = chipGroup({ options: kind === 'struggle' ? B.diff.evidence : B.enrich.evidence, small: true, aria: 'Evidence', render: function (x) { return (kind === 'struggle' && B.evidenceLong[x]) || x; },
             get: function () { return r.evidence; }, set: function (v) { r.evidence = v; persist(); }, after: paintStrats });
           var rm = get(listPath).length > 1 ? h('button', { type: 'button', class: 'btn quiet small', onclick: function () { get(listPath).splice(ix, 1); persist(); paint(); } }, 'Remove') : null;
           paintStrats();
@@ -818,7 +823,7 @@
   function suggest(list) {
     var a = answers, ids = {}, why = {};
     function on(name, reason) { var e = list.filter(function (x) { return x.name.indexOf(name) === 0; })[0]; if (e) { ids[e.name] = true; why[e.name] = reason; } }
-    on('Revised Bloom', 'Always included, because your objective names a thinking level.');
+    on('Revised Bloom', 'Always included, because your goal names a level of thinking.');
     if (a.guided.task.pick || a.guided.task.text) if (a.independent.task.pick || a.independent.task.text) on('Gradual release', 'You planned guided and independent practice.');
     if ((a.grouping.picks || []).some(function (p) { return /partner|group|jigsaw|stations|conferencing/i.test(p); })) on('Zone of proximal', 'You plan partner or group work.');
     if (a.initiation.bg.pick || a.initiation.bg.text) on('Schema', 'You plan an activity to bring out background knowledge.');
@@ -827,7 +832,7 @@
     if ((a.assets.picks || []).length || a.assets.detail) on('Culturally', 'You named strengths students bring.');
     return { ids: ids, why: why };
   }
-  screen('research', 'J', 'Which research backs up your choices?',
+  screen('research', 'J', 'Which teaching ideas support your plan?',
     'These are pre-checked from your answers. Check or uncheck, and edit the sentences. Pick at least two.',
     function () {
       var root = h('div', { class: 'fields' }, h('p', { class: 'hint' }, 'Loading…'));
@@ -852,20 +857,21 @@
             slots();
           }
           var SLOT = '{content / process / product}';
-          var slotRow = h('div', { class: 'chips' }, h('span', { class: 'hint' }, 'Fill the blank:'));
+          var slotRow = h('div', { class: 'chips' }, h('span', { class: 'hint' }, 'Pick which part you adjust:'));
           ['content', 'process', 'product'].forEach(function (w) {
             slotRow.append(h('button', { type: 'button', class: 'chip small', onclick: function () {
               sentence.value = sentence.value.replace(SLOT, w); r.sentences[e.name] = sentence.value; persist(); slots(); sentence.focus();
             } }, w));
           });
-          function slots() { var n = (sentence.value.match(/\{[^}]+\}/g) || []).length; warn.textContent = n ? 'Fill in ' + n + ' {slot' + (n > 1 ? 's' : '') + '} in this sentence.' : ''; slotRow.hidden = sentence.value.indexOf(SLOT) < 0; }
+          function slots() { var n = (sentence.value.match(/\{[^}]+\}/g) || []).length; warn.textContent = n ? 'Finish the ' + n + (n > 1 ? ' blanks' : ' blank') + ' in { } in this sentence.' : ''; slotRow.hidden = sentence.value.indexOf(SLOT) < 0; }
           sentence.addEventListener('input', function () { r.sentences[e.name] = sentence.value; slots(); persist(); });
           var body = h('div', { class: 'fields', style: 'gap:8px' }, sentence, slotRow, warn);
           function show() { body.hidden = !cb.checked; if (cb.checked) ensure(); }
           cb.addEventListener('change', function () { r.checked[e.name] = cb.checked; persist(); show(); });
           root.append(h('div', { class: 'cite' },
-            h('label', { for: cb.id }, cb, h('span', null, h('b', null, e.name), ' ', h('span', { class: 'hint' }, e.in_text))),
-            h('p', { class: 'why' }, s.why[e.name] || e.use_when),
+            h('label', { for: cb.id }, cb, h('span', null, h('b', null, e.name), ' ', h('span', { class: 'hint' }, 'Cited as ' + e.in_text))),
+            h('p', { class: 'why' }, B.frameworkPlain[e.name] || e.use_when),
+            s.why[e.name] ? h('p', { class: 'why' }, 'Pre-checked: ' + s.why[e.name]) : null,
             body));
           show();
         });

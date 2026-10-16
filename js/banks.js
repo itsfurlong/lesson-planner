@@ -21,6 +21,28 @@ window.LP_BANKS = {
     'Word wall': 'Key words posted where students can see and use them.',
     'Peer conferencing': 'Students give each other feedback on their work.'
   },
+  // Plain one-line descriptions for the research cards, keyed by the exact name in citations.json. Display only.
+  frameworkPlain: {
+    'Zone of proximal development (Vygotsky)': 'Students learn best from tasks a bit too hard to do alone, with help from you or a partner.',
+    'Gradual release of responsibility (Pearson & Gallagher)': 'You show it, then do it together, then students do it alone.',
+    "Revised Bloom's taxonomy (Anderson & Krathwohl)": 'A way to describe how hard students think, from remembering to creating, and what kind of knowledge they use.',
+    'Scaffolding (Wood, Bruner & Ross)': 'Temporary supports, like models or sentence starters, that you remove as students improve.',
+    'Understanding by Design (Wiggins & McTighe)': 'Plan backward: decide what students should be able to do and how you will check, then plan the lesson.',
+    'Universal Design for Learning (CAST)': 'Give students several ways to get interested, take in the content, and show what they learned.',
+    'Formative assessment (Black & Wiliam)': 'Quick checks during the lesson that tell you how to adjust your teaching.',
+    'Differentiated instruction (Tomlinson)': 'Change the content, the activity, or the final product to fit different students.',
+    'Self-efficacy (Bandura)': 'Students try harder when they believe they can succeed, so tasks are doable and success is visible.',
+    'Culturally relevant pedagogy (Ladson-Billings)': "Treat students' cultures, languages, and experiences as strengths to build on.",
+    'Transactional theory of reading (Rosenblatt)': 'A reader makes meaning from the text together with their own experiences and responses.',
+    'Schema and cognitive development (Piaget)': 'Students learn by connecting new ideas to what they already know.'
+  },
+  // Display text for the support evidence chips. The stored value stays the short label.
+  evidenceLong: {
+    'IEP': 'IEP (individualized education program)',
+    '504 plan': '504 plan (a plan for classroom accommodations)',
+    'ELL': 'ELL (English language learner)',
+    'ADHD': 'ADHD (attention-deficit/hyperactivity disorder)'
+  },
   knowledge: ['factual', 'conceptual', 'procedural', 'metacognitive'],
   // Plain meanings shown next to the level and knowledge picks on the objective screen. Display only: the stored values stay the words above.
   levelMeaning: {
