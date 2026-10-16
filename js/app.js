@@ -268,10 +268,95 @@
     wrap.update();
     return wrap;
   }
+  // Minutes for a phase: a drop-down from 1 up to the class length. The saved value is a string of digits.
   function minutesField(path) {
     var tl = timeline();
-    var f = numberField(path, { label: 'How many minutes?', hint: 'Your class period is ' + (answers.basics.period || '?') + ' minutes. The five phases should add up to it.', max: 180, onInput: function () { tl.update(); } });
+    var id = nid(), per = Number(answers.basics.period);
+    var max = per >= 1 && per <= 300 ? Math.floor(per) : 90;
+    var cur = String(get(path) == null ? '' : get(path));
+    var sel = h('select', { id: id });
+    sel.append(h('option', { value: '' }, 'Choose'));
+    for (var m = 1; m <= Math.max(max, Number(cur) || 0); m++) sel.append(h('option', { value: String(m) }, m + (m === 1 ? ' minute' : ' minutes')));
+    sel.value = cur;
+    sel.addEventListener('change', function () { set(path, sel.value); tl.update(); });
+    var f = field('How many minutes?', sel, 'Your class period is ' + (answers.basics.period || '?') + ' minutes. The five phases should add up to it.', id);
     return [f, tl];
+  }
+
+  /* ---------- activity fields ---------- */
+  // Suggestion sentences for the activity screens, built from earlier answers. A suggestion that needs an answer the teacher has not given is left out.
+  var ACT_IDEAS = {
+    'initiation.motivating': ['Quick write: students respond to a prompt connected to {focus}, then share one idea with a partner.', 'Teacher shows a short example connected to {focus} and asks what students notice.'],
+    'initiation.bg': ['Think-pair-share: partners recall what they already know about {skill}.', 'Students brainstorm what they know about {focus} and the teacher records it on the board.'],
+    'instruction.lang': ['Teacher shows the key terms for {focus} ({terms}) with one example of each.'],
+    'instruction.direct': ['Teacher models how to {verb} for {focus}, thinking aloud with a short example.', 'Class reads a short mentor example and marks where the author uses {skill}.'],
+    'instruction.probing': ['How does this help you {verb}? What evidence shows it?', 'Why did you choose that approach?'],
+    'guided.task': ['{Grouping}: students {verbs} {what} while the teacher circulates and gives feedback.'],
+    'independent.task': ['Students {verbs} {what} on their own.', 'Short writing task applying {skill}, collected as the assessment.'],
+    'closure.act': ['Share-out: volunteers share one example and name how they used {skill}.', 'Exit slip: one sentence that answers the essential question: {eq}'],
+    'closure.homework': ['None.', 'Finish the task begun in class.']
+  };
+  function actTokens() {
+    var A = window.LessonAssemble, o = (answers.objectives || [])[0] || {};
+    var verbs = A.asList(o.verb), what = String(o.what || '').trim().replace(/[.\s]+$/, '');
+    var focus = String(answers.focus.text || '').split(':')[0].trim();
+    var skill = (answers.focus.skills || [])[0] || '';
+    var grouping = ((answers.grouping || {}).picks || [])[0] || '';
+    var terms = ((answers.content || {}).terms || []).map(function (t) { return String(t.term || '').trim(); }).filter(Boolean).slice(0, 3);
+    var g = lowerFirst(grouping);
+    return { focus: lowerFirst(focus), skill: lowerFirst(skill), verb: verbs[0] || '', verbs: A.joinAnd(verbs), what: lowerFirst(what), grouping: g, Grouping: g ? g.charAt(0).toUpperCase() + g.slice(1) : '', eq: String((answers.eq || {}).text || '').trim(), terms: A.joinAnd(terms) };
+  }
+  function actIdeas(key) {
+    var tk = actTokens();
+    return (ACT_IDEAS[key] || []).filter(function (t) {
+      return (t.match(/\{[^}]+\}/g) || []).every(function (m) { return tk[m.slice(1, -1)]; });
+    }).map(function (t) { return t.replace(/\{([^}]+)\}/g, function (m, k) { return tk[k]; }); });
+  }
+  // A big text box the teacher writes in. Chips above it add a starting line, either a kind of activity or a sentence built from earlier answers.
+  function activityField(textPath, o) {
+    var id = nid();
+    var ta = h('textarea', { id: id, rows: o.rows || 5, placeholder: o.placeholder || '' });
+    // Older drafts kept a picked kind of activity apart from the text. Fold it into the text.
+    if (o.pickPath) {
+      var pk = String(get(o.pickPath) || '').trim(), tx = String(get(textPath) || '').trim();
+      if (pk) { set(textPath, !tx ? pk : (tx.toLowerCase().indexOf(pk.toLowerCase()) === 0 ? tx : pk + ': ' + tx)); set(o.pickPath, ''); }
+    }
+    ta.value = get(textPath) || '';
+    var ideas = actIdeas(o.key), wrap = h('div', { class: 'suggest' });
+    function lines() { return ta.value.split('\n').map(function (x) { return x.trim(); }); }
+    function save() { set(textPath, ta.value); paint(); }
+    function add(t) { ta.value = ta.value.trim() ? ta.value.replace(/\s+$/, '') + '\n' + t : t; save(); ta.focus(); }
+    function paint() {
+      wrap.textContent = '';
+      var have = lines();
+      if (ideas.length) {
+        wrap.append(h('div', { class: 'hint', style: 'margin-top:6px' }, 'Built from your earlier answers. Click to add, then make it yours.'));
+        var r1 = h('div', { class: 'chips' });
+        ideas.forEach(function (t) {
+          var on = have.indexOf(t) >= 0;
+          r1.append(h('button', { type: 'button', class: 'chip small', 'aria-pressed': String(on), onclick: function () {
+            if (on) { ta.value = ta.value.split('\n').filter(function (x) { return x.trim() !== t; }).join('\n').replace(/^\n+|\n+$/g, ''); save(); } else add(t);
+          } }, t));
+        });
+        wrap.append(r1);
+      }
+      if ((o.types || []).length) {
+        wrap.append(h('div', { class: 'hint', style: 'margin-top:10px' }, 'Or start with a kind of activity.'));
+        var r2 = h('div', { class: 'chips' });
+        o.types.forEach(function (t) {
+          r2.append(h('button', { type: 'button', class: 'chip small', 'aria-pressed': 'false', onclick: function () {
+            if (!have.some(function (x) { return x.toLowerCase().indexOf(t.toLowerCase()) === 0; })) add(t + ': '); else ta.focus();
+          } }, t));
+        });
+        wrap.append(r2);
+      }
+    }
+    ta.addEventListener('input', function () { set(textPath, ta.value); paint(); });
+    paint();
+    return h('div', { class: 'field' },
+      h('label', { for: id, class: 'lab' }, o.label),
+      o.hint ? h('p', { class: 'hint' }, o.hint) : null,
+      ta, wrap);
   }
 
   /* ---------- screens ---------- */
@@ -553,8 +638,8 @@
     'Plan the opening activity and how you will bring out what students already know.',
     function () {
       return [
-        pickText('initiation.motivating', { label: 'Motivating and engaging activity', options: B.activities.motivating, placeholder: 'Journal prompt: Who are you most honest with? Why?' }),
-        pickText('initiation.bg', { label: 'Activity for background knowledge', options: B.activities.background, placeholder: 'Discussion: What do you say to people you know, and what do you think?' }),
+        activityField('initiation.motivating.text', { key: 'initiation.motivating', pickPath: 'initiation.motivating.pick', label: 'Motivating and engaging activity', types: B.activities.motivating, placeholder: 'Journal prompt: Who are you most honest with? Why?' }),
+        activityField('initiation.bg.text', { key: 'initiation.bg', pickPath: 'initiation.bg.pick', label: 'Activity for background knowledge', types: B.activities.background, placeholder: 'Discussion: What do you say to people you know, and what do you think?' }),
         minutesField('initiation.minutes')
       ];
     });
@@ -563,9 +648,9 @@
     'Cover the academic language, how you will model it, and the questions you will ask.',
     function () {
       return [
-        pickText('instruction.lang', { label: 'Academic language instruction', options: B.activities.language, placeholder: 'Slides define dialogue and inner thoughts.' }),
-        pickText('instruction.direct', { label: 'Direct instruction or modeling', options: B.activities.direct, placeholder: 'Two volunteers demonstrate how Bardugo uses dialogue and inner thoughts.' }),
-        textField('instruction.probing', { label: 'Probing questions that push thinking', multiline: true, rows: 3, placeholder: 'Why is it important to have both?', hint: 'One to three questions.' }),
+        activityField('instruction.lang.text', { key: 'instruction.lang', pickPath: 'instruction.lang.pick', label: 'Academic language instruction', types: B.activities.language, placeholder: 'Slides define dialogue and inner thoughts.' }),
+        activityField('instruction.direct.text', { key: 'instruction.direct', pickPath: 'instruction.direct.pick', label: 'Direct instruction or modeling', types: B.activities.direct, placeholder: 'Two volunteers demonstrate how Bardugo uses dialogue and inner thoughts.' }),
+        activityField('instruction.probing', { key: 'instruction.probing', rows: 3, label: 'Probing questions that push thinking', placeholder: 'Why is it important to have both?', hint: 'One to three questions.' }),
         minutesField('instruction.minutes')
       ];
     });
@@ -575,7 +660,7 @@
     function () {
       return [
         chipsField('guided.grouping', { label: 'How are students grouped?', options: B.grouping, small: true }),
-        pickText('guided.task', { label: 'Practice task', options: B.activities.guided, placeholder: 'Pairs find a moment in chapter 19 or 20 and explain why it works.' }),
+        activityField('guided.task.text', { key: 'guided.task', pickPath: 'guided.task.pick', label: 'Practice task', types: B.activities.guided, placeholder: 'Pairs find a moment in chapter 19 or 20 and explain why it works.' }),
         minutesField('guided.minutes')
       ];
     });
@@ -584,7 +669,7 @@
     'Independent practice shows who can use the skill without help.',
     function () {
       return [
-        pickText('independent.task', { label: 'Independent task', options: B.activities.independent, placeholder: 'Students apply what they learned from the mentor text to their own writing.' }),
+        activityField('independent.task.text', { key: 'independent.task', pickPath: 'independent.task.pick', label: 'Independent task', types: B.activities.independent, placeholder: 'Students apply what they learned from the mentor text to their own writing.' }),
         checkField('independent.same', 'This is also the assessment', 'The template allows independent practice to double as the assessment.'),
         minutesField('independent.minutes')
       ];
@@ -594,9 +679,9 @@
     'Wrap up the main points and the purpose, and give any homework.',
     function () {
       return [
-        pickText('closure.act', { label: 'Closure activity', options: B.activities.closure, placeholder: 'Ask how students used dialogue and inner thoughts in their writing.' }),
+        activityField('closure.act.text', { key: 'closure.act', pickPath: 'closure.act.pick', label: 'Closure activity', types: B.activities.closure, placeholder: 'Ask how students used dialogue and inner thoughts in their writing.' }),
         textField('closure.language', { label: 'How students use academic language', multiline: true, rows: 2, placeholder: 'Students use the terms subtext and inner thought in the share-out.' }),
-        textField('closure.homework', { label: 'Homework (optional)', placeholder: 'Leave blank for none' }),
+        activityField('closure.homework', { key: 'closure.homework', rows: 2, label: 'Homework (optional)', placeholder: 'Leave blank for none' }),
         minutesField('closure.minutes')
       ];
     });

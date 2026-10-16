@@ -93,6 +93,9 @@ input[type=text], input[type=number], textarea {
   width: 100%; background: var(--surface); border: 1.5px solid var(--rule); border-radius: 8px; padding: 10px 12px; min-height: 46px;
 }
 textarea { resize: vertical; min-height: 96px; }
+select { background: var(--surface); border: 1.5px solid var(--rule); border-radius: 8px; padding: 10px 12px; min-height: 46px; min-width: 160px; max-width: 100%; }
+select:hover { border-color: var(--ink-soft); }
+select:focus-visible { border-color: var(--focus); outline-offset: 0; }
 input:hover, textarea:hover { border-color: var(--ink-soft); }
 input:focus-visible, textarea:focus-visible { border-color: var(--focus); outline-offset: 0; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
