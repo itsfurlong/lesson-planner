@@ -271,7 +271,23 @@
       var count = h('p', { class: 'hint', 'aria-live': 'polite' });
       var list = h('ul', { class: 'std-list' });
       var note = h('p', { class: 'hint' });
+      var scope = h('p', { class: 'hint' });
+      var more = h('p', { class: 'hint' });
+      var viewAll = false;
+      var LS = window.LessonStandards;
       var all = [];
+      function paintScope() {
+        var skills = LS.mapped(answers.focus.skills, B.skillStandards);
+        scope.textContent = ''; more.textContent = '';
+        if (!skills.length) { scope.textContent = 'No skills are picked on the second question, so every standard for your grade is shown.'; return; }
+        if (viewAll) {
+          scope.textContent = 'Showing every standard for your grade.';
+          more.append(h('button', { type: 'button', class: 'btn quiet small', onclick: function () { viewAll = false; paintList(); } }, 'Show fewer'));
+        } else {
+          scope.textContent = 'Showing standards for: ' + skills.join(', ') + '.';
+          more.append('Don\u2019t see the standard you\u2019re looking for? ', h('button', { type: 'button', class: 'btn quiet small', onclick: function () { viewAll = true; paintList(); } }, 'View all.'));
+        }
+      }
       function paintChosen() {
         chosen.textContent = '';
         answers.standards.forEach(function (code) {
@@ -288,16 +304,17 @@
       }
       function paintList() {
         var ql = q.trim().toLowerCase();
-        var rows = all.filter(function (s) {
-          return s.grade_band === gradeBand() && (strand === 'All' || s.code.indexOf(strand + '.') === 0) &&
+        var rows = LS.filter(all, gradeBand(), answers.focus.skills, B.skillStandards, viewAll).filter(function (s) {
+          return (strand === 'All' || s.code.indexOf(strand + '.') === 0) &&
             (!ql || s.code.toLowerCase().indexOf(ql) >= 0 || s.text.toLowerCase().indexOf(ql) >= 0);
         });
+        paintScope();
         list.textContent = '';
         rows.slice(0, 60).forEach(function (s) {
           var on = answers.standards.indexOf(s.code) >= 0;
           list.append(h('li', null, h('button', { type: 'button', class: 'std', 'aria-pressed': String(on), onclick: function () { toggle(s.code); } }, h('b', null, s.code), h('span', null, s.text))));
         });
-        note.textContent = rows.length === 0 ? 'No standards match. Try a different word or strand.' : (rows.length > 60 ? 'Showing 60 of ' + rows.length + '. Type to narrow the list.' : rows.length + ' standards');
+        note.textContent = rows.length === 0 ? 'No standards match. Try a different word or strand, or use View all below.' : (rows.length > 60 ? 'Showing 60 of ' + rows.length + '. Type to narrow the list.' : rows.length + ' standards');
       }
       if (!answers.basics.grade) {
         root.append(h('p', { class: 'warn' }, 'Pick your grade on the first screen to see standards.'));
@@ -312,7 +329,7 @@
       root.append(
         field('Chosen', [chosen, count]),
         field('Find a standard', [search], 'Grade ' + answers.basics.grade + ' uses the ' + gradeBand() + ' standards.', sid),
-        strands, list, note);
+        scope, strands, list, note, more);
       paintChosen();
       list.append(h('li', { class: 'hint', style: 'padding:12px' }, 'Loading standards…'));
       standards().then(function (d) { all = d; paintList(); }).catch(function () {

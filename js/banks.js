@@ -17,6 +17,21 @@ window.LP_BANKS = {
     'Students have not yet seen {topic}.'
   ],
   assets: ['Home languages', 'Personal experience with the topic', 'Family and community stories', 'Popular culture and media', 'Interests outside school', 'Experience with the text\'s setting or themes', 'Ways they communicate with different people'],
+  // Skill to standards: strand and anchor numbers. Sub-standards (3a to 3e) come with their anchor. See Lesson-Planner_RevisionMap_v1.md, section 1.
+  skillStandards: {
+    'Narrative writing': { W: [3, 4, 5, 10] },
+    'Argument writing': { W: [1, 4, 5, 9, 10] },
+    'Informational/Expository writing': { W: [2, 4, 5, 10] },
+    'Characterization': { RL: [1, 3, 6] },
+    'Conflict': { RL: [3, 5] },
+    'Theme': { RL: [2], RI: [2] },
+    'Evidence and citation': { RL: [1], RI: [1], W: [8, 9] },
+    'Vocabulary': { L: [4, 5, 6], RL: [4], RI: [4] },
+    'Grammar and conventions': { L: [1, 2, 3] },
+    'Discussion skills': { SL: [1, 2, 3, 4, 6] },
+    'Research': { W: [7, 8, 9] },
+    'Revising and editing': { W: [4, 5], L: [1, 2, 3] }
+  },
   connections: ['Creative writing', 'History', 'Psychology', 'Science', 'Art', 'Math', 'Music', 'None'],
   eqStems: [
     'How do {who} use {what} to {purpose}?',
