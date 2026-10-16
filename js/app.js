@@ -20,7 +20,7 @@
       standards: [],
       prior: { pick: '', text: '' },
       assets: { picks: [], detail: '' },
-      content: { ideas: '', terms: [{ term: '', definition: '' }], links: [] },
+      content: { ideas: '', terms: [{ term: '', definition: '' }], termsAuto: true, links: [] },
       objectives: [{ level: '', verb: '', knowledge: '', what: '', purpose: '' }],
       eq: { pick: '', text: '' },
       materials: { picks: [], text: '', other: '' },
@@ -51,7 +51,8 @@
   }
   var draft = store.read('lp.draft');
   var hasDraft = !!(draft && draft.answers && draft.i >= 0);
-  if (hasDraft) { answers = merge(blank(), draft.answers); answers.focus.skills = (answers.focus.skills || []).map(function (x) { return x === 'Informational writing' ? 'Informational/Expository writing' : x; }); i = -1; maxSeen = draft.maxSeen || draft.i || 0; }
+  if (hasDraft) { answers = merge(blank(), draft.answers); answers.focus.skills = (answers.focus.skills || []).map(function (x) { return x === 'Informational writing' ? 'Informational/Expository writing' : x; }); if (!draft.answers.content || draft.answers.content.termsAuto === undefined) answers.content.termsAuto = (answers.content.terms || []).every(function (t) { return !String(t.term || '').trim() && !String(t.definition || '').trim(); });
+    i = -1; maxSeen = draft.maxSeen || draft.i || 0; }
 
   function persist() {
     store.write('lp.draft', { answers: answers, i: i, maxSeen: maxSeen });
@@ -400,29 +401,55 @@
     });
 
   screen('content', 'C', 'What are the core ideas and key terms?',
-    'Say the big ideas first, then list up to five terms students need.',
+    'Say the big ideas first, then list up to eight terms students need.',
     function () {
       var termsBox = h('div', { class: 'fields' });
-      var addBtn = h('button', { type: 'button', class: 'btn small', onclick: function () { answers.content.terms.push({ term: '', definition: '' }); persist(); paintTerms(); } }, 'Add a term');
+      var MAXT = 8;
+      // Suggested terms for the picked skills: one from each skill in turn, no repeats, up to eight.
+      function suggested() {
+        var lists = (answers.focus.skills || []).filter(function (k) { return B.termBank[k]; }).map(function (k) { return B.termBank[k]; });
+        var out = [], seen = {}, n = 0;
+        for (var r = 0; out.length < MAXT; r++) {
+          var any = false;
+          for (var j = 0; j < lists.length && out.length < MAXT; j++) {
+            var e = lists[j][r];
+            if (!e) continue;
+            any = true;
+            var key = e[0].toLowerCase();
+            if (!seen[key]) { seen[key] = 1; out.push({ term: e[0], definition: e[1] }); }
+          }
+          if (!any) break;
+        }
+        return out;
+      }
+      function applyAuto() {
+        var sug = suggested();
+        answers.content.terms = sug.length ? sug : [{ term: '', definition: '' }];
+        answers.content.termsAuto = true;
+      }
+      if (answers.content.termsAuto) { applyAuto(); persist(); }
+      var resetBtn = h('button', { type: 'button', class: 'btn quiet small', onclick: function () { applyAuto(); persist(); paintTerms(); } }, 'Reset to suggestions');
+      var addBtn = h('button', { type: 'button', class: 'btn small', onclick: function () { answers.content.termsAuto = false; answers.content.terms.push({ term: '', definition: '' }); persist(); paintTerms(); } }, 'Add a term');
       function paintTerms() {
         termsBox.textContent = '';
         answers.content.terms.forEach(function (t, ix) {
           var a = nid(), b = nid();
           var ti = h('input', { id: a, type: 'text', placeholder: 'Subtext', value: t.term });
           var di = h('input', { id: b, type: 'text', placeholder: 'What the contrast between what is said and what is thought tells the reader', value: t.definition });
-          ti.addEventListener('input', function () { t.term = ti.value; persist(); });
-          di.addEventListener('input', function () { t.definition = di.value; persist(); });
-          var rm = h('button', { type: 'button', class: 'btn quiet small', onclick: function () { answers.content.terms.splice(ix, 1); if (!answers.content.terms.length) answers.content.terms.push({ term: '', definition: '' }); persist(); paintTerms(); } }, 'Remove');
+          ti.addEventListener('input', function () { t.term = ti.value; answers.content.termsAuto = false; persist(); });
+          di.addEventListener('input', function () { t.definition = di.value; answers.content.termsAuto = false; persist(); });
+          var rm = h('button', { type: 'button', class: 'btn quiet small', onclick: function () { answers.content.termsAuto = false; answers.content.terms.splice(ix, 1); if (!answers.content.terms.length) answers.content.terms.push({ term: '', definition: '' }); persist(); paintTerms(); } }, 'Remove');
           termsBox.append(h('div', { class: 'sub' },
             h('div', { class: 'sub-head' }, h('strong', null, 'Term ' + (ix + 1)), rm),
             h('div', { class: 'row2' }, field('Term', ti, null, a), field('Definition', di, null, b))));
         });
-        addBtn.hidden = answers.content.terms.length >= 5;
+        addBtn.hidden = answers.content.terms.length >= MAXT;
+        resetBtn.hidden = !suggested().length;
       }
       paintTerms();
       return [
         textField('content.ideas', { label: 'Core ideas and concepts', multiline: true, rows: 4, placeholder: 'Dialogue must serve a purpose. It reveals character, shows relationships, or moves the story forward.' }),
-        field('Key academic language', [termsBox, addBtn]),
+        field('Key academic language', [h('p', { class: 'hint' }, suggested().length ? 'These come from the skills you picked. Change, remove, or add any of them.' : 'Add the words students need to know.'), termsBox, h('div', { class: 'chips' }, addBtn, resetBtn)]),
         chipsField('content.links', { label: 'Connections to other content areas', options: B.connections, multi: true, small: true })
       ];
     });

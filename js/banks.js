@@ -82,6 +82,341 @@ window.LP_BANKS = {
           "Students have not yet revised a draft of {topic} on their own."
       ]
   },
+  // Terms and definitions pre-filled on the Content screen for the skills picked. See Lesson-Planner_RevisionMap_v1.md, section 3.
+  termBank: {
+      "Narrative writing": [
+          [
+              "Narrative technique",
+              "A choice a writer makes, such as dialogue or description, to develop characters and events."
+          ],
+          [
+              "Dialogue",
+              "The words characters say to each other in a text."
+          ],
+          [
+              "Inner thoughts",
+              "What a character thinks but does not say aloud."
+          ],
+          [
+              "Pacing",
+              "How fast or slow events unfold in a story."
+          ],
+          [
+              "Sensory detail",
+              "Description that appeals to sight, sound, smell, taste, or touch."
+          ],
+          [
+              "Point of view",
+              "The perspective from which a story is told."
+          ],
+          [
+              "Plot",
+              "The sequence of events in a story."
+          ],
+          [
+              "Scene",
+              "A part of a story that happens in one setting and time."
+          ]
+      ],
+      "Argument writing": [
+          [
+              "Claim",
+              "The main position a writer argues for."
+          ],
+          [
+              "Counterclaim",
+              "A claim that opposes or challenges the writer's claim."
+          ],
+          [
+              "Evidence",
+              "Facts, examples, or quotations used to support a claim."
+          ],
+          [
+              "Reasoning",
+              "The explanation that connects evidence to a claim."
+          ],
+          [
+              "Rebuttal",
+              "A response that answers a counterclaim."
+          ],
+          [
+              "Credibility",
+              "How believable a writer or source is."
+          ]
+      ],
+      "Informational/Expository writing": [
+          [
+              "Topic sentence",
+              "A sentence that states the main idea of a paragraph."
+          ],
+          [
+              "Thesis",
+              "The central idea of a whole piece of writing."
+          ],
+          [
+              "Supporting detail",
+              "A fact or example that develops a main idea."
+          ],
+          [
+              "Transition",
+              "A word or phrase that links ideas."
+          ],
+          [
+              "Organizational structure",
+              "The pattern used to arrange information, such as compare and contrast or cause and effect."
+          ],
+          [
+              "Domain-specific vocabulary",
+              "Words that belong to one subject or field."
+          ],
+          [
+              "Conclusion",
+              "The final section, which follows from and sums up the ideas presented."
+          ]
+      ],
+      "Characterization": [
+          [
+              "Characterization",
+              "The methods a writer uses to reveal what a character is like."
+          ],
+          [
+              "Direct characterization",
+              "The narrator tells the reader what a character is like."
+          ],
+          [
+              "Indirect characterization",
+              "The reader learns about a character through speech, actions, thoughts, and what others say."
+          ],
+          [
+              "Motivation",
+              "The reason a character acts as they do."
+          ],
+          [
+              "Static character",
+              "A character who does not change much over the text."
+          ],
+          [
+              "Dynamic character",
+              "A character who changes over the course of the text."
+          ],
+          [
+              "Protagonist",
+              "The main character."
+          ],
+          [
+              "Antagonist",
+              "A character or force that opposes the protagonist."
+          ]
+      ],
+      "Conflict": [
+          [
+              "Conflict",
+              "A struggle between opposing forces in a story."
+          ],
+          [
+              "Internal conflict",
+              "A struggle within a character's own mind."
+          ],
+          [
+              "External conflict",
+              "A struggle between a character and an outside force, such as another character, society, or nature."
+          ],
+          [
+              "Rising action",
+              "The events that build tension toward the climax."
+          ],
+          [
+              "Climax",
+              "The turning point, where tension is highest."
+          ],
+          [
+              "Resolution",
+              "The outcome of the conflict and how the story ends."
+          ]
+      ],
+      "Theme": [
+          [
+              "Theme",
+              "A central message or insight about life that a text develops."
+          ],
+          [
+              "Topic",
+              "What a text is about, in a word or phrase."
+          ],
+          [
+              "Central idea",
+              "The main point an informational text develops."
+          ],
+          [
+              "Symbol",
+              "An object, person, or place that stands for a larger idea."
+          ],
+          [
+              "Motif",
+              "An image, phrase, or idea that repeats and supports a theme."
+          ],
+          [
+              "Inference",
+              "A conclusion drawn from evidence and reasoning."
+          ]
+      ],
+      "Evidence and citation": [
+          [
+              "Textual evidence",
+              "Words or details from a text, quoted or paraphrased, that support a claim."
+          ],
+          [
+              "Quotation",
+              "The exact words from a source, set in quotation marks."
+          ],
+          [
+              "Paraphrase",
+              "A restatement of a source's idea in your own words."
+          ],
+          [
+              "Citation",
+              "A note that tells where information came from."
+          ],
+          [
+              "Analysis",
+              "An explanation of what evidence means and why it matters."
+          ],
+          [
+              "Integrate a quotation",
+              "To work a quotation smoothly into your own sentence."
+          ]
+      ],
+      "Vocabulary": [
+          [
+              "Context clue",
+              "A hint in nearby words that helps reveal a word's meaning."
+          ],
+          [
+              "Prefix",
+              "A word part added at the front of a word that changes its meaning."
+          ],
+          [
+              "Suffix",
+              "A word part added at the end of a word that changes its meaning or use."
+          ],
+          [
+              "Root",
+              "The base part of a word that carries its core meaning."
+          ],
+          [
+              "Connotation",
+              "The feelings or associations a word carries beyond its literal meaning."
+          ],
+          [
+              "Denotation",
+              "The literal dictionary meaning of a word."
+          ],
+          [
+              "Academic vocabulary",
+              "General words that appear often in school texts across subjects."
+          ]
+      ],
+      "Grammar and conventions": [
+          [
+              "Parallel structure",
+              "Using the same grammatical form for items in a pair or a list."
+          ],
+          [
+              "Phrase",
+              "A group of related words that works as one unit but does not have both a subject and a verb."
+          ],
+          [
+              "Clause",
+              "A group of words with a subject and a verb."
+          ],
+          [
+              "Semicolon",
+              "Punctuation that links closely related independent clauses."
+          ],
+          [
+              "Colon",
+              "Punctuation that introduces a list or a quotation."
+          ],
+          [
+              "Conventions",
+              "The accepted rules for grammar, punctuation, capitalization, and spelling."
+          ]
+      ],
+      "Discussion skills": [
+          [
+              "Collaborative discussion",
+              "A conversation where people build on each other's ideas to reach understanding."
+          ],
+          [
+              "Norms",
+              "Agreed-upon rules for how a group talks together."
+          ],
+          [
+              "Active listening",
+              "Paying full attention to a speaker and showing you understood."
+          ],
+          [
+              "Paraphrase",
+              "To restate what someone said in your own words."
+          ],
+          [
+              "Perspective",
+              "A particular point of view on an issue."
+          ],
+          [
+              "Consensus",
+              "Agreement reached by the whole group."
+          ]
+      ],
+      "Research": [
+          [
+              "Source",
+              "Where a piece of information comes from."
+          ],
+          [
+              "Credible source",
+              "A source that is accurate, current, and written by someone with knowledge of the topic."
+          ],
+          [
+              "Primary source",
+              "A first-hand account or original document from the time being studied."
+          ],
+          [
+              "Secondary source",
+              "A source that interprets or discusses primary sources."
+          ],
+          [
+              "Plagiarism",
+              "Using someone else's words or ideas without giving credit."
+          ],
+          [
+              "Research question",
+              "A focused question a research project sets out to answer."
+          ]
+      ],
+      "Revising and editing": [
+          [
+              "Revising",
+              "Changing a draft's ideas, organization, and evidence to make it stronger."
+          ],
+          [
+              "Editing",
+              "Correcting grammar, punctuation, capitalization, and spelling."
+          ],
+          [
+              "Proofreading",
+              "A final check for errors before a piece is shared."
+          ],
+          [
+              "Peer feedback",
+              "Comments from classmates on a draft."
+          ],
+          [
+              "Draft",
+              "An early version of a piece of writing."
+          ]
+      ]
+  },
   assets: ['Home languages', 'Personal experience with the topic', 'Family and community stories', 'Popular culture and media', 'Interests outside school', 'Experience with the text\'s setting or themes', 'Ways they communicate with different people'],
   // Skill to standards: strand and anchor numbers. Sub-standards (3a to 3e) come with their anchor. See Lesson-Planner_RevisionMap_v1.md, section 1.
   skillStandards: {
