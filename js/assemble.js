@@ -120,8 +120,9 @@
 
     // F
     var gp = (a.grouping.picks || []).map(lowerFirst);
+    if (trim(a.grouping.otherPattern)) gp.push(lowerFirst(stripEnd(a.grouping.otherPattern)));
     var f = [];
-    var seat = SEATING[a.grouping.seating];
+    var seat = [SEATING[a.grouping.seating], trim(a.grouping.otherSeating) ? lowerFirst(stripEnd(a.grouping.otherSeating)) : ''].filter(Boolean).join(', and ');
     var f1 = '';
     if (seat || gp.length) f1 = 'The class will ' + (seat || 'sit in their normal seats') + '.' + (gp.length ? ' Students will work in ' + list(gp) + ' during the lesson.' : '');
     if (a.guided.grouping && (a.grouping.picks || []).indexOf(a.guided.grouping) < 0) f1 += (f1 ? ' ' : '') + 'Guided practice is done in ' + lowerFirst(a.guided.grouping) + '.';

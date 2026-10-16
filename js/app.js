@@ -24,7 +24,7 @@
       objectives: [{ level: '', verb: '', knowledge: '', what: '', purpose: '' }],
       eq: { pick: '', text: '' },
       materials: { picks: [], text: '', other: '' },
-      grouping: { picks: [], seating: '', movement: '' },
+      grouping: { picks: [], otherPattern: '', seating: '', otherSeating: '', movement: '' },
       initiation: { motivating: { pick: '', text: '' }, bg: { pick: '', text: '' }, minutes: '' },
       instruction: { lang: { pick: '', text: '' }, direct: { pick: '', text: '' }, probing: '', minutes: '' },
       guided: { task: { pick: '', text: '' }, grouping: '', minutes: '' },
@@ -51,7 +51,7 @@
   }
   var draft = store.read('lp.draft');
   var hasDraft = !!(draft && draft.answers && draft.i >= 0);
-  if (hasDraft) { answers = merge(blank(), draft.answers); i = -1; maxSeen = draft.maxSeen || draft.i || 0; }
+  if (hasDraft) { answers = merge(blank(), draft.answers); answers.focus.skills = (answers.focus.skills || []).map(function (x) { return x === 'Informational writing' ? 'Informational/Expository writing' : x; }); i = -1; maxSeen = draft.maxSeen || draft.i || 0; }
 
   function persist() {
     store.write('lp.draft', { answers: answers, i: i, maxSeen: maxSeen });
@@ -429,7 +429,9 @@
     function () {
       return [
         chipsField('grouping.picks', { label: 'Grouping patterns', options: B.grouping, multi: true, small: true }),
+        textField('grouping.otherPattern', { label: 'Other grouping pattern (optional)', placeholder: 'Gallery walk', enter: true, hint: 'Reads as "Students will work in ..." in section F.' }),
         chipsField('grouping.seating', { label: 'Seating', options: B.seating, small: true }),
+        textField('grouping.otherSeating', { label: 'Other seating (optional)', placeholder: 'gather in a circle on the rug', enter: true, hint: 'Reads as "The class will ..." in section F.' }),
         textField('grouping.movement', { label: 'Student movement (optional)', multiline: true, rows: 3, placeholder: 'Two volunteers stand at the front to show the distance between thoughts and dialogue.' })
       ];
     });
@@ -504,6 +506,8 @@
   function diffScreen(listPath, noPath, kind) {
     return function () {
       var max = kind === 'struggle' ? 4 : 3;
+      // Enrichment numbering continues after the struggling rows that have something in them.
+      var numberFrom = kind === 'enrich' && !get('noStruggling') ? (get('struggling') || []).filter(function (r) { return (r.initials || '').trim() || (r.strategy || '').trim(); }).length : 0;
       var box = h('div', { class: 'fields' });
       var addBtn = h('button', { type: 'button', class: 'btn small', onclick: function () { get(listPath).push({ initials: '', evidence: '', strategy: '' }); persist(); paint(); } }, 'Add a student');
       var noId = nid();
@@ -518,7 +522,7 @@
         get(listPath).forEach(function (r, ix) {
           var iid = nid(), sid = nid();
           var warn = h('p', { class: 'warn' });
-          var ini = h('input', { id: iid, type: 'text', placeholder: 'S1', value: r.initials, maxlength: 12, autocomplete: 'off' });
+          var ini = h('input', { id: iid, type: 'text', placeholder: 'S' + (numberFrom + ix + 1), value: r.initials, maxlength: 12, autocomplete: 'off' });
           function chk() { warn.textContent = looksLikeName(ini.value) ? 'That looks like a full name. Use initials or S1, S2.' : ''; }
           ini.addEventListener('input', function () { r.initials = ini.value; chk(); persist(); });
           chk();

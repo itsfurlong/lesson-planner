@@ -26,7 +26,7 @@ window.LP_BANKS = {
   materials: ['The book or text', 'Computer', 'Projector or TV', 'Internet access', 'Slide presentation', 'Whiteboard and markers', 'Desks and chairs', 'Pencils or pens', 'Graphic organizer', 'Exit slip', 'Printed handouts', 'Notebooks or journals', 'Chart paper', 'Sticky notes'],
   grouping: ['Whole class', 'Individual work', 'Partners', 'Think-pair-share', 'Small groups of 3 to 4', 'Jigsaw', 'Stations or rotations', 'Fishbowl', 'Teacher-led small group', 'Peer conferencing'],
   seating: ['Normal seats', 'Rearranged desks', 'Stations around the room', 'Floor or other space'],
-  skills: ['Narrative writing', 'Argument writing', 'Informational writing', 'Characterization', 'Conflict', 'Theme', 'Evidence and citation', 'Vocabulary', 'Grammar and conventions', 'Discussion skills', 'Research', 'Revising and editing'],
+  skills: ['Narrative writing', 'Argument writing', 'Informational/Expository writing', 'Characterization', 'Conflict', 'Theme', 'Evidence and citation', 'Vocabulary', 'Grammar and conventions', 'Discussion skills', 'Research', 'Revising and editing'],
   activities: {
     motivating: ['Journal prompt', 'Discussion with hot-takes', 'Short video', 'Image or artifact analysis', 'Quick write', 'Game or challenge'],
     background: ['KWL chart', 'Anticipation guide', 'Brainstorm', 'Review of the previous lesson', 'Think-pair-share'],
