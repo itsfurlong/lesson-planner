@@ -24,7 +24,7 @@ const F = (g) => LA.build(answers({ grouping: Object.assign({ picks: [], otherPa
 eq('other pattern joins the picks', F({ picks: ['Partners'], otherPattern: 'Gallery walk', seating: 'Normal seats' }), 'The class will sit in their normal seats. Students will work in partners and gallery walk during the lesson.');
 eq('other pattern alone', F({ otherPattern: 'Gallery walk.' }), 'The class will sit in their normal seats. Students will work in gallery walk during the lesson.');
 eq('other seating alone', F({ otherSeating: 'Gather in a circle on the rug' }), 'The class will gather in a circle on the rug.');
-eq('chip seating plus other seating', F({ seating: 'Rearranged desks', otherSeating: 'gather on the rug.' }), 'The class will sit in rearranged desks, and gather on the rug.');
+eq('chip seating plus other seating', F({ seating: 'Rearranged desks', otherSeating: 'gather on the rug.' }), 'The class will sit in rearranged desks and gather on the rug.');
 eq('no other fields, same as before', F({ picks: ['Partners'], seating: 'Rearranged desks' }), 'The class will sit in rearranged desks. Students will work in partners during the lesson.');
 eq('old draft without other fields still builds', LA.build(answers({ grouping: { picks: ['Partners'], seating: 'Normal seats', movement: '' } }), [], []).sections.F, 'The class will sit in their normal seats. Students will work in partners during the lesson.');
 
@@ -46,4 +46,17 @@ eq('Bloom sentence, two verbs one level', J({ verb: ['analyze', 'compare'], leve
 eq('Bloom sentence, one verb two levels', J({ verb: ['write'], level: ['Create', 'Evaluate'], knowledge: ['procedural'] }), 'The objective uses the verb "write", which sits at the Create and Evaluate levels of the revised Bloom\'s taxonomy and asks students to work with procedural knowledge (Anderson & Krathwohl, 2001).');
 eq('Bloom sentence, nothing picked keeps slots', J({}), 'The objective uses the verb "{verb}", which sits at the {level} level of the revised Bloom\'s taxonomy and asks students to work with {knowledge type} knowledge (Anderson & Krathwohl, 2001).');
 eq('Section D uses the joined verbs', LA.build(OB({ verb: ['analyze', 'write'], level: ['Analyze', 'Create'], knowledge: ['conceptual'] }), [], []).sections.D.indexOf('analyze and write a three-paragraph scene') >= 0, true);
+
+// Gradual release names the kinds of activity the teacher wrote, and falls back when no known kind is named.
+const B = new Function('window', require('fs').readFileSync(__dirname + '/../js/banks.js', 'utf8') + ';return window.LP_BANKS')({});
+eq('KINDS direct match banks', JSON.stringify(LA.KINDS.direct), JSON.stringify(B.activities.direct));
+eq('KINDS guided match banks', JSON.stringify(LA.KINDS.guided), JSON.stringify(B.activities.guided));
+eq('KINDS independent match banks', JSON.stringify(LA.KINDS.independent), JSON.stringify(B.activities.independent));
+const gr = cites.filter(c => /Gradual/.test(c.name))[0];
+const GR = (o) => LA.fillSentence(gr, answers(o));
+const act = (pick, text) => ({ pick, text });
+eq('gradual release, nothing written', GR({}).indexOf('from teacher modeling to guided practice to independent practice') >= 0, true);
+eq('gradual release, written kinds', GR({ instruction: { lang: act('', ''), direct: act('', 'Mini-lesson: Model it.'), probing: '', minutes: '' }, guided: { task: act('', 'Small-group task: do it'), grouping: '', minutes: '' }, independent: { task: act('', 'Short writing task: alone'), same: false, minutes: '' } }).indexOf('from mini-lesson to small-group task to short writing task') >= 0, true);
+eq('gradual release, unknown label falls back', GR({ guided: { task: act('', 'Small groups: students write'), grouping: '', minutes: '' } }).indexOf('to guided practice to') >= 0, true);
+eq('gradual release, old pick still works', GR({ guided: { task: act('Annotate together', ''), grouping: '', minutes: '' } }).indexOf('to annotate together to') >= 0, true);
 process.exit(fails ? 1 : 0);

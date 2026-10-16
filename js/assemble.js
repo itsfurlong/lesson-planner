@@ -41,6 +41,20 @@
     return text || pick;
   }
 
+  // The kind of activity a teacher named, either picked (older drafts) or written as "Kind: details". Only known kinds count.
+  // Keep these lists the same as B.activities in banks.js (test/assemble-test.js checks).
+  var KINDS = {
+    direct: ['Mini-lesson', 'Teacher think-aloud', 'Mentor text analysis', 'Worked example', 'Student volunteers demonstrate'],
+    guided: ['Partner work with graphic organizer', 'Small-group task', 'Annotate together', 'Practice with feedback'],
+    independent: ['Exit slip', 'Short writing task', 'Annotation', 'Problem set', 'Reading response']
+  };
+  function kindOf(x, kinds, fallback) {
+    var pk = trim(x && x.pick), m = trim(x && x.text).match(/^([^:\n]{2,40}):/);
+    var name = pk || (m ? trim(m[1]) : '');
+    for (var i = 0; i < kinds.length; i++) if (kinds[i].toLowerCase() === name.toLowerCase()) return lowerFirst(kinds[i]);
+    return fallback;
+  }
+
   /* ---- research sentences (also used by the interview screen) ---- */
   function slotValues(entry, a) {
     var o = a.objectives[0] || {}, v = {};
@@ -53,9 +67,9 @@
       v['knowledge type'] = list(ks) || '{knowledge type}';
     }
     if (/Gradual/.test(entry.name)) {
-      v['modeled'] = lowerFirst(a.instruction.direct.pick || 'teacher modeling');
-      v['guided'] = lowerFirst(a.guided.task.pick || 'guided practice');
-      v['independent'] = lowerFirst(a.independent.task.pick || 'independent practice');
+      v['modeled'] = kindOf(a.instruction.direct, KINDS.direct, 'teacher modeling');
+      v['guided'] = kindOf(a.guided.task, KINDS.guided, 'guided practice');
+      v['independent'] = kindOf(a.independent.task, KINDS.independent, 'independent practice');
     }
     if (/Zone/.test(entry.name)) { v['task'] = focus; v['teacher or peers'] = partnered ? 'the teacher and partners' : 'the teacher'; }
     if (/Schema/.test(entry.name)) v['topic'] = focus;
@@ -140,7 +154,7 @@
     var gp = (a.grouping.picks || []).map(lowerFirst);
     if (trim(a.grouping.otherPattern)) gp.push(lowerFirst(stripEnd(a.grouping.otherPattern)));
     var f = [];
-    var seat = [SEATING[a.grouping.seating], trim(a.grouping.otherSeating) ? lowerFirst(stripEnd(a.grouping.otherSeating)) : ''].filter(Boolean).join(', and ');
+    var seat = [SEATING[a.grouping.seating], trim(a.grouping.otherSeating) ? lowerFirst(stripEnd(a.grouping.otherSeating)) : ''].filter(Boolean).join(' and ');
     var f1 = '';
     if (seat || gp.length) f1 = 'The class will ' + (seat || 'sit in their normal seats') + '.' + (gp.length ? ' Students will work in ' + list(gp) + ' during the lesson.' : '');
     if (a.guided.grouping && (a.grouping.picks || []).indexOf(a.guided.grouping) < 0) f1 += (f1 ? ' ' : '') + 'Guided practice is done in ' + lowerFirst(a.guided.grouping) + '.';
@@ -233,5 +247,5 @@
     return plan;
   }
 
-  return { build: build, toPlan: toPlan, fillSentence: fillSentence, placeholders: placeholders, swbat: swbat, asList: asList, joinAnd: list };
+  return { build: build, toPlan: toPlan, fillSentence: fillSentence, placeholders: placeholders, swbat: swbat, asList: asList, joinAnd: list, KINDS: KINDS };
 });

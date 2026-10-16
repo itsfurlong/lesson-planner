@@ -148,6 +148,8 @@
             o.set(v === x && !o.sticky ? '' : x, x);
           }
           paint();
+          var nb = wrap.children[o.options.indexOf(x)];
+          if (nb) nb.focus();
           if (o.after) o.after();
         });
         wrap.append(b);
@@ -173,8 +175,9 @@
     var groups = skills.length ? skills.map(function (k) { return { name: k, items: B.priorSuggestions[k].map(fill) }; })
       : [{ name: '', items: B.priorStarters }];
     var wrap = h('div', { class: 'suggest' });
+    var keep = '';
     function lines() { return ta.value.split('\n').map(function (x) { return x.trim(); }); }
-    function save() { set('prior.text', ta.value); paint(); }
+    function save() { set('prior.text', ta.value); paint(); keep = ''; }
     function paint() {
       wrap.textContent = '';
       var have = lines();
@@ -184,7 +187,9 @@
         g.items.forEach(function (t) {
           var on = have.indexOf(t) >= 0;
           var b = h('button', { type: 'button', class: 'chip small', 'aria-pressed': String(on) }, t);
+          if (t === keep) setTimeout(function () { b.focus(); }, 0);
           b.addEventListener('click', function () {
+            keep = t;
             if (on) {
               ta.value = ta.value.split('\n').filter(function (x) { return x.trim() !== t; }).join('\n').replace(/^\n+|\n+$/g, '');
             } else {
@@ -302,7 +307,7 @@
     var focus = String(answers.focus.text || '').split(':')[0].trim();
     var skill = (answers.focus.skills || [])[0] || '';
     var grouping = ((answers.grouping || {}).picks || [])[0] || '';
-    var terms = ((answers.content || {}).terms || []).map(function (t) { return String(t.term || '').trim(); }).filter(Boolean).slice(0, 3);
+    var terms = ((answers.content || {}).terms || []).map(function (t) { return lowerFirst(String(t.term || '').trim()); }).filter(Boolean).slice(0, 3);
     var g = lowerFirst(grouping);
     return { focus: lowerFirst(focus), skill: lowerFirst(skill), verb: verbs[0] || '', verbs: A.joinAnd(verbs), what: lowerFirst(what), grouping: g, Grouping: g ? g.charAt(0).toUpperCase() + g.slice(1) : '', eq: String((answers.eq || {}).text || '').trim(), terms: A.joinAnd(terms) };
   }
@@ -325,7 +330,8 @@
     var ideas = actIdeas(o.key), wrap = h('div', { class: 'suggest' });
     function lines() { return ta.value.split('\n').map(function (x) { return x.trim(); }); }
     function save() { set(textPath, ta.value); paint(); }
-    function add(t) { ta.value = ta.value.trim() ? ta.value.replace(/\s+$/, '') + '\n' + t : t; save(); ta.focus(); }
+    var keep = '';
+    function add(t, stay) { ta.value = ta.value.trim() ? ta.value.replace(/\s+$/, '') + '\n' + t : t; if (!stay) keep = ''; save(); keep = ''; if (!stay) ta.focus(); }
     function paint() {
       wrap.textContent = '';
       var have = lines();
@@ -334,9 +340,12 @@
         var r1 = h('div', { class: 'chips' });
         ideas.forEach(function (t) {
           var on = have.indexOf(t) >= 0;
-          r1.append(h('button', { type: 'button', class: 'chip small', 'aria-pressed': String(on), onclick: function () {
-            if (on) { ta.value = ta.value.split('\n').filter(function (x) { return x.trim() !== t; }).join('\n').replace(/^\n+|\n+$/g, ''); save(); } else add(t);
-          } }, t));
+          var ib = h('button', { type: 'button', class: 'chip small', 'aria-pressed': String(on), onclick: function () {
+            keep = t;
+            if (on) { ta.value = ta.value.split('\n').filter(function (x) { return x.trim() !== t; }).join('\n').replace(/^\n+|\n+$/g, ''); save(); keep = ''; } else add(t, true);
+          } }, t);
+          if (t === keep) setTimeout(function () { ib.focus(); }, 0);
+          r1.append(ib);
         });
         wrap.append(r1);
       }
@@ -421,10 +430,10 @@
         if (!skills.length) { scope.textContent = 'No skills are picked on the second question, so every standard for your grade is shown.'; return; }
         if (viewAll) {
           scope.textContent = 'Showing every standard for your grade.';
-          more.append(h('button', { type: 'button', class: 'btn quiet small', onclick: function () { viewAll = false; paintList(); } }, 'Show fewer'));
+          more.append(h('button', { type: 'button', class: 'btn quiet small', onclick: function () { viewAll = false; paintList(); var nb = more.querySelector('button'); if (nb) nb.focus(); } }, 'Show fewer'));
         } else {
           scope.textContent = 'Showing standards for: ' + skills.join(', ') + '.';
-          more.append('Don\u2019t see the standard you\u2019re looking for? ', h('button', { type: 'button', class: 'btn quiet small', onclick: function () { viewAll = true; paintList(); } }, 'View all.'));
+          more.append('Don\u2019t see the standard you\u2019re looking for? ', h('button', { type: 'button', class: 'btn quiet small', onclick: function () { viewAll = true; paintList(); var nb = more.querySelector('button'); if (nb) nb.focus(); } }, 'View all.'));
         }
       }
       function paintChosen() {
@@ -501,7 +510,18 @@
       // Suggested terms for the picked skills: one from each skill in turn, no repeats, up to eight.
       function suggested() {
         var lists = (answers.focus.skills || []).filter(function (k) { return B.termBank[k]; }).map(function (k) { return B.termBank[k]; });
-        var out = [], seen = {}, n = 0;
+        var out = [], seen = {};
+        // The first skill picked gets most of the rows: 5 and 3 with two skills, 4, 2 and 2 with three.
+        var quota = lists.length === 1 ? [MAXT] : lists.length === 2 ? [5, 3] : lists.length === 3 ? [4, 2, 2] : null;
+        if (quota) {
+          lists.forEach(function (l, j) {
+            var got = 0;
+            for (var q = 0; q < l.length && got < quota[j] && out.length < MAXT; q++) {
+              var kk = l[q][0].toLowerCase();
+              if (!seen[kk]) { seen[kk] = 1; out.push({ term: l[q][0], definition: l[q][1] }); got++; }
+            }
+          });
+        }
         for (var r = 0; out.length < MAXT; r++) {
           var any = false;
           for (var j = 0; j < lists.length && out.length < MAXT; j++) {
@@ -556,8 +576,10 @@
         box.textContent = '';
         answers.objectives.forEach(function (o, ix) {
           var prev = h('p', { class: 'preview', 'aria-live': 'polite' }, swbat(o) || 'Your objective will appear here.');
-          function upd() { prev.textContent = swbat(o) || 'Your objective will appear here.'; if (typeof whatLab !== 'undefined') whatLab.textContent = 'Students will ' + (window.LessonAssemble.joinAnd(o.verb) || 'do what?'); persist(); }
+          function upd() { multiHint.hidden = o.verb.length < 2; prev.textContent = swbat(o) || 'Your objective will appear here.'; if (typeof whatLab !== 'undefined') whatLab.textContent = 'Students will ' + (window.LessonAssemble.joinAnd(o.verb) || 'do what?'); persist(); }
           var verbWrap = h('div', { class: 'field' });
+          var multiHint = h('p', { class: 'hint' }, 'Every verb applies to everything you write below. If a verb fits only part of it, add a second objective.');
+          multiHint.hidden = o.verb.length < 2;
           function paintVerbs() {
             verbWrap.textContent = '';
             verbWrap.append(h('div', { class: 'lab' }, o.level.length > 1 ? 'Verbs' : 'Verb'));
@@ -594,7 +616,7 @@
                 upd();
               },
               after: paintVerbs }), 'Pick one or more.'),
-            verbWrap,
+            verbWrap, multiHint,
             field('Kind of knowledge', chipGroup({ options: B.knowledge, small: true, multi: true, aria: 'Kind of knowledge', get: function () { return o.knowledge; }, set: function (a) { o.knowledge = B.knowledge.filter(function (k) { return a.indexOf(k) >= 0; }); upd(); } }), 'Pick one or more.'),
             field(null, [whatLab, what], null, whatId),
             field('To, or so that (optional)', pur, null, purId),
@@ -627,9 +649,9 @@
     function () {
       return [
         chipsField('grouping.picks', { label: 'Grouping patterns', options: B.grouping, multi: true, small: true }),
-        textField('grouping.otherPattern', { label: 'Other grouping pattern (optional)', placeholder: 'Gallery walk', enter: true, hint: 'Reads as "Students will work in ..." in section F.' }),
+        textField('grouping.otherPattern', { label: 'Other grouping pattern (optional)', placeholder: 'Gallery walk', enter: true, hint: 'A few words, like "gallery walk". Reads as "Students will work in ..." in section F.' }),
         chipsField('grouping.seating', { label: 'Seating', options: B.seating, small: true }),
-        textField('grouping.otherSeating', { label: 'Other seating (optional)', placeholder: 'gather in a circle on the rug', enter: true, hint: 'Reads as "The class will ..." in section F.' }),
+        textField('grouping.otherSeating', { label: 'Other seating (optional)', placeholder: 'gather in a circle on the rug', enter: true, hint: 'Start with a verb. Reads as "The class will ..." in section F. With a seating pick above it reads "sit in rearranged desks and ...".' }),
         textField('grouping.movement', { label: 'Student movement (optional)', multiline: true, rows: 3, placeholder: 'Two volunteers stand at the front to show the distance between thoughts and dialogue.' })
       ];
     });
@@ -802,9 +824,16 @@
             sentence.value = r.sentences[e.name];
             slots();
           }
-          function slots() { var n = (sentence.value.match(/\{[^}]+\}/g) || []).length; warn.textContent = n ? 'Fill in ' + n + ' {slot' + (n > 1 ? 's' : '') + '} in this sentence.' : ''; }
+          var SLOT = '{content / process / product}';
+          var slotRow = h('div', { class: 'chips' }, h('span', { class: 'hint' }, 'Fill the blank:'));
+          ['content', 'process', 'product'].forEach(function (w) {
+            slotRow.append(h('button', { type: 'button', class: 'chip small', onclick: function () {
+              sentence.value = sentence.value.replace(SLOT, w); r.sentences[e.name] = sentence.value; persist(); slots(); sentence.focus();
+            } }, w));
+          });
+          function slots() { var n = (sentence.value.match(/\{[^}]+\}/g) || []).length; warn.textContent = n ? 'Fill in ' + n + ' {slot' + (n > 1 ? 's' : '') + '} in this sentence.' : ''; slotRow.hidden = sentence.value.indexOf(SLOT) < 0; }
           sentence.addEventListener('input', function () { r.sentences[e.name] = sentence.value; slots(); persist(); });
-          var body = h('div', { class: 'fields', style: 'gap:8px' }, sentence, warn);
+          var body = h('div', { class: 'fields', style: 'gap:8px' }, sentence, slotRow, warn);
           function show() { body.hidden = !cb.checked; if (cb.checked) ensure(); }
           cb.addEventListener('change', function () { r.checked[e.name] = cb.checked; persist(); show(); });
           root.append(h('div', { class: 'cite' },
@@ -821,7 +850,20 @@
     });
 
   /* ---------- review: the checks, run on the answers and on the text that will be downloaded ---------- */
+  // Research sentences made from earlier answers follow those answers, unless the teacher edited the sentence.
+  function syncResearch(cites) {
+    var r = answers.research;
+    if (!r || !cites) return;
+    r.sentences = r.sentences || {}; r.auto = r.auto || {};
+    cites.forEach(function (e) {
+      var auto = window.LessonAssemble.fillSentence(e, answers);
+      if (r.sentences[e.name] != null && r.sentences[e.name] === r.auto[e.name]) r.sentences[e.name] = auto;
+      r.auto[e.name] = auto;
+    });
+    persist();
+  }
   function effective(std, cites) {
+    syncResearch(cites);
     var model = window.LessonAssemble.build(answers, std, cites), P = answers.plan;
     function pick(key, auto) { return (P.edits[key] != null && P.edits[key] !== P.auto[key]) ? P.edits[key] : auto; }
     function rows(key, auto) { try { return JSON.parse(pick(key, JSON.stringify(auto))); } catch (e) { return auto; } }
@@ -875,6 +917,7 @@
     var root = h('div', { class: 'review' }, h('p', { class: 'hint' }, 'Building your plan…'));
     Promise.all([standards(), citations()]).then(function (res) {
       var LA = window.LessonAssemble;
+      syncResearch(res[1]);
       var model = LA.build(answers, res[0], res[1]);
       var P = answers.plan;
       function cur(key, auto) {
@@ -1063,10 +1106,19 @@
       head = h('h1', { class: 'q', tabindex: '-1' }, 'Build a lesson plan by answering questions.');
       main.append(h('div', { class: 'intro' }, head,
         h('p', { class: 'lede' }, 'One question at a time. You end up with a finished plan in the University of Bridgeport template, ready for Word.'),
-        h('ul', null, h('li', null, 'No account and no sign-in.'), h('li', null, 'No AI writing for you. You choose from lists and write your own answers.'), h('li', null, 'Nothing leaves your browser. Use initials or S1, S2 for students.')),
+        h('ul', null, h('li', null, 'No account and no sign-in.'), h('li', null, 'No AI writing for you. You choose from lists and write your own answers.'), h('li', null, 'Your answers stay in your browser, saved on this device. The page loads fonts from Google and one script from cdnjs, so those sites can see that you visited. Use initials or S1, S2 for students.')),
         h('div', { class: 'nav', style: 'margin-top:0' },
           hasDraft ? h('button', { type: 'button', class: 'btn primary', onclick: function () { go(Math.min(Math.max(draft.i, 0), TOTAL + 1)); } }, 'Continue where you left off (question ' + (Math.min(Math.max(draft.i, 0), TOTAL - 1) + 1) + ' of ' + TOTAL + ')') : null,
-          h('button', { type: 'button', class: hasDraft ? 'btn' : 'btn primary', onclick: function () { if (hasDraft) { answers = blank(); maxSeen = 0; hasDraft = false; } go(profileComplete() ? 1 : 0); } }, hasDraft ? 'Start a new plan' : 'Start'))));
+          h('button', { type: 'button', class: hasDraft ? 'btn' : 'btn primary', onclick: function () {
+            var b = this;
+            if (hasDraft && b.getAttribute('data-sure') !== '1') {
+              b.setAttribute('data-sure', '1'); b.textContent = 'Yes, delete my saved plan and start a new one';
+              b.parentNode.append(h('p', { class: 'warn', role: 'status' }, 'This deletes the plan saved in this browser. Press the button again to confirm, or use the button above to keep it.'));
+              return;
+            }
+            if (hasDraft) { answers = blank(); maxSeen = 0; hasDraft = false; }
+            go(profileComplete() ? 1 : 0);
+          } }, hasDraft ? 'Start a new plan' : 'Start'))));
       head.focus();
       return;
     }
