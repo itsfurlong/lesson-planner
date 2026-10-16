@@ -164,6 +164,15 @@
       get: function () { return get(path); }, set: function (v) { set(path, v); }, after: o.after });
     return field(o.label, g, o.hint);
   }
+  // Chips show a blank line where the inserted text has a {slot}. The inserted text keeps the braces so Review can catch unfinished sentences.
+  function blanks(t) { return String(t).replace(/\{[^}]+\}/g, '____'); }
+  // A closed "What do these mean?" box for the terms a screen uses. Display only.
+  function glossaryFor(terms) {
+    var rows = terms.filter(function (t) { return B.glossary[t]; });
+    if (!rows.length) return null;
+    return h('details', { class: 'explain' }, h('summary', null, 'What do these mean?'),
+      rows.map(function (t) { return h('p', { class: 'hint' }, h('b', null, t), ': ', B.glossary[t]); }));
+  }
   // What students already know: suggestions from the skills picked on the second question. A click adds the sentence to the box, a second click takes it out.
   function priorField() {
     var id = nid();
@@ -186,7 +195,7 @@
         var row = h('div', { class: 'chips' });
         g.items.forEach(function (t) {
           var on = have.indexOf(t) >= 0;
-          var b = h('button', { type: 'button', class: 'chip small', 'aria-pressed': String(on) }, t);
+          var b = h('button', { type: 'button', class: 'chip small', 'aria-pressed': String(on) }, blanks(t));
           if (t === keep) setTimeout(function () { b.focus(); }, 0);
           b.addEventListener('click', function () {
             keep = t;
@@ -206,7 +215,7 @@
     paint();
     return h('div', { class: 'field' },
       h('div', { class: 'lab' }, 'What students already know'),
-      h('p', { class: 'hint' }, skills.length ? 'Suggestions come from the skills you picked. Click one to add it, then edit it to match your class. Fill in anything in {braces}.' : 'Click a starter and finish it, or write your own. Fill in anything in {braces}.'),
+      h('p', { class: 'hint' }, skills.length ? 'Suggestions come from the skills you picked. Click one to add it, then edit it to match your class. Wherever you see { }, type your own words in place of it.' : 'Click a starter and finish it, or write your own. Wherever you see { }, type your own words in place of it.'),
       wrap,
       h('label', { for: id, class: 'sr' }, 'What students already know details'),
       ta);
@@ -218,7 +227,7 @@
     var ta = h('textarea', { id: id, rows: o.rows || 3, placeholder: o.placeholder || '' });
     ta.value = get(base + '.text') || '';
     var last = get(base + '.pick') || '';
-    var g = chipGroup({ options: o.options, small: true, aria: o.label,
+    var g = chipGroup({ options: o.options, small: true, aria: o.label, render: o.blanks ? blanks : null,
       get: function () { return get(base + '.pick'); },
       set: function (v) {
         set(base + '.pick', v);
@@ -427,7 +436,7 @@
       function paintScope() {
         var skills = LS.mapped(answers.focus.skills, B.skillStandards);
         scope.textContent = ''; more.textContent = '';
-        if (!skills.length) { scope.textContent = 'No skills are picked on the second question, so every standard for your grade is shown.'; return; }
+        if (!skills.length) { scope.textContent = 'You did not pick skills on question 2, so every standard for your grade is shown.'; return; }
         if (viewAll) {
           scope.textContent = 'Showing every standard for your grade.';
           more.append(h('button', { type: 'button', class: 'btn quiet small', onclick: function () { viewAll = false; paintList(); var nb = more.querySelector('button'); if (nb) nb.focus(); } }, 'Show fewer'));
@@ -472,11 +481,11 @@
       var search = h('input', { id: sid, type: 'text', placeholder: 'Search by code or word, like W.9-10.3 or dialogue', autocomplete: 'off' });
       search.addEventListener('input', function () { q = search.value; paintList(); });
       var strands = chipGroup({ options: ['All', 'RL', 'RI', 'W', 'SL', 'L'], small: true, sticky: true, aria: 'Strand',
-        render: function (x) { return ({ All: 'All strands', RL: 'Literature', RI: 'Informational text', W: 'Writing', SL: 'Speaking and listening', L: 'Language' })[x]; },
+        render: function (x) { return ({ All: 'All types', RL: 'Literature', RI: 'Informational text', W: 'Writing', SL: 'Speaking and listening', L: 'Language' })[x]; },
         get: function () { return strand; }, set: function (v) { strand = v; }, after: paintList });
       root.append(
         field('Chosen', [chosen, count]),
-        field('Find a standard', [search], 'Grade ' + answers.basics.grade + ' uses the ' + gradeBand() + ' standards.', sid),
+        field('Find a standard', [search], 'Grade ' + answers.basics.grade + ' uses the ' + gradeBand() + ' standards. A code like W.9-10.3b means Writing, grades 9 to 10, standard 3, part b.', sid),
         scope, strands, list, note, more);
       paintChosen();
       list.append(h('li', { class: 'hint', style: 'padding:12px' }, 'Loading standards…'));
@@ -497,7 +506,7 @@
     'Think about language, culture, and experience that can enrich the lesson.',
     function () {
       return [
-        chipsField('assets.picks', { label: 'Pick all that apply', options: B.assets, multi: true, small: true }),
+        chipsField('assets.picks', { label: 'Pick all that apply', options: B.assets, multi: true, small: true, hint: 'Think of languages, interests, and experiences students already have.' }),
         textField('assets.detail', { label: 'One sentence of detail', multiline: true, rows: 3, placeholder: 'Say in one sentence how students will use this strength.' })
       ];
     });
@@ -561,9 +570,9 @@
       }
       paintTerms();
       return [
-        textField('content.ideas', { label: 'Core ideas and concepts', multiline: true, rows: 4, placeholder: 'Write the big ideas students need to understand, in a few sentences.' }),
-        field('Key academic language', [h('p', { class: 'hint' }, suggested().length ? 'These come from the skills you picked. Change, remove, or add any of them.' : 'Add the words students need to know.'), termsBox, h('div', { class: 'chips' }, addBtn, resetBtn)]),
-        chipsField('content.links', { label: 'Connections to other content areas', options: B.connections, multi: true, small: true })
+        textField('content.ideas', { label: 'Core ideas: what you want students to take away', multiline: true, rows: 4, placeholder: 'Write the big ideas students need to understand, in a few sentences.' }),
+        field('Key words students need to learn (academic language)', [h('p', { class: 'hint' }, suggested().length ? 'These come from the skills you picked. Change, remove, or add subject words students must use.' : 'Add subject words students must use, like theme or dialogue.'), termsBox, h('div', { class: 'chips' }, addBtn, resetBtn)]),
+        chipsField('content.links', { label: 'Other subjects this connects to', options: B.connections, multi: true, small: true })
       ];
     });
 
@@ -647,7 +656,7 @@
   screen('eq', 'D', 'What essential question will drive the lesson?',
     'A question students can keep coming back to. Start from a stem or write your own.',
     function () {
-      return [pickText('eq', { label: 'Essential question', options: B.eqStems, prefill: true, rows: 3, placeholder: 'Write one open question the whole lesson works toward.', hint: 'Fill in anything in {braces}.' })];
+      return [pickText('eq', { label: 'Big question for the lesson (essential question)', options: B.eqStems, prefill: true, blanks: true, rows: 3, placeholder: 'Write one open question the whole lesson works toward.', hint: 'Wherever you see { }, type your own words in place of it.' })];
     });
 
   screen('materials', 'E', 'What materials do you need?',
@@ -656,6 +665,7 @@
       return [
         textField('materials.text', { label: 'Text or book (if any)', placeholder: 'Type the title and author of the text, if you use one.', enter: true }),
         chipsField('materials.picks', { label: 'Materials', options: B.materials, multi: true, small: true }),
+        glossaryFor(['Exit slip', 'Graphic organizer']),
         textField('materials.other', { label: 'Anything else', placeholder: 'List any other materials students or you will need.', enter: true })
       ];
     });
@@ -665,6 +675,7 @@
     function () {
       return [
         chipsField('grouping.picks', { label: 'Grouping patterns', options: B.grouping, multi: true, small: true }),
+        glossaryFor(['Think-pair-share', 'Jigsaw', 'Fishbowl', 'Peer conferencing']),
         textField('grouping.otherPattern', { label: 'Other grouping pattern (optional)', placeholder: 'Name the grouping pattern in a few words.', enter: true, hint: 'A few words, like "gallery walk". Reads as "Students will work in ..." in section F.' }),
         chipsField('grouping.seating', { label: 'Seating', options: B.seating, small: true }),
         textField('grouping.otherSeating', { label: 'Other seating (optional)', placeholder: 'Describe the seating, starting with a verb.', enter: true, hint: 'Start with a verb. Reads as "The class will ..." in section F. With a seating pick above it reads "sit in rearranged desks and ...".' }),

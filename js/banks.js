@@ -8,6 +8,19 @@ window.LP_BANKS = {
     Evaluate: ['judge', 'critique', 'justify', 'defend', 'assess', 'argue'],
     Create: ['write', 'compose', 'design', 'develop', 'produce', 'plan']
   },
+  // One-line meanings for activity and material terms. Display only, shown in a "What do these mean?" box on the screens that use them.
+  glossary: {
+    'Exit slip': 'A short written answer students hand in on the way out.',
+    'KWL chart': 'A chart of what students Know, Want to know, and Learned.',
+    'Anticipation guide': 'True or false statements students react to before reading or learning.',
+    'Think-pair-share': 'Students think alone, talk with a partner, then share with the class.',
+    'Jigsaw': 'Each student becomes the expert on one part, then teaches their group.',
+    'Fishbowl': 'A small group discusses in the middle while the rest watch and listen.',
+    'Graphic organizer': 'A chart or diagram that helps students sort ideas on paper.',
+    'Mentor text': 'A model piece of writing students study and borrow techniques from.',
+    'Word wall': 'Key words posted where students can see and use them.',
+    'Peer conferencing': 'Students give each other feedback on their work.'
+  },
   knowledge: ['factual', 'conceptual', 'procedural', 'metacognitive'],
   // Plain meanings shown next to the level and knowledge picks on the objective screen. Display only: the stored values stay the words above.
   levelMeaning: {
