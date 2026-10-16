@@ -970,7 +970,7 @@
         var warn = h('p', { class: 'warn' });
         function chk() { var n = LA.placeholders(ta.value).length; warn.textContent = n ? n + ' {slot' + (n > 1 ? 's' : '') + '} still need filling in.' : ''; }
         ta.addEventListener('input', function () { P.edits[key] = ta.value; persist(); chk(); });
-        var reset = h('button', { type: 'button', class: 'btn quiet small', onclick: function () { P.edits[key] = auto; ta.value = auto; persist(); chk(); } }, 'Reset');
+        var reset = h('button', { type: 'button', class: 'btn quiet small', onclick: function () { P.edits[key] = auto; ta.value = auto; persist(); chk(); } }, 'Reset this section');
         chk();
         return h('section', null, head(title, screenIx, reset), ta, warn);
       }
@@ -989,7 +989,7 @@
           st.addEventListener('input', function () { r.strategy = st.value; save(); });
           body.append(h('div', { class: 'sub' }, h('div', { class: 'row3' }, ini, ev), st));
         });
-        var reset = h('button', { type: 'button', class: 'btn quiet small', onclick: function () { P.edits[key] = auto; persist(); renderPlanInto(); } }, 'Reset');
+        var reset = h('button', { type: 'button', class: 'btn quiet small', onclick: function () { P.edits[key] = auto; persist(); renderPlanInto(); } }, 'Reset this section');
         return h('section', null, head(title, screenIx, reset), body);
       }
       function header() {
@@ -1090,7 +1090,7 @@
     if (n === 1 && !a.focus.text.trim()) return 'Add a lesson topic to continue.';
     if (n === 2 && !a.standards.length) return 'Pick at least one standard to continue.';
     if (n === 6) { var o = a.objectives[0]; if (!(o.level.length && o.verb.length && o.knowledge.length && o.what.trim())) return 'Pick how hard students think, an action word, and the kind of knowing, then say what students will do.'; }
-    if (n === 18) { var c = Object.keys(a.research.checked).filter(function (k) { return a.research.checked[k]; }).length; if (c < 2) return 'Check at least two research connections to continue.'; }
+    if (n === 18) { var c = Object.keys(a.research.checked).filter(function (k) { return a.research.checked[k]; }).length; if (c < 2) return 'Check at least two teaching ideas to continue.'; }
     return '';
   }
   function go(n, ret) {
