@@ -215,7 +215,7 @@
     paint();
     return h('div', { class: 'field' },
       h('div', { class: 'lab' }, 'What students already know'),
-      h('p', { class: 'hint' }, skills.length ? 'Suggestions come from the skills you picked. Click one to add it, then edit it to match your class. Wherever you see { }, type your own words in place of it.' : 'Click a starter and finish it, or write your own. Wherever you see { }, type your own words in place of it.'),
+      h('p', { class: 'hint' }, skills.length ? 'Suggestions come from the skills you picked. Click one to add it, then edit it to match your class.' : 'Click a starter and finish it, or write your own. Wherever you see { }, type your own words in place of it.'),
       wrap,
       h('label', { for: id, class: 'sr' }, 'What students already know details'),
       ta);
@@ -600,7 +600,7 @@
           function paintVerbs() {
             verbWrap.textContent = '';
             verbWrap.append(h('div', { class: 'lab' }, o.level.length > 1 ? 'Pick the action words.' : 'Pick the action word.'));
-            verbWrap.append(h('p', { class: 'hint' }, 'Choose something you could watch or grade. Words like understand or know cannot be checked.'));
+            verbWrap.append(h('p', { class: 'hint' }, 'Choose an action you could watch or grade, like explain or write. Vague words like know or learn cannot be checked.'));
             if (!o.level.length) { verbWrap.append(h('p', { class: 'hint' }, 'Pick how hard students think first. The action words appear here.')); return; }
             if (o.level.length > 1) verbWrap.append(h('p', { class: 'hint' }, 'Pick one or more. They are grouped by how hard students think.'));
             // The verbs for each picked level, under the level name.
@@ -735,7 +735,7 @@
         activityField('closure.act.text', { key: 'closure.act', pickPath: 'closure.act.pick', label: 'Closure activity', types: B.activities.closure, placeholder: 'Describe how you will wrap up the lesson.' }),
         textField('closure.language', { label: 'How students use the key words to wrap up', multiline: true, rows: 2, placeholder: 'Describe how students will use the key terms to close the lesson.' }),
         activityField('closure.homework', { key: 'closure.homework', rows: 2, label: 'Homework (optional)', placeholder: 'Write the homework, or leave this blank for none.' }),
-        glossaryFor(['Exit slip', 'Think-pair-share']),
+        glossaryFor(['Exit slip', 'Share-out']),
         minutesField('closure.minutes')
       ];
     });

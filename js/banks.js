@@ -19,7 +19,8 @@ window.LP_BANKS = {
     'Graphic organizer': 'A chart or diagram that helps students sort ideas on paper.',
     'Mentor text': 'A model piece of writing students study and borrow techniques from.',
     'Word wall': 'Key words posted where students can see and use them.',
-    'Peer conferencing': 'Students give each other feedback on their work.'
+    'Peer conferencing': 'Students give each other feedback on their work.',
+    'Share-out': 'Volunteers tell the class what they wrote or talked about.'
   },
   // Plain one-line descriptions for the research cards, keyed by the exact name in citations.json. Display only.
   frameworkPlain: {
