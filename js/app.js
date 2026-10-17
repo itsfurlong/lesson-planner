@@ -40,6 +40,7 @@
   var answers = blank();
   var i = -1;          // -1 is the welcome screen
   var maxSeen = 0;
+  var visited = {};   // screens the user opened and then left; the rail circle needs one of these
   var returnTo = null;  // set when a review link sends you to a question; the Continue button then returns to the review
 
   function merge(base, saved) {
@@ -53,7 +54,9 @@
   var hasDraft = !!(draft && draft.answers && draft.i >= 0);
   if (hasDraft) { answers = merge(blank(), draft.answers); answers.focus.skills = (answers.focus.skills || []).map(function (x) { return x === 'Informational writing' ? 'Informational/Expository writing' : x; }); if (!draft.answers.content || draft.answers.content.termsAuto === undefined) answers.content.termsAuto = (answers.content.terms || []).every(function (t) { return !String(t.term || '').trim() && !String(t.definition || '').trim(); });
     normObjectives();
-    i = -1; maxSeen = draft.maxSeen || draft.i || 0; }
+    i = -1; maxSeen = draft.maxSeen || draft.i || 0;
+    if (Array.isArray(draft.visited)) draft.visited.forEach(function (vn) { visited[vn] = true; });
+    else for (var vn = 0; vn <= maxSeen; vn++) if (vn !== draft.i) visited[vn] = true; }
 
   // Level, verb and knowledge are lists. Older drafts saved single strings.
   function normObjectives() {
@@ -62,7 +65,7 @@
   }
 
   function persist() {
-    store.write('lp.draft', { answers: answers, i: i, maxSeen: maxSeen });
+    store.write('lp.draft', { answers: answers, i: i, maxSeen: maxSeen, visited: Object.keys(visited).map(Number) });
     var b = answers.basics;
     store.write('lp.profile', { teacher: b.teacher, grade: b.grade, subject: b.subject, period: b.period });
   }
@@ -1092,6 +1095,7 @@
   // Nothing blocks Continue. These five screens used to, so they carry a short note that skipping is fine.
   var SKIPPABLE = { 0: true, 1: true, 2: true, 6: true, 18: true };
   function go(n, ret) {
+    if (i >= 0 && i !== n) visited[i] = true;
     i = n;
     returnTo = ret == null ? null : ret;
     if (n > maxSeen) maxSeen = n;
@@ -1131,7 +1135,8 @@
       lastOpen = open; paintMarks(open);
     }).catch(function () { /* the review screen reports data problems */ });
   }
-  // A section gets a green check when the Review checks find nothing unfinished in it, and a yellow circle when they do.
+  // A section gets a green check when the Review checks find nothing unfinished in it, and a yellow circle only when the user
+  // has opened one of its screens, left it, and the Review checks still flag that screen.
   var lastOpen = null;
   function paintMarks(open) {
     if (!open) return;
@@ -1139,7 +1144,8 @@
     RAIL.forEach(function (s, k) {
       if (s.screens[0] >= TOTAL || !btns[k]) return;     // Review and Your plan carry no mark
       var unfinished = s.screens.some(function (n) { return open[n]; });
-      btns[k].classList.toggle('pending', unfinished);
+      var pending = s.screens.some(function (n) { return visited[n] && open[n]; });   // opened, left, and still flagged
+      btns[k].classList.toggle('pending', pending);
       btns[k].classList.toggle('complete', !unfinished);
     });
   }
@@ -1168,7 +1174,7 @@
               b.parentNode.append(h('p', { class: 'warn', role: 'status' }, 'This deletes the plan saved in this browser. Press the button again to confirm, or use the button above to keep it.'));
               return;
             }
-            if (hasDraft) { answers = blank(); maxSeen = 0; hasDraft = false; }
+            if (hasDraft) { answers = blank(); maxSeen = 0; visited = {}; hasDraft = false; }
             go(profileComplete() ? 1 : 0);
           } }, hasDraft ? 'Start a new plan' : 'Start'))));
       head.focus();
@@ -1219,7 +1225,7 @@
   restart.addEventListener('click', function () {
     var p = restart.parentNode;
     var ask = h('span', { role: 'alert' }, 'Delete this draft? ',
-      h('button', { type: 'button', class: 'btn small', onclick: function () { store.remove('lp.draft'); answers = blank(); i = -1; maxSeen = 0; hasDraft = false; ask.remove(); restart.hidden = false; render(); window.scrollTo(0, 0); } }, 'Yes, start over'), ' ',
+      h('button', { type: 'button', class: 'btn small', onclick: function () { store.remove('lp.draft'); answers = blank(); i = -1; maxSeen = 0; visited = {}; hasDraft = false; ask.remove(); restart.hidden = false; render(); window.scrollTo(0, 0); } }, 'Yes, start over'), ' ',
       h('button', { type: 'button', class: 'btn quiet small', onclick: function () { ask.remove(); restart.hidden = false; } }, 'Keep it'));
     restart.hidden = true;
     p.append(ask);

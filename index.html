@@ -75,16 +75,18 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .tick.now { background: var(--hl); border-color: var(--ink); height: 30px; margin-top: -4px; }
 .tick.seen { border-color: var(--ink); cursor: pointer; }
 
-.shell { display: grid; grid-template-columns: 14rem minmax(0, 1fr); gap: 48px; align-items: start; }
+.shell { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: 48px; align-items: start; }
 .rail { position: sticky; top: 16px; }
 .rail ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
 .rail button { width: 100%; text-align: left; background: none; border: 0; padding: 7px 10px; border-radius: 6px; color: var(--ink-soft); cursor: pointer; display: flex; gap: 10px; align-items: baseline; }
 .rail .letter { font: 700 0.95rem var(--font-q); width: 1.4rem; flex: none; color: var(--ink-soft); }
 .rail button[aria-current="step"] { background: var(--hl); color: var(--hl-ink); font-weight: 700; }
 .rail button[aria-current="step"] .letter { color: var(--hl-ink); }
-.rail button.complete .letter::after { content: "\2713"; margin-left: 2px; color: var(--ok); }
-.rail button.pending .letter::after { content: "\25CB"; margin-left: 2px; color: var(--wait); }
-.rail button[aria-current="step"] .letter::after { content: none; }
+/* Marks live in one fixed slot at the far left of every row, so circles and checks line up. */
+.rail button::before { content: ""; width: 1rem; flex: none; text-align: center; color: var(--wait); }
+.rail button.pending::before { content: "\25CB"; }
+.rail button.complete::before { content: "\2713"; color: var(--ok); }
+.rail button[aria-current="step"]::before { content: ""; }
 .rail button:hover:not([aria-current="step"]) { background: color-mix(in srgb, var(--ink) 8%, transparent); }
 
 .card { max-width: 40rem; min-width: 0; }
