@@ -137,7 +137,7 @@
     var checked = Object.keys((a.research && a.research.checked) || {}).filter(function (k) { return a.research.checked[k]; });
     var known = {}, inText = {};
     cites.forEach(function (c) { known[c.name] = c; inText[c.in_text.replace(/^\(|\)$/g, '')] = true; });
-    if (checked.length < 2) fail(7, 'Only ' + plural(checked.length, 'teaching idea is', 'teaching ideas are') + ' checked. Check at least two.', [fix('Check more', S.research)]);
+    if (checked.length < 2) fail(7, (checked.length ? 'Only 1 teaching idea is checked.' : 'No teaching ideas are checked yet.') + ' Two or more works best.', [fix('Check more', S.research)]);
     checked.forEach(function (k) { if (!known[k]) fail(7, '“' + k + '” is not in the checked list of teaching ideas.', [fix('Uncheck it', S.research)]); });
     if (model) {
       (model.references || []).forEach(function (r) {

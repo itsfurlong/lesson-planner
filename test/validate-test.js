@@ -42,3 +42,10 @@ t('verb outside every picked level',a=>{a.objectives[0]={level:['Analyze','Creat
 t('empty lists',a=>{a.objectives[0]={level:[],verb:[],knowledge:[],what:'x',purpose:''};},[2,3]);
 t('no kinds, level and verb present',a=>{a.objectives[0]={level:['Analyze'],verb:['analyze'],knowledge:[],what:'x',purpose:''};},[3]);
 t('second objective empty lists is skipped',a=>{a.objectives.push({level:[],verb:[],knowledge:[],what:'',purpose:''});},[]);
+
+// Rule 7 wording when few or no teaching ideas are checked (the plan can still be downloaded).
+[[{}, 'No teaching ideas are checked yet. Two or more works best.'], [{[cites[0].name]: true}, 'Only 1 teaching idea is checked. Two or more works best.']].forEach(([checked, want]) => {
+  const a = base(); a.research.checked = checked;
+  const m = V.run({ answers: a, model: model(), standards: std, cites, banks }).rules.find(x => x.id === 7).failures[0].message;
+  console.log(m === want ? 'PASS' : 'FAIL', 'rule 7 wording', JSON.stringify(m));
+});
