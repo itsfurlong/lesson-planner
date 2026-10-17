@@ -927,8 +927,8 @@
       var good = r.rules.filter(function (x) { return !x.failures.length; });
       root.textContent = '';
       root.append(h('section', { class: 'summary ' + (bad.length ? 'bad' : 'good'), role: 'status' },
-        h('h2', null, r.failCount ? r.failCount + (r.failCount > 1 ? ' things' : ' thing') + ' to fix' : 'Every check passed'),
-        h('p', null, r.failCount ? 'Each one has a button that takes you to the question. You can still download with these open.' : 'Your plan is ready to download.')));
+        h('h2', null, r.failCount ? (r.failCount > 1 ? r.failCount + ' pieces haven\u2019t been completed.' : '1 piece hasn\u2019t been completed.') : 'Every check passed'),
+        h('p', null, r.failCount ? 'You can go back and fill them in here if you\u2019d like, or you can download the Word file and fill in the rest by hand. Each one below has a button that takes you to its question.' : 'Your plan is ready to download.')));
       bad.forEach(function (rule) {
         root.append(h('section', { class: 'fail' }, h('h2', null, rule.name),
           h('ul', null, rule.failures.map(function (f) {
@@ -1055,8 +1055,8 @@
           var a = h('a', { href: url, download: fileName() });
           document.body.append(a); a.click(); a.remove();
           setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
-          statusEl.className = failCount ? 'warn msg' : 'okmsg msg';
-          statusEl.textContent = 'Downloaded ' + fileName() + '. ' + (failCount ? 'It still has ' + failCount + ' failed check' + (failCount > 1 ? 's' : '') + '. Use Back to see them. ' : '') + 'Open it in Word to check it.';
+          statusEl.className = failCount ? 'hint msg' : 'okmsg msg';
+          statusEl.textContent = 'Downloaded ' + fileName() + '. ' + (failCount ? (failCount > 1 ? failCount + ' pieces are' : '1 piece is') + ' not completed yet. Use Back to see what is left. ' : '') + 'Open it in Word to check it.';
         }).catch(function (err) {
           statusEl.className = 'warn msg';
           statusEl.textContent = 'The .docx could not be built (' + err.message + '). Reload the page and try again. Your answers are saved.';
@@ -1117,12 +1117,29 @@
     rail.textContent = '';
     RAIL.forEach(function (s) {
       var current = s.screens.indexOf(i) >= 0;
-      var complete = s.screens[s.screens.length - 1] < i;
-      var b = h('button', { type: 'button', class: complete ? 'complete' : '', onclick: function () { go(s.screens[0]); } }, h('span', { class: 'letter' }, s.letter), h('span', null, s.label));
+      var b = h('button', { type: 'button', onclick: function () { go(s.screens[0]); } }, h('span', { class: 'letter' }, s.letter), h('span', null, s.label));
       if (current) b.setAttribute('aria-current', 'step');
       rail.append(h('li', null, b));
     });
     count.textContent = i >= 0 && i < TOTAL ? 'Question ' + (i + 1) + ' of ' + TOTAL : '';
+    paintMarks(lastOpen);       // show the last known marks at once, then refresh them from the Review checks
+    checkNow().then(function (r) {
+      var open = {};
+      r.rules.forEach(function (rule) { rule.failures.forEach(function (f) { f.fix.forEach(function (x) { if (x.screen < TOTAL) open[x.screen] = true; }); }); });
+      lastOpen = open; paintMarks(open);
+    }).catch(function () { /* the review screen reports data problems */ });
+  }
+  // A section gets a green check when the Review checks find nothing unfinished in it, and a yellow circle when they do.
+  var lastOpen = null;
+  function paintMarks(open) {
+    if (!open) return;
+    var btns = document.querySelectorAll('#rail button');
+    RAIL.forEach(function (s, k) {
+      if (s.screens[0] >= TOTAL || !btns[k]) return;     // Review and Your plan carry no mark
+      var unfinished = s.screens.some(function (n) { return open[n]; });
+      btns[k].classList.toggle('pending', unfinished);
+      btns[k].classList.toggle('complete', !unfinished);
+    });
   }
 
   function render() {
@@ -1168,10 +1185,10 @@
       head = h('h1', { class: 'q', tabindex: '-1' }, 'Your lesson plan');
       var status = h('p', { class: 'msg', role: 'status', 'aria-live': 'polite' });
       var planEl = planScreen(status);
-      var failNote = h('p', { class: 'warn msg', role: 'status' });
+      var failNote = h('p', { class: 'hint msg', role: 'status' });
       checkNow().then(function (r) {
-        if (r.failCount) failNote.append(r.failCount + (r.failCount > 1 ? ' checks still fail. ' : ' check still fails. ') + 'You can download anyway. ',
-          h('button', { type: 'button', class: 'btn quiet small', onclick: function () { go(TOTAL); } }, 'See the checks'));
+        if (r.failCount) failNote.append((r.failCount > 1 ? r.failCount + ' pieces haven\u2019t been completed. ' : '1 piece hasn\u2019t been completed. ') + 'You can download now and fill in the rest in Word. ',
+          h('button', { type: 'button', class: 'btn quiet small', onclick: function () { go(TOTAL); } }, 'See what is left'));
       }).catch(function () { /* the review screen reports data problems */ });
       main.append(h('p', { class: 'where' }, 'Ready to download'), head,
         h('p', { class: 'help' }, 'This is your plan in the template\u2019s order. Edit any section, then download it as a Word file.'), failNote, planEl, status,
