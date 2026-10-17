@@ -820,10 +820,15 @@
 
   /* Research connections: suggested from your earlier answers, all editable. */
   function fillSentence(entry) { return window.LessonAssemble.fillSentence(entry, answers); }
+  // The Bloom connection is required only once the goal names a level, verb, or kind of knowing. With no goal, nothing is forced into the plan.
+  function hasGoal() {
+    var AL = window.LessonAssemble.asList;
+    return (answers.objectives || []).some(function (o) { return AL(o.level).length || AL(o.verb).length || AL(o.knowledge).length; });
+  }
   function suggest(list) {
     var a = answers, ids = {}, why = {};
     function on(name, reason) { var e = list.filter(function (x) { return x.name.indexOf(name) === 0; })[0]; if (e) { ids[e.name] = true; why[e.name] = reason; } }
-    on('Revised Bloom', 'Always included, because your goal names a level of thinking.');
+    if (hasGoal()) on('Revised Bloom', 'Included because your goal names a level of thinking.');
     if (a.guided.task.pick || a.guided.task.text) if (a.independent.task.pick || a.independent.task.text) on('Gradual release', 'You planned guided and independent practice.');
     if ((a.grouping.picks || []).some(function (p) { return /partner|group|jigsaw|stations|conferencing/i.test(p); })) on('Zone of proximal', 'You plan partner or group work.');
     if (a.initiation.bg.pick || a.initiation.bg.text) on('Schema', 'You plan an activity to bring out background knowledge.');
@@ -833,20 +838,20 @@
     return { ids: ids, why: why };
   }
   screen('research', 'J', 'Which teaching ideas support your plan?',
-    'These are pre-checked from your answers. Check or uncheck, and edit the sentences. Pick at least two.',
+    'These are pre-checked from your answers. Check or uncheck, and edit the sentences. Two or more works best.',
     function () {
       var root = h('div', { class: 'fields' }, h('p', { class: 'hint' }, 'Loading…'));
       citations().then(function (list) {
         var r = answers.research;
         var s = suggest(list);
-        if (!r.initialized) { Object.keys(s.ids).forEach(function (k) { r.checked[k] = true; }); r.initialized = true; persist(); }
-        r.checked['Revised Bloom\'s taxonomy (Anderson & Krathwohl)'] = true;
+        if (!r.initialized) { var ks = Object.keys(s.ids); ks.forEach(function (k) { r.checked[k] = true; }); if (ks.length) r.initialized = true; persist(); }   // nothing to suggest yet: try again on the next visit
+        if (hasGoal()) r.checked['Revised Bloom\'s taxonomy (Anderson & Krathwohl)'] = true;
         root.textContent = '';
         list.forEach(function (e) {
           var cb = h('input', { type: 'checkbox', id: nid() });
           cb.checked = !!r.checked[e.name];
           var isBloom = /^Revised Bloom/.test(e.name);
-          if (isBloom) cb.disabled = true;
+          if (isBloom && hasGoal()) cb.disabled = true;
           var sentence = h('textarea', { rows: 3, 'aria-label': 'Connection sentence for ' + e.name });
           var warn = h('p', { class: 'warn' });
           function ensure() {
@@ -1084,15 +1089,8 @@
   var SECTION_NAMES = { basics: 'Basics', A: 'Standards (template section A)', B: 'Your students and their background (template section B)', C: 'Content (template section C)', D: 'Goal and big question (template section D)', E: 'Materials (template section E)', F: 'Grouping (template section F)', G: 'Lesson steps (template section G)', H: 'Checking learning (template section H)', I: 'Support and challenge (template section I)', J: 'Research (template section J)' };
 
   /* ---------- navigation ---------- */
-  function blocker(n) {
-    var a = answers;
-    if (n === 0 && !(a.basics.teacher.trim() && a.basics.grade && a.basics.period)) return 'Add your name, grade, and class length to continue.';
-    if (n === 1 && !a.focus.text.trim()) return 'Add a lesson topic to continue.';
-    if (n === 2 && !a.standards.length) return 'Pick at least one standard to continue.';
-    if (n === 6) { var o = a.objectives[0]; if (!(o.level.length && o.verb.length && o.knowledge.length && o.what.trim())) return 'Pick how hard students think, an action word, and the kind of knowing, then say what students will do.'; }
-    if (n === 18) { var c = Object.keys(a.research.checked).filter(function (k) { return a.research.checked[k]; }).length; if (c < 2) return 'Check at least two teaching ideas to continue.'; }
-    return '';
-  }
+  // Nothing blocks Continue. These five screens used to, so they carry a short note that skipping is fine.
+  var SKIPPABLE = { 0: true, 1: true, 2: true, 6: true, 18: true };
   function go(n, ret) {
     i = n;
     returnTo = ret == null ? null : ret;
@@ -1102,8 +1100,6 @@
     window.scrollTo(0, 0);
   }
   function next() {
-    var m = blocker(i);
-    if (m) { var el = document.getElementById('msg'); if (el) el.textContent = m; return; }
     go(returnTo != null ? returnTo : i + 1);
   }
   function back() { go(i - 1, returnTo); }
@@ -1113,7 +1109,7 @@
     ruler.textContent = '';
     for (var n = 0; n < TOTAL; n++) (function (n) {
       var cls = 'tick' + (n === i ? ' now' : n < i ? ' done' : n <= maxSeen ? ' seen' : '');
-      var clickable = n < i || (n > i && n <= maxSeen);
+      var clickable = n !== i;   // any question can be opened, ahead or behind
       var b = h('button', { type: 'button', class: cls, 'aria-label': 'Question ' + (n + 1) + ': ' + SCREENS[n].title, disabled: !clickable, onclick: function () { go(n); } });
       if (n === i) b.setAttribute('aria-current', 'step');
       ruler.append(h('li', null, b));
@@ -1122,8 +1118,7 @@
     RAIL.forEach(function (s) {
       var current = s.screens.indexOf(i) >= 0;
       var complete = s.screens[s.screens.length - 1] < i;
-      var reach = s.screens[0] <= maxSeen || s.screens[0] <= i;
-      var b = h('button', { type: 'button', class: complete ? 'complete' : '', disabled: !reach, onclick: function () { go(s.screens[0]); } }, h('span', { class: 'letter' }, s.letter), h('span', null, s.label));
+      var b = h('button', { type: 'button', class: complete ? 'complete' : '', onclick: function () { go(s.screens[0]); } }, h('span', { class: 'letter' }, s.letter), h('span', null, s.label));
       if (current) b.setAttribute('aria-current', 'step');
       rail.append(h('li', null, b));
     });
@@ -1192,7 +1187,7 @@
     head = h('h1', { class: 'q', tabindex: '-1' }, s.title);
     var fields = s.build();
     var msg = h('p', { class: 'warn msg', id: 'msg', role: 'status' });
-    main.append(h('p', { class: 'where' }, SECTION_NAMES[s.section]), head, h('p', { class: 'help' }, s.help), h('div', { class: 'fields' }, fields), msg,
+    main.append(h('p', { class: 'where' }, SECTION_NAMES[s.section]), head, h('p', { class: 'help' }, s.help), SKIPPABLE[i] ? h('p', { class: 'hint' }, 'You can skip this and come back. Review will remind you.') : document.createTextNode(''), h('div', { class: 'fields' }, fields), msg,
       h('div', { class: 'nav' },
         h('button', { type: 'button', class: 'btn', onclick: back }, 'Back'),
         h('span', { class: 'spacer' }),
