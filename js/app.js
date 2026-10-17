@@ -1133,13 +1133,13 @@
     if (i === -1) {
       head = h('h1', { class: 'q', tabindex: '-1' }, 'Build a lesson plan by answering questions.');
       main.append(h('div', { class: 'intro' }, head,
-        h('p', { class: 'lede' }, 'One question at a time. You end up with a finished plan in the University of Bridgeport template, ready for Word.'),
+        h('p', { class: 'lede' }, 'One question at a time.'),
         h('h2', { class: 'intro-h' }, 'Have these ready'),
-        h('ul', null, h('li', null, 'Your lesson topic, in a few words.'), h('li', null, 'The text or book you will use, if any.'), h('li', null, 'The standards you plan to teach. You can search for them as you go.')),
+        h('ul', null, h('li', null, 'Your lesson topic, in a few words.'), h('li', null, 'The text or book you will use, if any.'), h('li', null, 'The standards you plan to teach. You can also search for them here as you go.')),
         h('h2', { class: 'intro-h' }, 'What you get'),
-        h('p', null, 'A Word file in the University of Bridgeport lesson plan template. You can edit every section before you download it.'),
+        h('p', null, 'A Word file in the University of Bridgeport lesson plan template. You can fill every section here, and continue to edit in the Word doc after you download.'),
         h('h2', { class: 'intro-h' }, 'Good to know'),
-        h('ul', null, h('li', null, 'No account and no sign-in.'), h('li', null, 'No AI writing for you. You choose from lists and write your own answers.'), h('li', null, 'Your answers stay in your browser, saved on this device. The page loads fonts from Google and one script from cdnjs, so those sites can see that you visited. Use initials or S1, S2 for students.')),
+        h('ul', null, h('li', null, 'No account and no sign-in.'), h('li', null, 'No AI writing for you. You choose from lists and write your own answers.')),
         h('div', { class: 'nav', style: 'margin-top:0' },
           hasDraft ? h('button', { type: 'button', class: 'btn primary', onclick: function () { go(Math.min(Math.max(draft.i, 0), TOTAL + 1)); } }, 'Continue where you left off (question ' + (Math.min(Math.max(draft.i, 0), TOTAL - 1) + 1) + ' of ' + TOTAL + ')') : null,
           h('button', { type: 'button', class: hasDraft ? 'btn' : 'btn primary', onclick: function () {
