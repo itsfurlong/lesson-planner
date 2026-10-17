@@ -41,6 +41,34 @@
 
   function cleanText(s) { return String(s == null ? '' : s).replace(/\s*\u2014\s*/g, ', '); } // no em dashes, ever
 
+  // Does a list of paragraphs (strings or { text }) hold any real text?
+  function hasText(paras) {
+    return (paras || []).some(function (p) { return String(p && typeof p === 'object' ? p.text : p || '').replace(/\s+/g, '') !== ''; });
+  }
+  function hasRecord(recs) {
+    return (recs || []).some(function (r) { return r && [r.initials, r.evidence, r.strategy].some(function (v) { return String(v || '').replace(/\s+/g, '') !== ''; }); });
+  }
+  // A phase counts when it has text or minutes. The Homework default "None" is not content.
+  function phaseHasContent(ph, isHomework) {
+    if (!ph) return false;
+    if (isHomework) return hasText((ph.paragraphs || []).filter(function (p) { return String(p && typeof p === 'object' ? p.text : p || '').trim().toLowerCase() !== 'none'; }));
+    return hasText(ph.paragraphs) || String(ph.minutes || '').trim() !== '';
+  }
+  function gHasContent(plan) {
+    var g = plan.G || [];
+    return g.some(function (ph, i) { return phaseHasContent(ph, i === g.length - 1); });
+  }
+  // The Subject default "English" is not content. Everything else the teacher typed is.
+  function isEmptyPlan(plan) {
+    var h = plan.header || {};
+    var subject = String(h.subject || '').trim();
+    if ([h.teacher, h.grade, h.centralFocus, h.relatedSkill].some(function (v) { return String(v || '').trim() !== ''; })) return false;
+    if (subject !== '' && subject !== 'English') return false;
+    if (['A', 'B', 'C', 'D', 'E', 'F', 'H', 'J'].some(function (k) { return hasText(plan[k]); })) return false;
+    if (gHasContent(plan)) return false;
+    return !hasRecord(plan.struggling) && !hasRecord(plan.enrichment);
+  }
+
   function parseInline(s) {
     var out = [], re = /(\*\*[^*]+\*\*|\*[^*]+\*)/g, last = 0, m;
     s = cleanText(s);
@@ -146,7 +174,7 @@
   }
 
   function fillTable(doc, slots, records) {
-    if (!records || !records.length) return;
+    if (!hasRecord(records)) return;   // nothing entered: keep the template's empty rows
     var rows = slots.slice();
     var last = rows[rows.length - 1];
     while (rows.length < records.length) {
@@ -205,10 +233,11 @@
     var struggleRows = STRUGGLE_SLOTS.map(function (i) { return rows[i]; });
     var enrichRows = ENRICH_SLOTS.map(function (i) { return rows[i]; });
 
+    // A section with nothing entered keeps the template's own text and layout.
     ['A', 'B', 'C', 'D', 'E', 'F', 'H', 'J'].forEach(function (k) {
-      fillSection(doc, rows[ROW[k]], plan[k]);
+      if (hasText(plan[k])) fillSection(doc, rows[ROW[k]], plan[k]);
     });
-    fillActivities(doc, gRows, plan.G, headingTemplate);
+    if (gHasContent(plan)) fillActivities(doc, gRows, plan.G, headingTemplate);   // G is one section: all three rows or none
     fillTable(doc, struggleRows, plan.struggling);
     fillTable(doc, enrichRows, plan.enrichment);
 
@@ -219,6 +248,12 @@
   // templateData: ArrayBuffer/Uint8Array/Buffer of assets/template.docx
   function fill(plan, opts) {
     opts = opts || {};
+    // Nothing entered: the download is the bundled template itself, unchanged.
+    if (isEmptyPlan(plan || {}) && opts.templateData) {
+      var t = opts.type || (typeof Blob !== 'undefined' ? 'blob' : 'nodebuffer');
+      if (t === 'blob') return Promise.resolve(new Blob([opts.templateData], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' }));
+      return Promise.resolve(typeof Buffer !== 'undefined' ? Buffer.from(opts.templateData) : opts.templateData);
+    }
     var impl = {
       JSZip: opts.JSZip || (typeof JSZip !== 'undefined' ? JSZip : null),
       DOMParser: opts.DOMParser || (typeof DOMParser !== 'undefined' ? DOMParser : null),
@@ -241,5 +276,5 @@
     }).then(function (buf) { return fill(plan, { templateData: buf }); });
   }
 
-  return { fill: fill, fillFromUrl: fillFromUrl, parseInline: parseInline };
+  return { fill: fill, fillFromUrl: fillFromUrl, parseInline: parseInline, isEmptyPlan: isEmptyPlan };
 });
