@@ -69,6 +69,8 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .ruler { display: flex; gap: 3px; margin: 0 0 28px; padding: 0; list-style: none; }
 .ruler li { flex: 1; min-width: 0; }
 .tick { display: block; width: 100%; height: 22px; border: 1.5px solid var(--edge); background: transparent; border-radius: 2px; padding: 0; cursor: default; }
+.tick { position: relative; }
+.tick::before { content: ""; position: absolute; inset: -12.5px 0; }   /* 44px tall tap area (measured from the padding box), same look */
 .tick.done { background: var(--ink); border-color: var(--ink); cursor: pointer; }
 .tick.now { background: var(--hl); border-color: var(--ink); height: 30px; margin-top: -4px; }
 .tick.seen { border-color: var(--ink); cursor: pointer; }
@@ -172,9 +174,16 @@ input::placeholder, textarea::placeholder { color: var(--ph); opacity: 1; }
 .footer { margin-top: 56px; padding-top: 16px; border-top: 1.5px solid var(--rule); color: var(--ink-soft); font-size: 0.93rem; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .footer p { margin: 0; max-width: 40rem; }
 
+.rail-bar { display: none; }
 @media (max-width: 860px) {
   .shell { grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .rail { display: none; }
+  .rail-bar { display: block; margin: 0 0 8px; }
+  .rail-toggle::after { content: " \25BE"; }
+  .rail-toggle[aria-expanded="true"]::after { content: " \25B4"; }
+  .rail { position: static; margin: 0 0 12px; }
+  .rail ol { display: none; }
+  .rail.open ol { display: grid; }
+  .rail button { min-height: 44px; align-items: center; }
 }
 @media (prefers-reduced-motion: no-preference) {
   .tick { transition: background .15s, height .15s; }
@@ -189,8 +198,9 @@ input::placeholder, textarea::placeholder { color: var(--ph); opacity: 1; }
     <span class="count" id="count" aria-live="polite"></span>
   </header>
   <ol class="ruler" id="ruler" aria-label="Progress"></ol>
+  <div class="rail-bar"><button type="button" class="btn quiet rail-toggle" id="railToggle" aria-expanded="false" aria-controls="railnav">Sections</button></div>
   <div class="shell">
-    <nav class="rail" aria-label="Template sections"><ol id="rail"></ol></nav>
+    <nav class="rail" id="railnav" aria-label="Template sections"><ol id="rail"></ol></nav>
     <main class="card" id="main"></main>
   </div>
   <footer class="footer">

@@ -1106,6 +1106,8 @@
 
   function paintChrome() {
     var ruler = document.getElementById('ruler'), rail = document.getElementById('rail'), count = document.getElementById('count');
+    document.getElementById('railnav').classList.remove('open');          // phones: the Sections list closes after you pick one
+    document.getElementById('railToggle').setAttribute('aria-expanded', 'false');
     ruler.textContent = '';
     for (var n = 0; n < TOTAL; n++) (function (n) {
       var cls = 'tick' + (n === i ? ' now' : n < i ? ' done' : n <= maxSeen ? ' seen' : '');
@@ -1221,6 +1223,12 @@
       h('button', { type: 'button', class: 'btn quiet small', onclick: function () { ask.remove(); restart.hidden = false; } }, 'Keep it'));
     restart.hidden = true;
     p.append(ask);
+  });
+
+  var railToggle = document.getElementById('railToggle');
+  railToggle.addEventListener('click', function () {
+    var open = document.getElementById('railnav').classList.toggle('open');
+    railToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 
   if (SCREENS.length !== TOTAL) throw new Error('Expected ' + TOTAL + ' screens, found ' + SCREENS.length);
