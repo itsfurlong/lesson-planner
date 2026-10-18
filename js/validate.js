@@ -133,7 +133,8 @@
       });
     }
 
-    /* 7. Citations */
+    /* 7. Citations. The NGA & CCSSO standards reference is added automatically when standards are picked, so it is allowed. */
+    var NGA_REFERENCE_START = 'National Governors Association Center for Best Practices & Council of Chief State School Officers. (2010).';
     var checked = Object.keys((a.research && a.research.checked) || {}).filter(function (k) { return a.research.checked[k]; });
     var known = {}, inText = {};
     cites.forEach(function (c) { known[c.name] = c; inText[c.in_text.replace(/^\(|\)$/g, '')] = true; });
@@ -141,7 +142,7 @@
     checked.forEach(function (k) { if (!known[k]) fail(7, '“' + k + '” is not in the checked list of teaching ideas.', [fix('Uncheck it', S.research)]); });
     if (model) {
       (model.references || []).forEach(function (r) {
-        if (!cites.some(function (c) { return c.apa7_reference === r; })) fail(7, 'A reference in your plan does not match the checked list: ' + r.slice(0, 60) + '...', [fix('Fix research', S.research)]);
+        if (r.indexOf(NGA_REFERENCE_START) !== 0 && !cites.some(function (c) { return c.apa7_reference === r; })) fail(7, 'A reference in your plan does not match the checked list: ' + r.slice(0, 60) + '...', [fix('Fix research', S.research)]);
       });
       var re = /\(([^()]*?\d{4}[a-z]?)\)/g, m;
       var jtext = str(model.sections.J);

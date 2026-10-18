@@ -106,6 +106,10 @@
     'Floor or other space': 'work on the floor or in another space'
   };
 
+  var NGA_FIRST = '(National Governors Association Center for Best Practices & Council of Chief State School Officers [NGA & CCSSO], 2010)';
+  var NGA_NEXT = '(NGA & CCSSO, 2010)';
+  var NGA_REFERENCE = 'National Governors Association Center for Best Practices & Council of Chief State School Officers. (2010). *Common Core State Standards for English language arts & literacy in history/social studies, science, and technical subjects*. https://www.thecorestandards.org/ELA-Literacy/';
+
   function build(a, standards, cites) {
     dashes = 0;
     var stdMap = {};
@@ -119,7 +123,8 @@
     };
 
     // A
-    m.sections.A = (a.standards || []).map(function (c) { var s = stdMap[c]; return c + ': ' + (s ? trim(s.text) : ''); }).join('\n\n');
+    // Each standard carries the NGA & CCSSO cite (full form on the first line); the reference is added under J below.
+    m.sections.A = (a.standards || []).map(function (c, i) { var s = stdMap[c]; return c + ': ' + (s ? trim(s.text) : '') + ' ' + (i === 0 ? NGA_FIRST : NGA_NEXT); }).join('\n\n');
 
     // B
     var assets = (a.assets.picks || []).map(function (x, i) { return i === 0 ? lowerFirst(x) : lowerFirst(x); });
@@ -200,6 +205,7 @@
       sent.push(trim(s || fillSentence(e, a)));
       m.references.push(trim(e.apa7_reference));
     });
+    if ((a.standards || []).length && m.references.indexOf(NGA_REFERENCE) < 0) m.references.push(NGA_REFERENCE);
     m.references.sort(function (x, y) { return x.toLowerCase() < y.toLowerCase() ? -1 : 1; });
     m.sections.J = sent.join('\n\n');
 

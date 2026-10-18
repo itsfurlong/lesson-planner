@@ -9,7 +9,7 @@ const base=()=>({basics:{teacher:'T',grade:'10',subject:'English',period:'50'},s
  initiation:ph(),instruction:ph(),guided:ph(),independent:ph(),closure:ph(),
  assessment:{graded:'No',rubric:''},struggling:[{initials:'S1',evidence:'ELL',strategy:'s'}],enrichment:[{initials:'S2',evidence:'e',strategy:'s'}],
  research:{checked:{[cites[0].name]:true,[cites[1].name]:true}}});
-const model=()=>({header:{teacher:'T',grade:'10',subject:'English',centralFocus:'f'},sections:{A:g+': t',B:'b',C:'c',D:'SWBAT: Students will be able to analyze x.',E:'e',F:'f',H:'h',J:'j (Vygotsky, 1978)'},
+const model=()=>({header:{teacher:'T',grade:'10',subject:'English',centralFocus:'f'},sections:{A:g+': t',B:'b',C:'c',D:'SWBAT: Students will be able to analyze x.',E:'e',F:'f',H:'h',J:'j '+cites[0].in_text},
  phases:['Initiation','Lang','Guided','Indep','Closure','Homework'].map(t=>({title:t,text:'x'})),struggling:[{initials:'S1',evidence:'e',strategy:'s'}],enrichment:[{initials:'S2',evidence:'e',strategy:'s'}],references:[]});
 function t(name,mut,exp){const a=base(),m=model();mut(a,m);const r=V.run({answers:a,model:m,standards:std,cites,banks});
  const ids=r.rules.filter(x=>x.failures.length).map(x=>x.id);console.log((JSON.stringify(ids)===JSON.stringify(exp)?'PASS':'FAIL'),name,JSON.stringify(ids),'want',JSON.stringify(exp));}
@@ -27,6 +27,8 @@ t('empty B',(a,m)=>{m.sections.B='';},[6]);
 t('empty phase',(a,m)=>{m.phases[2].text=' ';},[6]);
 t('no diff & no box',(a,m)=>{a.enrichment=[{initials:'',evidence:'',strategy:''}];m.enrichment=[];},[6]);
 t('one citation',a=>{a.research.checked={[cites[0].name]:true};},[7]);
+t('NGA reference is allowed',(a,m)=>{m.references=['National Governors Association Center for Best Practices & Council of Chief State School Officers. (2010). *Common Core State Standards for English language arts & literacy in history/social studies, science, and technical subjects*. https://www.thecorestandards.org/ELA-Literacy/'];},[]);
+t('other unknown reference still fails',(a,m)=>{m.references=['Smith, J. (1999). Made up.'];},[7]);
 t('fake citation in J',(a,m)=>{m.sections.J='j (Smith, 1999)';},[7]);
 t('em dash edit',(a,m)=>{m.sections.B='a—b';},[8]);
 t('rubric',a=>{a.assessment.graded='Yes';},[9]);

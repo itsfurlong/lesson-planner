@@ -1,11 +1,11 @@
 [
  {
   "name": "Zone of proximal development (Vygotsky)",
-  "apa7_reference": "Vygotsky, L. S. (1978). *Mind in society: The development of higher psychological processes*. Harvard University Press.",
-  "in_text": "(Vygotsky, 1978)",
+  "apa7_reference": "Beach, R., Appleman, D., Simon, R., & Fecho, B. (2026). *Teaching literature to adolescents* (5th ed.). Routledge.",
+  "in_text": "(Vygotsky, 1978, as cited in Beach et al., 2026, p. 41)",
   "use_when": "Students work on tasks just beyond what they can do alone, with support from the teacher or peers.",
-  "connection_template": "Students work on {task} with support from {teacher or peers}, which targets the gap between what they can do alone and what they can do with help (Vygotsky, 1978).",
-  "verified_via": "WorldCat record 3517053 (Harvard University Press, Cambridge, 1978)"
+  "connection_template": "Students work on {task} with support from {teacher or peers}, which targets the gap between what they can do alone and what they can do with help (Vygotsky, 1978, as cited in Beach et al., 2026, p. 41).",
+  "verified_via": "Rich supplied Beach et al. (2026) on 2026-10-18; p. 41 supplied by Rich from his copy; Vygotsky (1978) is cited as a secondary source through it. Earlier check: WorldCat record 3517053 (Harvard University Press, Cambridge, 1978)"
  },
  {
   "name": "Gradual release of responsibility (Pearson & Gallagher)",
@@ -17,11 +17,11 @@
  },
  {
   "name": "Revised Bloom's taxonomy (Anderson & Krathwohl)",
-  "apa7_reference": "Anderson, L. W., & Krathwohl, D. R. (Eds.). (2001). *A taxonomy for learning, teaching, and assessing: A revision of Bloom's taxonomy of educational objectives*. Longman.",
-  "in_text": "(Anderson & Krathwohl, 2001)",
+  "apa7_reference": "Krathwohl, D. R. (2002). A revision of Bloom's taxonomy: An overview. *Theory Into Practice, 41*(4), 212-218. https://doi.org/10.1207/s15430421tip4104_2",
+  "in_text": "(Krathwohl, 2002)",
   "use_when": "Writing the objective (SWBAT) at a chosen cognitive process level and knowledge type, or sequencing tasks from lower to higher levels.",
-  "connection_template": "The objective uses the verb \"{verb}\", which sits at the {level} level of the revised Bloom's taxonomy and asks students to work with {knowledge type} knowledge (Anderson & Krathwohl, 2001).",
-  "verified_via": "Reference list in a Boston University provost-office handout (editors, title, Longman, New York); title also appears in several library catalogs",
+  "connection_template": "The objective uses the verb \"{verb}\", which sits at the {level} level of the revised Bloom's taxonomy and asks students to work with {knowledge type} knowledge (Krathwohl, 2002).",
+  "verified_via": "Rich supplied Krathwohl (2002) on 2026-10-18 and approved replacing Anderson & Krathwohl (2001); title, volume, issue, pages and DOI match the Crossref record",
   "selectors": {
    "level": [
     "Remember",
@@ -105,10 +105,10 @@
  },
  {
   "name": "Schema and cognitive development (Piaget)",
-  "apa7_reference": "Piaget, J. (1952). *The origins of intelligence in children* (M. Cook, Trans.). International Universities Press.",
-  "in_text": "(Piaget, 1952)",
+  "apa7_reference": "Tuckman, B. W., & Monetti, D. M. (2011). *Educational psychology*. Wadsworth Cengage Learning.",
+  "in_text": "(Tuckman & Monetti, 2011, pp. 46-47)",
   "use_when": "The lesson activates prior knowledge (schema) and connects new ideas to it.",
-  "connection_template": "Students activate what they already know about {topic} so that new ideas can be connected to existing schema (Piaget, 1952).",
-  "verified_via": "University of Southern Indiana library record (International Universities Press, New York, 1952, trans. Margaret Cook)"
+  "connection_template": "Students activate what they already know about {topic} so that new ideas can be connected to existing schema (Tuckman & Monetti, 2011, pp. 46-47).",
+  "verified_via": "Rich supplied Tuckman & Monetti (2011) on 2026-10-18; pp. 46-47 supplied by Rich from his copy; book title in sentence case per APA 7"
  }
 ]
