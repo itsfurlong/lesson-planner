@@ -18,7 +18,7 @@
       basics: { teacher: p.teacher || '', grade: p.grade || '', subject: p.subject || 'English', period: p.period || '' },
       focus: { text: '', skills: [], other: '' },
       standards: [],
-      prior: { pick: '', text: '' },
+      prior: { pick: '', text: '', struggle: '', builds: '' },
       assets: { picks: [], detail: '' },
       content: { ideas: '', terms: [{ term: '', definition: '' }], termsAuto: true, links: [] },
       objectives: [{ level: [], verb: [], knowledge: [], what: '', purpose: '' }],
@@ -28,11 +28,11 @@
       initiation: { motivating: { pick: '', text: '' }, bg: { pick: '', text: '' }, minutes: '' },
       instruction: { lang: { pick: '', text: '' }, direct: { pick: '', text: '' }, probing: '', minutes: '' },
       guided: { task: { pick: '', text: '' }, grouping: '', minutes: '' },
-      independent: { task: { pick: '', text: '' }, same: false, minutes: '' },
+      independent: { task: { pick: '', text: '' }, bridge: '', same: false, minutes: '' },
       closure: { act: { pick: '', text: '' }, language: '', homework: '', minutes: '' },
-      assessment: { informal: [], formal: [], graded: '', rubric: '' },
-      struggling: [{ initials: '', evidence: '', strategy: '' }], noStruggling: false,
-      enrichment: [{ initials: '', evidence: '', strategy: '' }], noEnrichment: false,
+      assessment: { informal: [], formal: [], lookfors: '', graded: '', rubric: '' },
+      struggling: [{ initials: '', evidence: '', strategy: '', impact: '' }], noStruggling: false,
+      enrichment: [{ initials: '', evidence: '', strategy: '', different: '' }], noEnrichment: false,
       research: { initialized: false, checked: {}, sentences: {}, auto: {} },
       plan: { edits: {}, auto: {} }
     };
@@ -217,7 +217,7 @@
     ta.addEventListener('input', function () { set('prior.text', ta.value); paint(); });
     paint();
     return h('div', { class: 'field' },
-      h('div', { class: 'lab' }, 'What students already know'),
+      h('div', { class: 'lab' }, 'What students can already do with this skill'),
       h('p', { class: 'hint' }, skills.length ? 'Suggestions come from the skills you picked. Click one to add it, then edit it to match your class.' : 'Click a starter and finish it, or write your own. Wherever you see { }, type your own words in place of it.'),
       wrap,
       h('label', { for: id, class: 'sr' }, 'What students already know details'),
@@ -500,9 +500,13 @@
     });
 
   screen('prior', 'B', 'What do students already know?',
-    'Start from a sentence and finish it, or write your own.',
+    'Describe the students, not the text: what they can already do with this skill, where they struggle, and what they learned just before this.',
     function () {
-      return [priorField()];
+      return [
+        priorField(),
+        textField('prior.struggle', { label: 'Where do students usually struggle with this skill?', multiline: true, rows: 3, placeholder: 'Example: They write dialogue but skip what the character is thinking.', hint: 'Name the part of the skill that trips students up.' }),
+        textField('prior.builds', { label: 'What earlier lesson or skill does this build on?', multiline: true, rows: 2, placeholder: 'Example: last week\u2019s lesson on dialogue tags.', hint: 'Finish the thought: this lesson builds on ...' })
+      ];
     });
 
   screen('assets', 'B', 'What strengths do students bring that this lesson can use?',
@@ -657,9 +661,18 @@
     });
 
   screen('eq', 'D', 'What essential question will drive the lesson?',
-    'A question students can keep coming back to. Start from a stem or write your own.',
+    'A question students can keep coming back to. Ask about people, identity, and ideas, not the writing technique.',
     function () {
-      return [pickText('eq', { label: 'Big question for the lesson (essential question)', options: B.eqStems, prefill: true, blanks: true, rows: 3, placeholder: 'Write one open question the whole lesson works toward.', hint: 'Wherever you see { }, type your own words in place of it.' })];
+      var f = pickText('eq', { label: 'Big question for the lesson (essential question)', options: B.eqStems, prefill: true, blanks: true, rows: 3, placeholder: 'Write one open question the whole lesson works toward.', hint: 'Aim for a question that would still matter if this skill were never taught. Wherever you see { }, type your own words in place of it.' });
+      var warn = h('p', { class: 'warn', role: 'status' });
+      function chk() {
+        var w = window.LessonValidate.eqTooNarrow(answers.focus.text, get('eq.text'));
+        warn.textContent = w.length ? 'This repeats words from your lesson topic (' + w.join(', ') + '), so it may be about the technique. Try a question about people, identity, or relationships that the writing is about.' : '';
+      }
+      f.querySelector('textarea').addEventListener('input', chk);
+      f.addEventListener('click', function () { setTimeout(chk, 0); });
+      chk();
+      return [f, warn];
     });
 
   screen('materials', 'E', 'What materials do you need?',
@@ -725,6 +738,7 @@
     function () {
       return [
         activityField('independent.task.text', { key: 'independent.task', pickPath: 'independent.task.pick', label: 'Independent task', types: B.activities.independent, placeholder: 'Describe what students do on their own.' }),
+        textField('independent.bridge', { label: 'How is this different from guided practice?', multiline: true, rows: 3, placeholder: 'Example: In guided practice they found a moment with a partner. Now they write their own, with a checklist and the model on the board.', hint: 'Say what changes (less help, a new text, a longer piece) and what carries students across: a model, a checklist, a sentence frame, or one more try together.' }),
         checkField('independent.same', 'This is also the assessment', 'The template allows independent practice to double as the assessment.'),
         glossaryFor(['Exit slip']),
         minutesField('independent.minutes')
@@ -748,9 +762,11 @@
     function () {
       var rub = textField('assessment.rubric', { label: 'What you will grade on (rubric)', multiline: true, rows: 3, placeholder: 'List what the rubric or grade will measure.' });
       function sync() { rub.hidden = get('assessment.graded') !== 'Yes'; }
+      var goal = swbat((answers.objectives || [])[0] || {});
       var out = [
         chipsField('assessment.informal', { label: 'Quick checks during the lesson (informal)', options: B.assessments.informal, multi: true, small: true }),
         chipsField('assessment.formal', { label: 'Work you collect or grade (formal)', options: B.assessments.formal, multi: true, small: true }),
+        textField('assessment.lookfors', { label: 'What will you look for?', multiline: true, rows: 4, placeholder: 'Example: A character\u2019s thoughts and spoken words disagree at least once, and the writer shows why.', hint: (goal ? 'Your goal: ' + goal + ' ' : '') + 'Write 2 or 3 things you can see in student work or hear in student talk, so you know a student is doing it. Do this even if nothing is graded.' }),
         chipsField('assessment.graded', { label: 'Is the formal assessment graded?', options: ['Yes', 'No', 'Used for progress only'], render: function (x) { return x === 'Used for progress only' ? 'Not graded, only to see progress' : x; }, small: true, after: sync }),
         rub
       ];
@@ -764,7 +780,7 @@
       // Enrichment numbering continues after the struggling rows that have something in them.
       var numberFrom = kind === 'enrich' && !get('noStruggling') ? (get('struggling') || []).filter(function (r) { return (r.initials || '').trim() || (r.strategy || '').trim(); }).length : 0;
       var box = h('div', { class: 'fields' });
-      var addBtn = h('button', { type: 'button', class: 'btn small', onclick: function () { get(listPath).push({ initials: '', evidence: '', strategy: '' }); persist(); paint(); } }, 'Add a student');
+      var addBtn = h('button', { type: 'button', class: 'btn small', onclick: function () { get(listPath).push(kind === 'struggle' ? { initials: '', evidence: '', strategy: '', impact: '' } : { initials: '', evidence: '', strategy: '', different: '' }); persist(); paint(); } }, 'Add a student');
       var noId = nid();
       var no = h('input', { id: noId, type: 'checkbox' });
       no.checked = !!get(noPath);
@@ -781,16 +797,24 @@
           function chk() { warn.textContent = looksLikeName(ini.value) ? 'That looks like a full name. Use initials or S1, S2.' : ''; }
           ini.addEventListener('input', function () { r.initials = ini.value; chk(); persist(); });
           chk();
-          var ta = h('textarea', { id: sid, rows: 3, placeholder: 'What you will do for this student in this lesson' });
+          var ta = h('textarea', { id: sid, rows: 4, placeholder: kind === 'struggle' ? 'Example: Printed copy of the slides and the graphic organizer on the desk before class, seat near the board.' : 'Example: Write the scene without ever naming the emotion, using only what the character does and says.' });
           ta.value = r.strategy;
-          ta.addEventListener('input', function () { r.strategy = ta.value; persist(); });
+          var vague = h('p', { class: 'warn', role: 'status' });
+          function chkV() { vague.textContent = window.LessonValidate.vagueStrategy(ta.value) ? 'Say what it looks like: what is handed out, where the student sits, who helps, or what changes.' : ''; }
+          ta.addEventListener('input', function () { r.strategy = ta.value; chkV(); persist(); });
+          chkV();
+          var xid = nid();
+          var xk = kind === 'struggle' ? 'impact' : 'different';
+          var xa = h('textarea', { id: xid, rows: 2, placeholder: kind === 'struggle' ? 'Example: Reads slowly, so a full chapter excerpt takes longer than the class time.' : 'Example: Everyone else finds a moment in the text. This student writes a new scene of their own.' });
+          xa.value = r[xk] || '';
+          xa.addEventListener('input', function () { r[xk] = xa.value; persist(); });
           var stratBox = h('div', { class: 'chips' });
           function paintStrats() {
             stratBox.textContent = '';
             var opts = kind === 'struggle' ? (B.diff.strategies[r.evidence] || []) : B.enrich.strategies;
             opts.forEach(function (s) {
               stratBox.append(h('button', { type: 'button', class: 'chip small', title: 'Add to the text box', onclick: function () {
-                if (ta.value.indexOf(s) < 0) { ta.value = (ta.value.trim() ? ta.value.trim() + ' ' : '') + s + (/[.!?]$/.test(s) ? '' : '.'); r.strategy = ta.value; persist(); }
+                if (ta.value.indexOf(s) < 0) { ta.value = (ta.value.trim() ? ta.value.trim() + ' ' : '') + s + (/[.!?]$/.test(s) ? '' : '.'); r.strategy = ta.value; chkV(); persist(); }
                 ta.focus();
               } }, '+ ' + s));
             });
@@ -804,8 +828,10 @@
             h('div', { class: 'sub-head' }, h('strong', null, 'Student ' + (ix + 1)), rm),
             field('Initials or S1, S2', [ini, warn], null, iid),
             field(kind === 'struggle' ? 'What shows this student needs support?' : 'What shows this student needs more challenge?', evid),
-            h('div', { class: 'field' }, h('div', { class: 'lab' }, 'What will you do?'), h('p', { class: 'hint' }, 'Tap a suggestion to add it, then edit.'), stratBox,
-              h('label', { for: sid, class: 'sr' }, 'Strategy'), ta)));
+            field(kind === 'struggle' ? 'What part of the lesson does this affect?' : 'How is this task different from what everyone else does?', xa,
+              kind === 'struggle' ? 'Name the specific skill or task this touches, in plain words.' : 'Say what changes: the text, the task, the product, or the thinking.', xid),
+            h('div', { class: 'field' }, h('div', { class: 'lab' }, 'What will you do, and how will you do it?'), h('p', { class: 'hint' }, 'Tap a suggestion to add it, then edit. Say what the student gets and how you will deliver it.'), stratBox,
+              h('label', { for: sid, class: 'sr' }, 'Strategy'), ta, vague)));
         });
       }
       paint();

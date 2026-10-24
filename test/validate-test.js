@@ -7,7 +7,9 @@ const ph=()=>({minutes:'10'});
 const base=()=>({basics:{teacher:'T',grade:'10',subject:'English',period:'50'},standards:[g],
  objectives:[{level:'Analyze',verb:'analyze',knowledge:'conceptual',what:'x',purpose:''}],
  initiation:ph(),instruction:ph(),guided:ph(),independent:ph(),closure:ph(),
- assessment:{graded:'No',rubric:''},struggling:[{initials:'S1',evidence:'ELL',strategy:'s'}],enrichment:[{initials:'S2',evidence:'e',strategy:'s'}],
+ assessment:{graded:'No',rubric:'',informal:['Questioning'],formal:[],lookfors:'Thoughts and words disagree once'},
+ prior:{text:'Students can write scenes.',struggle:'They skip thoughts.',builds:'Last week\u2019s lesson.'},eq:{text:'What do people hide about who they are?'},focus:{text:'Narrative Writing: Dialogue and Inner Thoughts'},independent:Object.assign(ph(),{task:{text:'Write a scene'},bridge:'Less help, plus a checklist'}),
+ struggling:[{initials:'S1',evidence:'ELL',strategy:'Printed glossary of the key terms with a sentence example',impact:'Reads slowly'}],enrichment:[{initials:'S2',evidence:'e',strategy:'Write the scene without naming the feeling at all',different:'Writes a new scene'}],
  research:{checked:{[cites[0].name]:true,[cites[1].name]:true}}});
 const model=()=>({header:{teacher:'T',grade:'10',subject:'English',centralFocus:'f'},sections:{A:g+': t',B:'b',C:'c',D:'SWBAT: Students will be able to analyze x.',E:'e',F:'f',H:'h',J:'j '+cites[0].in_text},
  phases:['Initiation','Lang','Guided','Indep','Closure','Homework'].map(t=>({title:t,text:'x'})),struggling:[{initials:'S1',evidence:'e',strategy:'s'}],enrichment:[{initials:'S2',evidence:'e',strategy:'s'}],references:[]});
@@ -34,6 +36,22 @@ t('em dash edit',(a,m)=>{m.sections.B='a—b';},[8]);
 t('rubric',a=>{a.assessment.graded='Yes';},[9]);
 t('slot',(a,m)=>{m.sections.E='{x}';},[10]);
 t('D edited to understand',(a,m)=>{m.sections.D='SWBAT: Students will be able to understand x.';},[2]);
+
+// Recommendations pass: rules 12 to 16.
+t('B: no struggle named',a=>{a.prior.struggle='';},[12]);
+t('B: no earlier lesson named',a=>{a.prior.builds='';},[12]);
+t('B: nothing known',a=>{a.prior.text='';},[12]);
+t('EQ repeats the lesson topic',a=>{a.eq.text='How do writers use dialogue to develop characters?';},[13]);
+t('EQ about an idea is fine',a=>{a.eq.text='How does an experience shape who a person becomes?';},[]);
+t('independent practice without a bridge',a=>{a.independent.bridge='';},[14]);
+t('no independent task, no bridge needed',a=>{a.independent=Object.assign(ph(),{task:{text:''},bridge:''});},[]);
+t('checks without look-fors',a=>{a.assessment.lookfors='';},[15]);
+t('no checks, no look-fors needed',a=>{a.assessment.informal=[];a.assessment.lookfors='';},[]);
+t('struggle row without impact',a=>{a.struggling[0].impact='';},[16]);
+t('struggle strategy too vague',a=>{a.struggling[0].strategy='Provide support';},[16]);
+t('struggle strategy only vague words',a=>{a.struggling[0].strategy='Provide extra support and help as needed for them';},[16]);
+t('enrichment row without the difference',a=>{a.enrichment[0].different='';},[16]);
+t('"no students" box skips rule 16',a=>{a.noStruggling=true;a.struggling=[{initials:'',evidence:'',strategy:''}];},[]);
 
 // Several levels, verbs and kinds; older drafts saved single strings.
 t('string draft still clean',()=>{},[]);

@@ -62,10 +62,11 @@ window.LP_BANKS = {
   },
   notMeasurable: ['understand', 'know', 'learn', 'appreciate', 'be aware of', 'become familiar with'],
   priorStarters: [
-    'Students have read {text} up to {point}.',
+    'Students can already {skill}, but have not yet {next step}.',
     'Students have practiced {skill} in {context}.',
     'Students have been introduced to {concept} but have not applied it.',
-    'Students have not yet seen {topic}.'
+    'Students have not yet seen {topic}.',
+    'Students have read {text} up to {point}.'
   ],
   // Suggested prior knowledge per skill. {topic} becomes the central focus. See Lesson-Planner_RevisionMap_v1.md, section 2.
   priorSuggestions: {
@@ -485,10 +486,12 @@ window.LP_BANKS = {
     'Revising and editing': { W: [4, 5], L: [1, 2, 3] }
   },
   connections: ['Creative writing', 'History', 'Psychology', 'Science', 'Art', 'Math', 'Music', 'None'],
+  // Big-idea stems: questions about people, identity and ideas that outlast this one lesson, not about the writing technique.
   eqStems: [
-    'How do {who} use {what} to {purpose}?',
-    'Why does {idea} matter for {context}?',
-    'What makes {thing} effective?'
+    'How does {an experience or relationship} shape who a person becomes?',
+    'What do the things people say and hide reveal about {identity, love, power, or fear}?',
+    'How do people decide who they are when facing {pressure, loss, or expectation}?',
+    'What can we learn about being human from how {people in a story} treat each other?'
   ],
   materials: ['The book or text', 'Computer', 'Projector or TV', 'Internet access', 'Slide presentation', 'Whiteboard and markers', 'Desks and chairs', 'Pencils or pens', 'Graphic organizer', 'Exit slip', 'Printed handouts', 'Notebooks or journals', 'Chart paper', 'Sticky notes'],
   grouping: ['Whole class', 'Individual work', 'Partners', 'Think-pair-share', 'Small groups of 3 to 4', 'Jigsaw', 'Stations or rotations', 'Fishbowl', 'Teacher-led small group', 'Peer conferencing'],
@@ -510,16 +513,16 @@ window.LP_BANKS = {
   diff: {
     evidence: ['IEP', '504 plan', 'ELL', 'ADHD', 'Struggling reader', 'Other'],
     strategies: {
-      'ELL': ['Vocabulary support for key terms', 'Sentence frames or examples', 'Visuals alongside text', 'Partner who shares a language', 'Extra processing time'],
-      'IEP': ['Follow the IEP accommodations (name the ones used)', 'Chunked directions', 'Printed copies of the slides', 'Reduced task length', 'Check-ins during work'],
-      '504 plan': ['Follow the 504 accommodations (name the ones used)', 'Extended time', 'Preferential seating', 'Printed notes', 'Breaks as needed'],
-      'ADHD': ['Chunked tasks with a checklist', 'Movement or a job during the lesson', 'Seat near the front', 'Visual timer', 'Frequent check-ins'],
-      'Struggling reader': ['Audio or chunked text', 'Pre-taught vocabulary', 'Guided annotation', 'Graphic organizer with prompts', 'Smaller passage'],
+      'ELL': ['Printed glossary of the key terms, with a sentence example for each', 'Sentence frames printed on the handout for the writing task', 'Visuals next to the text on the slides', 'Seat beside a partner who shares the language', 'Five extra minutes on the independent task'],
+      'IEP': ['Follow the IEP accommodations (name each one and when you will use it)', 'Directions given one step at a time on the board', 'Printed copy of the slides with the graphic organizer', 'A shorter task: one example instead of two', 'Check in at the start and middle of independent work'],
+      '504 plan': ['Follow the 504 accommodations (name each one and when you will use it)', 'Extra time on the independent task, finished at the start of the next class', 'Seat near the board and away from the door', 'Printed notes handed out before the lesson', 'A pre-agreed break pass during independent work'],
+      'ADHD': ['Task broken into steps on a checklist taped to the desk', 'A job during the lesson, such as handing out the organizers', 'Seat near the front, next to a focused partner', 'Visual timer on the desk for each step', 'Teacher check-in at the end of each step'],
+      'Struggling reader': ['Passage read aloud or split into short chunks', 'Key vocabulary taught before the lesson on a handout', 'Annotation prompts written in the margin of the text', 'Graphic organizer with the first row already filled in', 'A shorter passage with the key moment marked'],
       'Other': []
     }
   },
   enrich: {
     evidence: ['Reads or writes above grade level', 'Advanced in this skill', 'Identified gifted and talented', 'Other'],
-    strategies: ['A more complex text or prompt', 'A constraint that raises the challenge', 'An extension that asks for creating or evaluating', 'Peer mentor role, by choice', 'An independent project']
+    strategies: ['A harder text: a longer or denser passage from the same book', 'A constraint that raises the challenge, such as showing the feeling without naming it', 'A creating or evaluating task in place of the practice task', 'Peer mentor role, by choice: coaches one partner during guided practice', 'An independent project with its own checklist']
   }
 };

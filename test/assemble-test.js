@@ -59,4 +59,23 @@ eq('gradual release, nothing written', GR({}).indexOf('from teacher modeling to 
 eq('gradual release, written kinds', GR({ instruction: { lang: act('', ''), direct: act('', 'Mini-lesson: Model it.'), probing: '', minutes: '' }, guided: { task: act('', 'Small-group task: do it'), grouping: '', minutes: '' }, independent: { task: act('', 'Short writing task: alone'), same: false, minutes: '' } }).indexOf('from mini-lesson to small-group task to short writing task') >= 0, true);
 eq('gradual release, unknown label falls back', GR({ guided: { task: act('', 'Small groups: students write'), grouping: '', minutes: '' } }).indexOf('to guided practice to') >= 0, true);
 eq('gradual release, old pick still works', GR({ guided: { task: act('Annotate together', ''), grouping: '', minutes: '' } }).indexOf('to annotate together to') >= 0, true);
+
+// Recommendations pass: background, bridge, look-fors, differentiation specifics.
+const BB = (o) => LA.build(answers(o), [], []);
+eq('B: knows + struggle + builds on', BB({ prior: { pick: '', text: 'Students can write a short scene.', struggle: 'They skip what the character is thinking', builds: 'Last week’s lesson on dialogue tags' } }).sections.B, 'Students can write a short scene.\nWhere students usually struggle: They skip what the character is thinking.\nThis lesson builds on last week’s lesson on dialogue tags.');
+eq('B: old draft without new fields is unchanged', BB({ prior: { pick: '', text: 'Students can write.' } }).sections.B, 'Students can write.');
+const IP = (o) => BB({ independent: Object.assign({ task: { pick: '', text: 'Short writing task: write your own scene' }, same: false, minutes: '' }, o) }).phases[3].text;
+eq('Independent: bridge is added', IP({ bridge: 'Less help, plus a checklist' }), 'Short writing task: write your own scene.\nStep up from guided practice: Less help, plus a checklist.');
+eq('Independent: no bridge, same as before', IP({}), 'Short writing task: write your own scene.');
+eq('H: look-fors line', BB({ assessment: { informal: ['Observation during practice'], formal: [], lookfors: 'Thoughts and words disagree once', graded: '', rubric: '' } }).sections.H, 'Informal: Observation during practice.\n\nLook-fors: Thoughts and words disagree once.');
+eq('H: look-fors alone', BB({ assessment: { informal: [], formal: [], lookfors: 'One thing', graded: '', rubric: '' } }).sections.H, 'Look-fors: One thing.');
+const mod = BB({ noStruggling: false, noEnrichment: false,
+  struggling: [{ initials: 'S2', evidence: '504 plan', strategy: 'Printed slides on the desk before class.', impact: 'Reading speed' }],
+  enrichment: [{ initials: 'S3', evidence: 'Reads above grade level', strategy: 'Write the scene without naming the feeling.', different: 'Writes a new scene, not a found one' }] });
+eq('I: impact rides in the evidence cell', mod.struggling[0].evidence, '504 plan. Area affected: Reading speed.');
+eq('I: difference rides in the strategy cell', mod.enrichment[0].strategy, 'Write the scene without naming the feeling. How this differs from the class task: Writes a new scene, not a found one.');
+eq('I: old rows unchanged', BB({ noStruggling: false, struggling: [{ initials: 'S1', evidence: 'ELL', strategy: 'x' }] }).struggling[0].evidence, 'ELL');
+eq('plan: Look-fors label is bold', LA.toPlan(BB({ assessment: { informal: ['Questioning'], formal: [], lookfors: 'A', graded: '', rubric: '' } })).H.some(l => String(l).indexOf('**Look-fors:**') === 0), true);
+eq('no em dashes in any new bank text', JSON.stringify([B.eqStems, B.diff, B.enrich, B.priorStarters]).indexOf('—') < 0, true);
+eq('every ELL/IEP/504/ADHD/reader chip is concrete (6+ words)', Object.values(B.diff.strategies).concat([B.enrich.strategies]).every(l => l.every(x => require('../js/validate.js').vagueStrategy(x) === false)), true);
 process.exit(fails ? 1 : 0);

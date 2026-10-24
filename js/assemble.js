@@ -128,7 +128,8 @@
 
     // B
     var assets = (a.assets.picks || []).map(function (x, i) { return i === 0 ? lowerFirst(x) : lowerFirst(x); });
-    var b1 = trim(a.prior.text);
+    var pr = a.prior || {};
+    var b1 = [trim(pr.text), trim(pr.struggle) ? 'Where students usually struggle: ' + endSentence(pr.struggle) : '', trim(pr.builds) ? 'This lesson builds on ' + endSentence(lowerFirst(trim(pr.builds))) : ''].filter(Boolean).join('\n');
     var b2 = (assets.length ? 'Students will draw on ' + list(assets) + '.' : '') + (trim(a.assets.detail) ? (assets.length ? ' ' : '') + endSentence(a.assets.detail) : '');
     m.sections.B = [b1, b2].filter(Boolean).join('\n');
 
@@ -173,7 +174,7 @@
       phase('Initiation', a.initiation.minutes, [pt(a.initiation.motivating), pt(a.initiation.bg)]),
       phase('Academic Language Instruction', a.instruction.minutes, [pt(a.instruction.lang), pt(a.instruction.direct), trim(a.instruction.probing) ? 'Probing questions: ' + trim(a.instruction.probing) : '']),
       phase('Guided Practice', a.guided.minutes, [endSentence(pt(a.guided.task))]),
-      phase('Independent Practice', a.independent.minutes, [pt(a.independent.task) ? endSentence(pt(a.independent.task)) + (a.independent.same ? ' This also serves as the assessment.' : '') : '']),
+      phase('Independent Practice', a.independent.minutes, [pt(a.independent.task) ? endSentence(pt(a.independent.task)) + (a.independent.same ? ' This also serves as the assessment.' : '') : '', trim(a.independent.bridge) ? 'Step up from guided practice: ' + endSentence(a.independent.bridge) : '']),
       phase('Closure', a.closure.minutes, [pt(a.closure.act), trim(a.closure.language)]),
       { title: 'Homework', minutes: '', text: trim(a.closure.homework) || 'None' }
     ];
@@ -186,13 +187,20 @@
       : a.assessment.graded === 'No' ? 'Not graded.'
       : a.assessment.graded === 'Used for progress only' ? 'Not graded, used to monitor progress.' : '';
     if (formal || grade) { if (h.length) h.push(''); h.push('Formal: ' + [formal, grade].filter(Boolean).join(' ')); }
+    if (trim(a.assessment.lookfors)) { if (h.length) h.push(''); h.push('Look-fors: ' + endSentence(a.assessment.lookfors)); }
     m.sections.H = h.join('\n');
 
     // I
     function rows(list, none) {
       if (none) return [];
       return (list || []).filter(function (r) { return trim(r.initials) || trim(r.strategy); })
-        .map(function (r) { return { initials: trim(r.initials), evidence: trim(r.evidence), strategy: trim(r.strategy) }; });
+        .map(function (r) {
+          // The template table has three columns, so the area affected rides in the evidence cell and the contrast with the class rides in the strategy cell.
+          var ev = trim(r.evidence), st = trim(r.strategy);
+          if (trim(r.impact)) ev += (ev ? '. ' : '') + 'Area affected: ' + endSentence(r.impact);
+          if (trim(r.different)) st += (st ? ' ' : '') + 'How this differs from the class task: ' + endSentence(r.different);
+          return { initials: trim(r.initials), evidence: ev, strategy: st };
+        });
     }
     m.struggling = rows(a.struggling, a.noStruggling);
     m.enrichment = rows(a.enrichment, a.noEnrichment);
@@ -216,7 +224,7 @@
   function placeholders(text) { return (String(text || '').match(/\{[^}]+\}/g) || []); }
 
   /* ---- model -> plan object for filler.js. Plain text in, template formatting out. ---- */
-  var LABEL = /^(SWBAT( \d)?:|EQ:|Key Academic Language:|Connections to other content areas:|Informal:|Formal:|Probing questions:)/;
+  var LABEL = /^(SWBAT( \d)?:|EQ:|Key Academic Language:|Connections to other content areas:|Informal:|Formal:|Look-fors:|Probing questions:|Step up from guided practice:|Where students usually struggle:)/;
   function lines(text) { return String(text == null ? '' : text).replace(/\r/g, '').split('\n').map(clean); }
   function boldLabel(line) {
     var m = line.match(LABEL);

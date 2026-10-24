@@ -31,8 +31,31 @@
     [8, 'No long dashes'],
     [9, 'Graded assessment has a rubric'],
     [10, 'No blanks left to fill in'],
-    [11, 'The standards in your plan match the ones you picked']
+    [11, 'The standards in your plan match the ones you picked'],
+    [12, 'Your students are described, not just the text'],
+    [13, 'The big question is about an idea, not the lesson topic'],
+    [14, 'Independent practice says how it differs from guided practice'],
+    [15, 'Each check says what to look for'],
+    [16, 'Support and challenge rows say what will actually happen']
   ];
+
+  /* ---- helpers shared with the interview screens ---- */
+  var STOP = ['writing', 'narrative', 'about', 'their', 'which', 'skills', 'students', 'lesson'];
+  // True when the big question reuses a word from the lesson topic, which usually means it asks about the technique and not the idea behind it.
+  function eqTooNarrow(focusText, eqText) {
+    var eq = ' ' + str(eqText).toLowerCase().replace(/[^a-z\s]/g, ' ') + ' ';
+    var hits = (str(focusText).toLowerCase().match(/[a-z]{5,}/g) || []).filter(function (w) { return STOP.indexOf(w) < 0 && eq.indexOf(' ' + w + ' ') >= 0; });
+    return hits.filter(function (w, i, arr) { return arr.indexOf(w) === i; });
+  }
+  // True when a strategy is too thin to tell anyone what will happen: under six words, or mostly vague words.
+  var VAGUE = /\b(support|supports|supported|help|helps|assist|assistance|accommodation|accommodations|accommodate|scaffold|scaffolds|scaffolding|extra|additional|as needed|differentiate|differentiated|modify|modified|modifications)\b/gi;
+  function vagueStrategy(text) {
+    var t = str(text).trim();
+    if (!t) return false;
+    var words = t.split(/\s+/).filter(Boolean);
+    if (words.length < 6) return true;
+    return t.replace(VAGUE, ' ').split(/\s+/).filter(function (w) { return /[a-z0-9]/i.test(w); }).length < 5;
+  }
 
   function str(x) { return x == null ? '' : String(x); }
   function blank(x) { return !str(x).replace(/\s+/g, ''); }
@@ -198,10 +221,44 @@
       });
     }
 
+    /* 12. Students described: needs what they can do, where they struggle, and what this builds on */
+    var pr = a.prior || {};
+    if (model && !blank(model.sections.B)) {
+      if (blank(pr.text)) fail(12, 'Section B does not say what students already know or can do.', [fix('Describe what students know', S.prior)]);
+      if (blank(pr.struggle)) fail(12, 'Section B does not say where students usually struggle with this skill.', [fix('Add where they struggle', S.prior)]);
+      if (blank(pr.builds)) fail(12, 'Section B does not say which earlier lesson or skill this builds on.', [fix('Add what it builds on', S.prior)]);
+    }
+
+    /* 13. Big question about an idea */
+    if (!blank((a.eq || {}).text)) {
+      var shared = eqTooNarrow(a.focus && a.focus.text, a.eq.text);
+      if (shared.length) fail(13, 'Your big question repeats words from the lesson topic (' + shared.join(', ') + '), so it may be about the technique. Try a question about people, identity, or relationships that the writing is about.', [fix('Reword the question', S.eq)]);
+    }
+
+    /* 14. Independent practice bridge */
+    var ind = a.independent || {};
+    if (!blank(ind.task && (ind.task.text || ind.task.pick)) && blank(ind.bridge)) fail(14, 'Independent practice does not say how it differs from guided practice or what gets students across (a model, a checklist, a sentence frame, one more try together).', [fix('Add the step up', S.independent)]);
+
+    /* 15. Look-fors */
+    var asmt = a.assessment || {};
+    if (((asmt.informal || []).length || (asmt.formal || []).length) && blank(asmt.lookfors)) fail(15, 'Your checks do not say what you will look for or how you will know a student is doing it.', [fix('Add look-fors', S.assessment)]);
+
+    /* 16. Differentiation specifics */
+    [['struggling', 'Students who may struggle', S.struggling, 'noStruggling', 'impact', 'what part of the lesson this affects'], ['enrichment', 'Students who need more challenge', S.enrichment, 'noEnrichment', 'different', 'how the task differs from the class task']].forEach(function (g) {
+      if (a[g[3]]) return;
+      (a[g[0]] || []).forEach(function (r, n) {
+        var ini = str(r.initials).trim(), st = str(r.strategy).trim();
+        if (!ini && !st) return;
+        var who = ini || 'row ' + (n + 1);
+        if (blank(r[g[4]])) fail(16, g[1] + ': ' + who + ' does not say ' + g[5] + '.', [fix('Add it', g[2])]);
+        if (st && vagueStrategy(st)) fail(16, g[1] + ': what you will do for ' + who + ' is too general. Say what is handed out, where the student sits, who helps, or what changes.', [fix('Be specific', g[2])]);
+      });
+    });
+
     var rules = RULES.map(function (r) { return { id: r[0], name: r[1], failures: out[r[0]] }; });
     var failCount = rules.reduce(function (s, r) { return s + r.failures.length; }, 0);
     return { rules: rules, failCount: failCount };
   }
 
-  return { run: run, RULES: RULES };
+  return { run: run, RULES: RULES, eqTooNarrow: eqTooNarrow, vagueStrategy: vagueStrategy };
 });
