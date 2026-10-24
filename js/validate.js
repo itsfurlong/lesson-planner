@@ -36,7 +36,9 @@
     [13, 'The big question is about an idea, not the lesson topic'],
     [14, 'Independent practice says how it differs from guided practice'],
     [15, 'Each check says what to look for'],
-    [16, 'Support and challenge rows say what will actually happen']
+    [16, 'Support and challenge rows say what will actually happen'],
+    [17, 'The closing sums up the lesson'],
+    [18, 'Look-fors describe what students show']
   ];
 
   /* ---- helpers shared with the interview screens ---- */
@@ -46,6 +48,14 @@
     var eq = ' ' + str(eqText).toLowerCase().replace(/[^a-z\s]/g, ' ') + ' ';
     var hits = (str(focusText).toLowerCase().match(/[a-z]{5,}/g) || []).filter(function (w) { return STOP.indexOf(w) < 0 && eq.indexOf(' ' + w + ' ') >= 0; });
     return hits.filter(function (w, i, arr) { return arr.indexOf(w) === i; });
+  }
+  // A closing needs a summary, a return to the big question, or students saying what they learned. An exit slip alone is practice.
+  var SUMMARY = /summar|essential question|big question|share-?\s?out|restate|reflect|main (point|idea)|what (we|you|they|students) (have )?learned|in your own words|revisit|return to|recap/i;
+  function closingSumsUp(text) { return SUMMARY.test(str(text)); }
+  // Look-fors that read as the teacher's to-do list ("I will note...") instead of what students will show.
+  function lookforsAboutTeacher(text) {
+    var t = str(text);
+    return /^\s*(i|we)\b/i.test(t) || (t.match(/\b(I will|I'll|I am going to|I plan to|the teacher will)\b/gi) || []).length >= 2;
   }
   // True when a strategy is too thin to tell anyone what will happen: under six words, or mostly vague words.
   var VAGUE = /\b(support|supports|supported|help|helps|assist|assistance|accommodation|accommodations|accommodate|scaffold|scaffolds|scaffolding|extra|additional|as needed|differentiate|differentiated|modify|modified|modifications)\b/gi;
@@ -255,10 +265,18 @@
       });
     });
 
+    /* 17. Closing sums up */
+    var cl = a.closure || {};
+    var clText = [cl.act && cl.act.pick, cl.act && cl.act.text, cl.language].map(str).join(' ');
+    if (!blank(clText) && !closingSumsUp(clText)) fail(17, 'Your closing does not sum up the lesson. An exit slip alone is practice. Add a short summary, a return to the big question, or a share-out where students say what they learned.', [fix('Add a summary', S.closure)]);
+
+    /* 18. Look-fors */
+    if (!blank(asmt.lookfors) && lookforsAboutTeacher(asmt.lookfors)) fail(18, 'Your look-fors describe what you will do. Write what students will show: 2 or 3 things you can see in their work or hear in their talk.', [fix('Rewrite look-fors', S.assessment)]);
+
     var rules = RULES.map(function (r) { return { id: r[0], name: r[1], failures: out[r[0]] }; });
     var failCount = rules.reduce(function (s, r) { return s + r.failures.length; }, 0);
     return { rules: rules, failCount: failCount };
   }
 
-  return { run: run, RULES: RULES, eqTooNarrow: eqTooNarrow, vagueStrategy: vagueStrategy };
+  return { run: run, RULES: RULES, eqTooNarrow: eqTooNarrow, closingSumsUp: closingSumsUp, lookforsAboutTeacher: lookforsAboutTeacher, vagueStrategy: vagueStrategy };
 });

@@ -181,7 +181,7 @@
     var id = nid();
     var ta = h('textarea', { id: id, rows: 5, placeholder: 'Write what students already know or can do, in a sentence or two.' });
     ta.value = get('prior.text') || '';
-    var topic = String(answers.focus.text || '').split(':')[0].trim();
+    var topic = window.LessonAssemble.topicOf(answers.focus.text);
     function fill(t) { return topic ? t.replace(/\{topic\}/g, topic) : t; }
     var skills = (answers.focus.skills || []).filter(function (k) { return B.priorSuggestions[k]; });
     var groups = skills.length ? skills.map(function (k) { return { name: k, items: B.priorSuggestions[k].map(fill) }; })
@@ -251,7 +251,7 @@
   function swbat(o) {
     var vs = window.LessonAssemble.asList(o.verb);
     if (!vs.length && !o.what) return '';
-    return 'Students will be able to ' + (window.LessonAssemble.joinAnd(vs) || '[action word]') + ' ' + (o.what || '[what students do]') + (o.purpose ? ' ' + o.purpose : '') + '.';
+    return 'Students will be able to ' + (window.LessonAssemble.joinAnd(vs) || '[action word]') + ' ' + (window.LessonAssemble.stripEcho(o.what, vs) || '[what students do]') + (o.purpose ? ' ' + o.purpose : '') + '.';
   }
   var PHASES = ['initiation', 'instruction', 'guided', 'independent', 'closure'];
   function totalMinutes() { return PHASES.reduce(function (s, p) { return s + (Number(get(p + '.minutes')) || 0); }, 0); }
@@ -315,8 +315,8 @@
   };
   function actTokens() {
     var A = window.LessonAssemble, o = (answers.objectives || [])[0] || {};
-    var verbs = A.asList(o.verb), what = String(o.what || '').trim().replace(/[.\s]+$/, '');
-    var focus = String(answers.focus.text || '').split(':')[0].trim();
+    var verbs = A.asList(o.verb), what = A.stripEcho(o.what, verbs).replace(/[.\s]+$/, '');
+    var focus = window.LessonAssemble.topicOf(answers.focus.text);
     var skill = (answers.focus.skills || [])[0] || '';
     var grouping = ((answers.grouping || {}).picks || [])[0] || '';
     var terms = ((answers.content || {}).terms || []).map(function (t) { return lowerFirst(String(t.term || '').trim()); }).filter(Boolean).slice(0, 3);
@@ -771,6 +771,11 @@
         rub
       ];
       sync();
+      var lfWarn = h('p', { class: 'warn', role: 'status' });
+      function chkLf() { lfWarn.textContent = window.LessonValidate.lookforsAboutTeacher(get('assessment.lookfors')) ? 'These describe what you will do. Write what students will show: things you can see in their work or hear in their talk.' : ''; }
+      out[2].querySelector('textarea').addEventListener('input', chkLf);
+      chkLf();
+      out.splice(3, 0, lfWarn);
       return out;
     });
 

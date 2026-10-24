@@ -78,4 +78,18 @@ eq('I: old rows unchanged', BB({ noStruggling: false, struggling: [{ initials: '
 eq('plan: Look-fors label is bold', LA.toPlan(BB({ assessment: { informal: ['Questioning'], formal: [], lookfors: 'A', graded: '', rubric: '' } })).H.some(l => String(l).indexOf('**Look-fors:**') === 0), true);
 eq('no em dashes in any new bank text', JSON.stringify([B.eqStems, B.diff, B.enrich, B.priorStarters]).indexOf('—') < 0, true);
 eq('every ELL/IEP/504/ADHD/reader chip is concrete (6+ words)', Object.values(B.diff.strategies).concat([B.enrich.strategies]).every(l => l.every(x => require('../js/validate.js').vagueStrategy(x) === false)), true);
+
+// Echo, duplicate and casing fixes (review of the Six of Crows plan).
+eq('SWBAT: typed full sentence is not doubled', LA.swbat({ verb: ['analyze'], what: 'Students will be able to analyze Bardugo’s use of dialogue.', purpose: '' }), 'Students will be able to analyze Bardugo’s use of dialogue.');
+eq('SWBAT: typed verb is not doubled', LA.swbat({ verb: ['analyze'], what: 'analyze Bardugo’s use of dialogue', purpose: '' }), 'Students will be able to analyze Bardugo’s use of dialogue.');
+eq('SWBAT: normal text untouched', LA.swbat({ verb: ['analyze'], what: 'a mentor text', purpose: '' }), 'Students will be able to analyze a mentor text.');
+eq('SWBAT: two verbs, both typed', LA.swbat({ verb: ['analyze', 'apply'], what: 'analyze and apply these techniques', purpose: '' }), 'Students will be able to analyze and apply these techniques.');
+eq('B: "This lesson builds on" typed is not doubled', BB({ prior: { text: 'x', struggle: 'Where students usually struggle: dialogue', builds: 'This lesson builds on our narrative study.' } }).sections.B, 'x\nWhere students usually struggle: Dialogue.\nThis lesson builds on our narrative study.');
+eq('Related skill: duplicates differing in case are dropped', BB({ focus: { text: 'f', skills: ['Narrative writing', 'Conflict'], other: 'Narrative Writing' } }).header.relatedSkill, 'Narrative writing, Conflict');
+eq('topicOf: after the colon, lower case', LA.topicOf('Narrative Writing: Dialogue and Inner Thoughts'), 'dialogue and inner thoughts');
+eq('topicOf: no colon', LA.topicOf('Narrative Writing'), 'narrative writing');
+eq('topicOf: all-caps word stays', LA.topicOf('Close reading of the CCSS'), 'close reading of the CCSS');
+eq('topicOf: empty', LA.topicOf(''), '');
+eq('Schema sentence uses the specific topic in lower case', LA.fillSentence(cites.filter(c => /Schema/.test(c.name))[0], answers({ focus: { text: 'Narrative Writing: Dialogue and Inner Thoughts', skills: [], other: '' } })).indexOf('dialogue and inner thoughts') >= 0, true);
+eq('Look-fors typed with its own label is not doubled', BB({ assessment: { informal: ['Questioning'], formal: [], lookfors: 'Look-fors: A thing', graded: '', rubric: '' } }).sections.H, 'Informal: Questioning.\n\nLook-fors: A thing.');
 process.exit(fails ? 1 : 0);

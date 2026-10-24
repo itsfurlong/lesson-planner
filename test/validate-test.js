@@ -53,6 +53,15 @@ t('struggle strategy only vague words',a=>{a.struggling[0].strategy='Provide ext
 t('enrichment row without the difference',a=>{a.enrichment[0].different='';},[16]);
 t('"no students" box skips rule 16',a=>{a.noStruggling=true;a.struggling=[{initials:'',evidence:'',strategy:''}];},[]);
 
+// Rules 17 and 18.
+t('closing with only an exit slip',a=>{a.closure.act={pick:'Exit slip',text:'Exit slip: write a scene'};},[17]);
+t('closing that reviews the big question',a=>{a.closure.act={pick:'Review the essential question',text:''};},[]);
+t('closing with a share-out',a=>{a.closure.act={pick:'',text:'Share-out: two students say what they learned'};},[]);
+t('empty closing is left to rule 6',a=>{a.closure.act={pick:'',text:''};},[]);
+t('look-fors that are the teacher to-do list',a=>{a.assessment.lookfors='During discussion, I will note who chimes in. During practice, I will question students.';},[18]);
+t('look-fors starting with I',a=>{a.assessment.lookfors='I will check the exit slip.';},[18]);
+t('look-fors about students are fine',a=>{a.assessment.lookfors='The dialogue serves one named purpose. The thought contrasts with what is said.';},[]);
+
 // Several levels, verbs and kinds; older drafts saved single strings.
 t('string draft still clean',()=>{},[]);
 t('two levels, two verbs, two kinds',a=>{a.objectives[0]={level:['Analyze','Create'],verb:['analyze','write'],knowledge:['conceptual','procedural'],what:'x',purpose:''};},[]);

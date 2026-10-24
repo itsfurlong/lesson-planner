@@ -16,7 +16,30 @@
     return s.replace(/\s*\u2014\s*/g, function () { dashes++; return ', '; });
   }
   function trim(s) { return clean(s).replace(/^\s+|\s+$/g, ''); }
+  function upperFirst(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
   function lowerFirst(s) { return s ? s.charAt(0).toLowerCase() + s.slice(1) : s; }
+  // Teachers often type the whole sentence into a box the app already starts for them. Drop that repeated opening.
+  function stripLead(s, re) { return trim(s).replace(re, ''); }
+  function stripEcho(s, verbs) {
+    s = stripLead(s, /^students\s+will\s+be\s+able\s+to\s+/i);
+    var changed = true;
+    while (changed) {
+      changed = false;
+      (verbs || []).forEach(function (v) {
+        var re = new RegExp('^(and\\s+)?' + String(v).replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b\\s*', 'i');
+        if (re.test(s)) { s = s.replace(re, ''); changed = true; }
+      });
+    }
+    return s;
+  }
+  // The lesson topic as it reads inside a sentence: the part after a colon (the specific skill), in lower case. All-capital words stay.
+  function topicOf(text) {
+    var t = trim(text);
+    if (!t) return '';
+    var i = t.indexOf(':');
+    if (i >= 0 && trim(t.slice(i + 1))) t = trim(t.slice(i + 1));
+    return t.split(/\s+/).map(function (w) { return /^[A-Z]{2,}[^a-z]*$/.test(w) ? w : w.toLowerCase(); }).join(' ');
+  }
   function endSentence(s) { s = trim(s); return !s ? '' : (/[.!?)"”]$/.test(s) ? s : s + '.'); }
   function stripEnd(s) { return trim(s).replace(/[.\s]+$/, ''); }
   function list(items) {
@@ -58,7 +81,7 @@
   /* ---- research sentences (also used by the interview screen) ---- */
   function slotValues(entry, a) {
     var o = a.objectives[0] || {}, v = {};
-    var focus = a.focus.text ? trim(lowerFirst(a.focus.text).split(':')[0]) : '{topic}';
+    var focus = a.focus.text ? topicOf(a.focus.text) : '{topic}';
     var partnered = (a.grouping.picks || []).some(function (p) { return /partner|group|jigsaw|stations/i.test(p); });
     if (/Bloom/.test(entry.name)) {
       var vs = asList(o.verb), ls = asList(o.level), ks = asList(o.knowledge);
@@ -96,8 +119,9 @@
   /* ---- sections ---- */
   function swbat(o) {
     var vs = asList(o.verb);
-    if (!vs.length || !trim(o.what)) return '';
-    return 'Students will be able to ' + list(vs) + ' ' + stripEnd(o.what) + (trim(o.purpose) ? ' ' + stripEnd(o.purpose) : '') + '.';
+    var what = stripEnd(stripEcho(o.what, vs));
+    if (!vs.length || !what) return '';
+    return 'Students will be able to ' + list(vs) + ' ' + what + (trim(o.purpose) ? ' ' + stripEnd(o.purpose) : '') + '.';
   }
   var SEATING = {
     'Normal seats': 'sit in their normal seats',
@@ -116,7 +140,7 @@
     (standards || []).forEach(function (s) { stdMap[s.code] = s; });
     var m = { header: {}, sections: {}, phases: [], struggling: [], enrichment: [], references: [] };
 
-    var skills = (a.focus.skills || []).concat(trim(a.focus.other) ? [trim(a.focus.other)] : []);
+    var skills = (a.focus.skills || []).concat(trim(a.focus.other) ? [trim(a.focus.other)] : []).filter(function (x, i, arr) { return arr.map(function (y) { return trim(y).toLowerCase(); }).indexOf(trim(x).toLowerCase()) === i; });
     m.header = {
       teacher: trim(a.basics.teacher), grade: String(a.basics.grade || ''), subject: trim(a.basics.subject),
       centralFocus: trim(a.focus.text), relatedSkill: skills.join(', ')
@@ -129,7 +153,7 @@
     // B
     var assets = (a.assets.picks || []).map(function (x, i) { return i === 0 ? lowerFirst(x) : lowerFirst(x); });
     var pr = a.prior || {};
-    var b1 = [trim(pr.text), trim(pr.struggle) ? 'Where students usually struggle: ' + endSentence(pr.struggle) : '', trim(pr.builds) ? 'This lesson builds on ' + endSentence(lowerFirst(trim(pr.builds))) : ''].filter(Boolean).join('\n');
+    var b1 = [trim(pr.text), stripLead(pr.struggle, /^where\s+students\s+(usually\s+)?struggle:?\s*/i) ? 'Where students usually struggle: ' + endSentence(upperFirst(stripLead(pr.struggle, /^where\s+students\s+(usually\s+)?struggle:?\s*/i))) : '', stripLead(pr.builds, /^((this\s+lesson\s+)?builds\s+on\s+)+/i) ? 'This lesson builds on ' + endSentence(lowerFirst(stripLead(pr.builds, /^((this\s+lesson\s+)?builds\s+on\s+)+/i))) : ''].filter(Boolean).join('\n');
     var b2 = (assets.length ? 'Students will draw on ' + list(assets) + '.' : '') + (trim(a.assets.detail) ? (assets.length ? ' ' : '') + endSentence(a.assets.detail) : '');
     m.sections.B = [b1, b2].filter(Boolean).join('\n');
 
@@ -187,7 +211,8 @@
       : a.assessment.graded === 'No' ? 'Not graded.'
       : a.assessment.graded === 'Used for progress only' ? 'Not graded, used to monitor progress.' : '';
     if (formal || grade) { if (h.length) h.push(''); h.push('Formal: ' + [formal, grade].filter(Boolean).join(' ')); }
-    if (trim(a.assessment.lookfors)) { if (h.length) h.push(''); h.push('Look-fors: ' + endSentence(a.assessment.lookfors)); }
+    var lf = stripLead(a.assessment.lookfors, /^look-?fors?:?\s*/i);
+    if (lf) { if (h.length) h.push(''); h.push('Look-fors: ' + endSentence(lf)); }
     m.sections.H = h.join('\n');
 
     // I
@@ -261,5 +286,5 @@
     return plan;
   }
 
-  return { build: build, toPlan: toPlan, fillSentence: fillSentence, placeholders: placeholders, swbat: swbat, asList: asList, joinAnd: list, KINDS: KINDS };
+  return { stripEcho: stripEcho, topicOf: topicOf, build: build, toPlan: toPlan, fillSentence: fillSentence, placeholders: placeholders, swbat: swbat, asList: asList, joinAnd: list, KINDS: KINDS };
 });
